@@ -183,7 +183,7 @@
         </button>
         
         <!-- Título Centralizado do App -->
-        <span id="app-title" class="flex-grow text-center text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white">CINERAVE</span>
+        <span id="app-title" class="flex-grow text-center text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white cursor-pointer">CINERAVE</span>
         
         <!-- Ícones de Ações (Sino, Tema) -->
         <div class="flex items-center space-x-2 sm:space-x-4 text-zinc-900 dark:text-white">
@@ -202,9 +202,9 @@
     <!-- Menu de navegação abaixo do cabeçalho -->
     <nav class="sticky top-16 z-30 bg-white dark:bg-zinc-900 transition-colors duration-300">
         <ul class="flex justify-center sm:justify-start overflow-x-auto whitespace-nowrap space-x-4 p-4 text-sm sm:text-base font-semibold">
-            <li><button id="nav-home" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 transition-colors relative pb-2 border-b-2 border-transparent">Início</button></li>
-            <li><button id="nav-series" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-500 transition-colors relative pb-2 border-b-2 border-transparent">Séries</button></li>
-            <li><button id="nav-trending" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-500 transition-colors relative pb-2 border-b-2 border-transparent">Em Alta</button></li>
+            <li><button id="nav-home" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 transition-colors">Início</button></li>
+            <li><button id="nav-series" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-500 transition-colors">Séries</button></li>
+            <li><button id="nav-trending" class="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-500 transition-colors">Em Alta</button></li>
         </ul>
     </nav>
 
@@ -249,12 +249,6 @@
                         <i class="fa-solid fa-file-contract w-6 h-6" aria-hidden="true"></i>
                         <span>Aviso Legal</span>
                     </a>
-                </li>
-                 <li>
-                    <button id="toggle-recent-session-btn" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
-                        <i class="fa-solid fa-history w-6 h-6" aria-hidden="true"></i>
-                        <span id="toggle-recent-session-text">Ocultar Sessão Recente</span>
-                    </button>
                 </li>
                 <li>
                     <a href="https://chat.whatsapp.com/Lidb3f8U9SsDe10kiLVICR" target="_blank" class="flex items-center space-x-3 p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-700 transition-colors">
@@ -306,15 +300,6 @@
             <!-- Conteúdo dinâmico -->
         </section>
         
-        <!-- Carrossel de Sessão Recente -->
-        <div id="recent-session-carousel" class="mb-8 hidden">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold">Sessão Recente</h2>
-                <button id="clear-recent-session-btn" class="text-sm text-red-500 hover:underline">Limpar</button>
-            </div>
-            <div class="scrolling-wrapper" id="recent-session-list"></div>
-        </div>
-
         <!-- Nova seção de coleções dinâmicas -->
         <div id="dynamic-collections" class="mb-8">
             <!-- As coleções serão renderizadas aqui dinamicamente -->
@@ -331,15 +316,18 @@
         <!-- Placeholder para mensagens de resultados de pesquisa -->
         <div id="results-container" class="mt-8 space-y-4 hidden"></div>
         <div class="flex justify-center mt-8">
-            <div id="loading-spinner-home" class="hidden">
-                 <i class="fa-solid fa-spinner animate-spin mr-3 h-8 w-8 text-blue-500" aria-hidden="true"></i>
-            </div>
-            <button id="load-more-home" class="px-6 py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors hidden">Ver mais</button>
+            <button id="load-more-home" class="px-6 py-3 bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-600 transition-colors hidden">Carregar mais</button>
         </div>
     </main>
-    
+
     <!-- Conteúdo da Página de Detalhes -->
     <div id="details-content" class="hidden">
+        <!-- Botão de voltar no topo da página de detalhes -->
+        <div class="sticky top-0 left-0 p-4 z-30">
+            <button id="back-to-feed" aria-label="Voltar" class="p-2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </div>
         <!-- O conteúdo será gerado dinamicamente via JS -->
     </div>
 
@@ -358,10 +346,7 @@
             <!-- Cards de conteúdo dinâmicos -->
         </div>
         <div class="flex justify-center mt-8">
-             <div id="loading-spinner-catalog" class="hidden">
-                <i class="fa-solid fa-spinner animate-spin mr-3 h-8 w-8 text-blue-500" aria-hidden="true"></i>
-            </div>
-            <button id="load-more-catalog" class="px-6 py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors hidden">Ver mais</button>
+            <button id="load-more-catalog" class="px-6 py-3 bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-600 transition-colors hidden">Carregar mais</button>
         </div>
     </div>
     
@@ -553,12 +538,6 @@
                         <label class="block mb-1 font-semibold">Atores Principais</label>
                         <input type="text" id="content-actors" class="w-full p-2 rounded-xl border dark:bg-zinc-700">
                     </div>
-                    <!-- Campo para prêmios -->
-                    <div>
-                        <label class="block mb-1 font-semibold">Prêmio (ex: Oscar de Melhor Filme)</label>
-                        <input type="text" id="content-award" class="w-full p-2 rounded-xl border dark:bg-zinc-700">
-                    </div>
-
 
                     <!-- Seção de Links - Filmes -->
                     <div id="movie-links-container" class="space-y-4">
@@ -569,7 +548,10 @@
 
                     <!-- Seção de Links - Séries -->
                     <div id="series-links-container" class="space-y-4 hidden">
-                         <button type="button" id="add-season-btn" class="w-full py-2 mb-4 bg-blue-500 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors">Adicionar Nova Temporada</button>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <input type="number" id="num-seasons-input" placeholder="Nº de Temporadas" class="p-2 rounded-xl border dark:bg-zinc-700 w-full">
+                            <button type="button" id="generate-seasons-btn" class="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors">Gerar</button>
+                        </div>
                         <div class="space-y-4" id="seasons-container"></div>
                     </div>
                     
@@ -635,54 +617,6 @@
             appId: "1:1096090096842:web:4428efcac3b942f9efd033"
         };
         
-        // Variável para armazenar o histórico de navegação
-        let recentSession = [];
-        const RECENT_SESSION_LIMIT = 5;
-        const recentSessionKey = 'cinerave_recent_session';
-        
-        // Variável para controlar se a sessão recente deve ser mostrada
-        let showRecentSession = true;
-        const showRecentSessionKey = 'cinerave_show_recent_session';
-        
-        function loadRecentSession() {
-            try {
-                recentSession = JSON.parse(localStorage.getItem(recentSessionKey)) || [];
-                showRecentSession = JSON.parse(localStorage.getItem(showRecentSessionKey)) || true;
-            } catch(e) {
-                console.error("Erro ao carregar sessão recente:", e);
-                recentSession = [];
-                showRecentSession = true;
-            }
-        }
-        loadRecentSession();
-        
-        function saveRecentSession(content) {
-            const existingIndex = recentSession.findIndex(item => item.id === content.id);
-            if (existingIndex !== -1) {
-                recentSession.splice(existingIndex, 1);
-            }
-            recentSession.unshift(content);
-            if (recentSession.length > RECENT_SESSION_LIMIT) {
-                recentSession.pop();
-            }
-            localStorage.setItem(recentSessionKey, JSON.stringify(recentSession));
-        }
-
-        function removeRecentSessionItem(contentId) {
-            const existingIndex = recentSession.findIndex(item => item.id === contentId);
-            if (existingIndex !== -1) {
-                recentSession.splice(existingIndex, 1);
-                localStorage.setItem(recentSessionKey, JSON.stringify(recentSession));
-                renderRecentSession();
-            }
-        }
-        
-        function clearRecentSession() {
-             recentSession = [];
-             localStorage.removeItem(recentSessionKey);
-             renderRecentSession();
-        }
-
         document.addEventListener('DOMContentLoaded', async () => {
             // Elementos DOM
             const themeToggle = document.getElementById('theme-toggle');
@@ -733,8 +667,6 @@
             const cancelDeleteButton = document.getElementById('cancel-delete-button');
             const searchHistoryContainer = document.getElementById('search-history-container');
             const searchHistoryList = document.getElementById('search-history-list');
-            const loadingSpinnerHome = document.getElementById('loading-spinner-home');
-            const loadingSpinnerCatalog = document.getElementById('loading-spinner-catalog');
             const loadMoreHomeBtn = document.getElementById('load-more-home');
             const loadMoreCatalogBtn = document.getElementById('load-more-catalog');
             const catalogFiltersDiv = document.getElementById('catalog-filters');
@@ -743,6 +675,7 @@
             const publishBtn = document.getElementById('publish-btn');
             const loadingBar = document.getElementById('loading-bar');
             const dynamicCollectionsDiv = document.getElementById('dynamic-collections');
+            const backToFeedBtn = document.getElementById('back-to-feed');
             
             // Nova navegação
             const navHomeBtn = document.getElementById('nav-home');
@@ -761,8 +694,26 @@
             const legalNoticeLink = document.getElementById('legal-notice-link');
             const legalNoticeModal = document.getElementById('legal-notice-modal');
             const closeLegalNoticeModal = document.getElementById('close-legal-notice-modal');
-             const toggleRecentSessionBtn = document.getElementById('toggle-recent-session-btn');
-             const toggleRecentSessionText = document.getElementById('toggle-recent-session-text');
+
+            // Variável global para rastrear o estado do modal
+            let modalState = null;
+            
+            // --- Persistência de dados do usuário (ID) ---
+            const userStateKey = 'cinerave_user_state';
+            function saveUserState(state) {
+                try {
+                    localStorage.setItem(userStateKey, JSON.stringify(state));
+                } catch (e) {
+                    console.error("Não foi possível salvar o estado do usuário.", e);
+                }
+            }
+            function getUserState() {
+                try {
+                    return JSON.parse(localStorage.getItem(userStateKey));
+                } catch (e) {
+                    return null;
+                }
+            }
 
 
             // Inicialização do Firebase
@@ -840,6 +791,8 @@
                 const pages = [mainContent, detailsContent, catalogContent, myListContent, document.getElementById('admin-panel')];
                 pages.forEach(page => { if (page) page.classList.add('hidden') });
                 searchInput.classList.remove('hidden');
+                loadMoreHomeBtn.classList.add('hidden');
+                loadMoreCatalogBtn.classList.add('hidden');
                 resultsContainer.classList.add('hidden');
                 featuredBanner.classList.add('hidden');
                 releaseGridSection.classList.add('hidden');
@@ -884,7 +837,6 @@
                 showPage('main-content');
                 updateHistory('home');
                 renderSearchHistory();
-                renderRecentSession();
                 contentGrid.innerHTML = renderSkeletonLoaders(PAGE_SIZE);
                 featuredBanner.classList.add('hidden');
                 releaseGridSection.classList.remove('hidden');
@@ -948,51 +900,6 @@
             }
             // --- Fim da nova funcionalidade de coleções dinâmicas ---
 
-            function renderRecentSession() {
-                const recentSessionContainer = document.getElementById('recent-session-carousel');
-                const recentSessionList = document.getElementById('recent-session-list');
-                const toggleRecentSessionText = document.getElementById('toggle-recent-session-text');
-                
-                if (!showRecentSession) {
-                     recentSessionContainer.classList.add('hidden');
-                     toggleRecentSessionText.textContent = "Mostrar Sessão Recente";
-                     return;
-                }
-                
-                if (recentSession.length > 0) {
-                    recentSessionContainer.classList.remove('hidden');
-                    recentSessionList.innerHTML = '';
-                    recentSession.forEach(content => {
-                        const posterUrl = content.poster_path ? `${IMAGE_BASE_URL}w500${content.poster_path}` : 'https://placehold.co/500x750/cccccc/333333?text=Sem+Pôster';
-                        const card = document.createElement('div');
-                        card.className = 'content-card relative group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300';
-                        card.dataset.id = content.id;
-                        card.innerHTML = `
-                             <img src="${posterUrl}" alt="Pôster de ${content.title}" class="w-full h-auto object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300">
-                             <div class="content-card-overlay absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-2 text-center">
-                                 <h4 class="text-white font-bold text-sm sm:text-base">${content.title}</h4>
-                             </div>
-                             <button class="absolute top-2 right-2 p-1 text-white bg-red-600 rounded-full hover:bg-red-700 remove-recent-btn" data-id="${content.id}">
-                                <i class="fa-solid fa-times"></i>
-                             </button>
-                        `;
-                        recentSessionList.appendChild(card);
-                    });
-                     toggleRecentSessionText.textContent = "Ocultar Sessão Recente";
-                } else {
-                    recentSessionContainer.classList.add('hidden');
-                    toggleRecentSessionText.textContent = "Mostrar Sessão Recente";
-                }
-            }
-
-            document.getElementById('clear-recent-session-btn').addEventListener('click', clearRecentSession);
-
-            toggleRecentSessionBtn.addEventListener('click', () => {
-                 showRecentSession = !showRecentSession;
-                 localStorage.setItem(showRecentSessionKey, JSON.stringify(showRecentSession));
-                 renderRecentSession();
-            });
-
 
             async function renderCatalogPage() {
                 showPage('catalog-content');
@@ -1032,8 +939,10 @@
             }
 
             async function loadMainContent(lastDoc = null, contentToRender = null) {
-                if (lastDoc === 'end') return;
-                loadingSpinnerHome.classList.remove('hidden');
+                if (lastDoc === 'end') {
+                    loadMoreHomeBtn.classList.add('hidden');
+                    return;
+                }
                 
                 let q = query(collection(db, `artifacts/${APP_ID}/public/data/content`), orderBy('timestamp', 'desc'), limit(PAGE_SIZE));
                 if (lastDoc) {
@@ -1058,8 +967,6 @@
                     }
                 } catch (error) {
                     console.error("Erro ao carregar conteúdo:", error);
-                } finally {
-                    loadingSpinnerHome.classList.add('hidden');
                 }
             }
             
@@ -1078,7 +985,6 @@
                 } else if (filterType === 'series') {
                     filteredContent = allContent.filter(c => c.media_type === 'tv');
                     renderContentList(filteredContent);
-                    renderSeasonHighlights(filteredContent);
                 } else if (filterType === 'trending') {
                      // Simulação de conteúdo "Em Alta" usando uma ordenação diferente ou aleatória
                     filteredContent = [...allContent].sort(() => 0.5 - Math.random());
@@ -1099,28 +1005,31 @@
             function updateNavActiveState(activeId) {
                 const navButtons = [navHomeBtn, navSeriesBtn, navTrendingBtn];
                 navButtons.forEach(btn => {
-                    btn.classList.remove('text-zinc-900', 'dark:text-white', 'border-b-2', 'border-black', 'dark:border-white');
-                    btn.classList.add('text-gray-500', 'dark:text-gray-400');
-
                     if (btn.id === activeId) {
-                        btn.classList.add('text-zinc-900', 'dark:text-white', 'border-b-2', 'border-black', 'dark:border-white');
-                        btn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                        btn.classList.replace('text-gray-500', 'text-blue-500');
+                        btn.classList.replace('dark:text-gray-400', 'dark:text-blue-400');
+                    } else {
+                        btn.classList.replace('text-blue-500', 'text-gray-500');
+                        btn.classList.replace('dark:text-blue-400', 'dark:text-gray-400');
                     }
                 });
             }
 
             async function loadFullCatalog(lastDoc = null, filters = {}) {
-                if (lastDoc === 'end') return;
-                loadingSpinnerCatalog.classList.remove('hidden');
-                const fetchSize = PAGE_SIZE;
+                if (lastDoc === 'end') {
+                    loadMoreCatalogBtn.classList.add('hidden');
+                    return;
+                }
+
+                const fetchSize = PAGE_SIZE * 3;
                 let q = query(collection(db, `artifacts/${APP_ID}/public/data/content`), orderBy('timestamp', 'desc'), limit(fetchSize));
                 if (lastDoc) {
-                    q = query(collection(db, `artifacts/${APP_ID}/public/data/content`), orderBy('timestamp', 'desc'), startAfter(lastDoc), limit(fetchSize));
+                    q = query(q, startAfter(lastDoc), limit(fetchSize));
                 }
 
                 try {
                     const querySnapshot = await getDocs(q);
-                    const fetchedContent = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    let fetchedContent = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                     
                     if (!lastDoc) fullCatalogGrid.innerHTML = '';
 
@@ -1130,7 +1039,7 @@
 
                     let filteredContent = fetchedContent.filter(content => {
                         let matches = true;
-                        if (genreFilter && content.genres && !content.genres.includes(genreFilter)) {
+                        if (genreFilter && !content.genres.includes(genreFilter)) {
                             matches = false;
                         }
                         if (languageFilter && content.links && !content.links.some(link => link.language === languageFilter)) {
@@ -1141,49 +1050,18 @@
                         }
                         return matches;
                     });
-                    
+
                     filteredContent.forEach(content => renderContentCard(content, fullCatalogGrid));
                     
                     lastVisibleCatalog = querySnapshot.docs[querySnapshot.docs.length - 1] || 'end';
-                    
-                    if (lastVisibleCatalog === 'end' || querySnapshot.empty || querySnapshot.docs.length < PAGE_SIZE) {
+                    if (lastVisibleCatalog === 'end' || querySnapshot.empty) {
                         loadMoreCatalogBtn.classList.add('hidden');
                     } else {
                         loadMoreCatalogBtn.classList.remove('hidden');
                     }
-
                 } catch (error) {
                     console.error("Erro ao carregar catálogo completo:", error);
-                } finally {
-                     loadingSpinnerCatalog.classList.add('hidden');
                 }
-            }
-            
-            function renderSeasonHighlights(contentArray) {
-                const seasonHighlights = contentArray.filter(c => c.media_type === 'tv' && c.links && c.links.length > 1);
-                const highlightSection = document.getElementById('season-highlights');
-
-                if (seasonHighlights.length === 0) {
-                    if (highlightSection) highlightSection.remove();
-                    return;
-                }
-                
-                if (!highlightSection) {
-                    const newHighlightSection = document.createElement('section');
-                    newHighlightSection.id = 'season-highlights';
-                    newHighlightSection.className = 'mb-8';
-                    dynamicCollectionsDiv.prepend(newHighlightSection);
-                }
-                
-                const scrollingWrapper = document.createElement('div');
-                scrollingWrapper.className = 'scrolling-wrapper';
-                
-                scrollingWrapper.innerHTML = seasonHighlights.map(content => renderContentCard(content, null, true)).join('');
-                
-                document.getElementById('season-highlights').innerHTML = `
-                    <h2 class="text-2xl font-bold mb-4">Destaques de Temporadas</h2>
-                `;
-                document.getElementById('season-highlights').appendChild(scrollingWrapper);
             }
 
             function setupRealtimeListeners() {
@@ -1250,7 +1128,6 @@
                             allContent.slice(0, PAGE_SIZE).forEach(content => renderContentCard(content, contentGrid));
                             if(allContent.length > 0) renderFeaturedBanner(allContent[0]);
                             renderDynamicCollections(allContent);
-                            renderRecentSession();
                         }
                     }
                     if (catalogContent.classList.contains('hidden') === false) {
@@ -1287,8 +1164,6 @@
                         renderDetailsPage(content);
                         showPage('details-content');
                         updateHistory('details', contentId);
-                        saveRecentSession(content); // Salva o item na sessão recente
-                        renderRecentSession();
                     } else {
                         console.error("Conteúdo não encontrado.");
                         loadHomePage();
@@ -1346,24 +1221,6 @@
                     `;
                 }
                 
-                // Selo de "Novo!" para séries com novo episódio
-                let newEpisodeBadge = '';
-                if (content.media_type === 'tv' && content.links && content.links.length > 0) {
-                    const latestSeason = content.links.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0))[0];
-                    if (latestSeason?.episodes?.length > 0) {
-                        const latestEpisodeTimestamp = latestSeason.episodes.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds)[0]?.timestamp?.seconds;
-                        const now = Math.floor(Date.now() / 1000);
-                        const sevenDaysInSeconds = 7 * 24 * 60 * 60;
-                        if(latestEpisodeTimestamp && (now - latestEpisodeTimestamp) < sevenDaysInSeconds) {
-                            newEpisodeBadge = `
-                                <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
-                                    Novo!
-                                </div>
-                            `;
-                        }
-                    }
-                }
-                
                 const cardHtml = `
                     <img src="${posterUrl}" alt="Pôster de ${content.title}" class="w-full h-auto object-cover rounded-2xl">
                     <div class="content-card-overlay absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-2 text-center">
@@ -1373,7 +1230,6 @@
                     </div>
                     ${adminButtons}
                     ${seasonBadge}
-                    ${newEpisodeBadge}
                 `;
 
                 if (isCollectionCard) {
@@ -1389,7 +1245,7 @@
                     card.innerHTML = cardHtml;
                     card.addEventListener('click', (e) => {
                         // Evita o clique em um dos botões de admin
-                        if (!e.target.closest('.edit-btn') && !e.target.closest('.delete-btn') && !e.target.closest('.remove-recent-btn')) {
+                        if (!e.target.closest('.edit-btn') && !e.target.closest('.delete-btn')) {
                             fetchAndRenderDetailsPage(content.id);
                         }
                     });
@@ -1466,8 +1322,6 @@
                 const docSnap = userListRef ? await getDoc(userListRef) : { exists: () => false };
                 const isFavorite = docSnap.exists();
                 
-                const awardHTML = content.award ? `<span class="bg-yellow-500 text-white text-sm font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-trophy mr-2"></i>${content.award}</span>` : '';
-                
                 detailsContent.innerHTML = `
                     <div class="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg mb-8 z-10">
                         <img src="${backdropUrl}" alt="Banner de fundo de ${content.title}" class="absolute inset-0 w-full h-full object-cover">
@@ -1484,10 +1338,7 @@
                                         <i class="fa-solid fa-copy" aria-hidden="true"></i>
                                     </button>
                                 </h1>
-                                <p class="text-sm text-gray-400 mb-4 flex items-center space-x-2">
-                                     <span>${(content.genres || []).join(', ')}</span>
-                                     ${awardHTML}
-                                </p>
+                                <p class="text-sm text-gray-400 mb-4">${(content.genres || []).join(', ')}</p>
                                 <p id="synopsis" class="text-base text-gray-700 mb-4 dark:text-zinc-300"></p>
                                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4"><strong>Atores:</strong> ${(content.actors || []).join(', ')}</p>
                                 
@@ -1509,23 +1360,15 @@
 
                 const synopsisElement = document.getElementById('synopsis');
                 synopsisElement.textContent = content.synopsis;
-                
-                const showMoreBtnHtml = `<button id="toggle-synopsis" class="text-black text-sm hover:underline mt-2 block dark:text-white">Ver mais</button>`;
+
                 if (synopsisElement.scrollHeight > synopsisElement.clientHeight) {
                     synopsisElement.classList.add('line-clamp-4');
-                    synopsisElement.insertAdjacentHTML('afterend', showMoreBtnHtml);
-                } else if (synopsisElement.scrollHeight > 80 && synopsisElement.clientHeight < synopsisElement.scrollHeight) {
-                    // This handles cases where initial render might not be clamped
-                    synopsisElement.classList.add('line-clamp-4');
-                    synopsisElement.insertAdjacentHTML('afterend', showMoreBtnHtml);
-                }
-                
-                const toggleSynopsisBtn = document.getElementById('toggle-synopsis');
-                if (toggleSynopsisBtn) {
-                     toggleSynopsisBtn.addEventListener('click', (e) => {
-                         synopsisElement.classList.toggle('line-clamp-4');
-                         e.target.textContent = synopsisElement.classList.contains('line-clamp-4') ? 'Ver mais' : 'Ver menos';
-                     });
+                    synopsisElement.insertAdjacentHTML('afterend', `<button id="toggle-synopsis" class="text-blue-400 text-sm hover:underline mt-2 block">Ver mais</button>`);
+                    
+                    document.getElementById('toggle-synopsis').addEventListener('click', (e) => {
+                        synopsisElement.classList.toggle('line-clamp-4');
+                        e.target.textContent = synopsisElement.classList.contains('line-clamp-4') ? 'Ver mais' : 'Ver menos';
+                    });
                 }
                 
                 document.getElementById('watch-btn').addEventListener('click', () => {
@@ -1563,8 +1406,12 @@
 
                 document.getElementById('copy-link-btn').addEventListener('click', () => {
                     const url = window.location.origin + `?page=details&id=${content.id}`;
-                    document.execCommand('copy');
-                    showTempMessage('Link copiado para a área de transferência!');
+                    navigator.clipboard.writeText(url).then(() => {
+                        showTempMessage('Link copiado para a área de transferência!');
+                    }).catch(err => {
+                        console.error('Erro ao copiar link:', err);
+                        showTempMessage('Erro ao copiar link. Por favor, copie manualmente.', false);
+                    });
                 });
             }
 
@@ -1799,10 +1646,10 @@
                 } else if (searchQuery.length === 0) {
                      resultsContainer.innerHTML = '';
                      resultsContainer.classList.add('hidden');
+                     loadMoreHomeBtn.classList.add('hidden');
                      featuredBanner.classList.remove('hidden');
                      releaseGridSection.classList.remove('hidden');
                      renderSearchHistory();
-                     renderRecentSession();
                 }
             });
 
@@ -1829,13 +1676,6 @@
                 if (history.length > 5) history.pop(); // Limita o histórico a 5 itens
                 localStorage.setItem('searchHistory', JSON.stringify(history));
                 renderSearchHistory();
-            }
-
-            function removeSearchQuery(searchQuery) {
-                 let history = getSearchHistory();
-                 history = history.filter(item => item !== searchQuery);
-                 localStorage.setItem('searchHistory', JSON.stringify(history));
-                 renderSearchHistory();
             }
 
             function renderSearchHistory() {
@@ -1865,7 +1705,6 @@
             }
 
             async function searchCatalog(searchQuery) {
-                scrollPositions[currentFilter] = window.scrollY; // Salva a posição antes de buscar
                 showPage('main-content');
                 resultsContainer.classList.remove('hidden');
                 featuredBanner.classList.add('hidden');
@@ -1945,7 +1784,6 @@
                 const contentYear = document.getElementById('content-year');
                 const contentGenres = document.getElementById('content-genres');
                 const contentActors = document.getElementById('content-actors');
-                const contentAward = document.getElementById('content-award');
                 const contentPosterPath = document.getElementById('content-poster-path');
                 const contentBackdropPath = document.getElementById('content-backdrop-path');
                 const contentMediaType = document.getElementById('content-media-type');
@@ -1954,7 +1792,6 @@
                 const addMovieLinkBtn = document.getElementById('add-movie-link-btn');
                 const seriesLinksContainer = document.getElementById('series-links-container');
                 const seasonsContainer = document.getElementById('seasons-container');
-                const addSeasonBtn = document.getElementById('add-season-btn');
                 const numSeasonsInput = document.getElementById('num-seasons-input');
                 const generateSeasonsBtn = document.getElementById('generate-seasons-btn');
                 let currentContentId = null;
@@ -2037,23 +1874,16 @@
                 }
                 
                 addMovieLinkBtn.addEventListener('click', () => addMovieLinkField());
-                
-                if (addSeasonBtn) {
-                    addSeasonBtn.addEventListener('click', () => addSeasonField({}));
-                }
-                
-                // Botão para gerar temporadas foi removido para evitar a perda de dados
-                // if (generateSeasonsBtn) {
-                //      generateSeasonsBtn.addEventListener('click', () => {
-                //         const numSeasons = parseInt(numSeasonsInput.value, 10);
-                //         if (numSeasons > 0) {
-                //             seasonsContainer.innerHTML = '';
-                //             for (let i = 1; i <= numSeasons; i++) {
-                //                 addSeasonField({ title: `Temporada ${i}` });
-                //             }
-                //         }
-                //     });
-                // }
+
+                generateSeasonsBtn.addEventListener('click', () => {
+                    const numSeasons = parseInt(numSeasonsInput.value, 10);
+                    if (numSeasons > 0) {
+                        seasonsContainer.innerHTML = '';
+                        for (let i = 1; i <= numSeasons; i++) {
+                            addSeasonField({ title: `Temporada ${i}` });
+                        }
+                    }
+                });
 
                 function addSeasonField(season = {}) {
                     const seasonDiv = document.createElement('div');
@@ -2061,8 +1891,7 @@
                     
                     const seasonNumber = (seasonsContainer.children.length + 1);
                     const title = season.title || `Temporada ${seasonNumber}`;
-                    const episodeCount = (season.episodes || []).length;
-                    
+
                     const episodesList = document.createElement('div');
                     episodesList.className = 'space-y-2 episodes-list';
 
@@ -2078,7 +1907,7 @@
                         <div class="space-y-2 episodes-container">
                             <h5 class="font-bold">Episódios</h5>
                             <div class="flex items-center space-x-2">
-                                <input type="number" name="num-episodes" placeholder="Nº de Episódios" class="p-2 rounded-xl border dark:bg-zinc-700 w-full" value="${episodeCount}">
+                                <input type="number" name="num-episodes" placeholder="Nº de Episódios" class="p-2 rounded-xl border dark:bg-zinc-700 w-full">
                                 <button type="button" class="generate-episodes-btn px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors">Gerar</button>
                             </div>
                             <div class="episodes-list space-y-2"></div>
@@ -2091,27 +1920,16 @@
                     const generateEpisodesBtn = seasonDiv.querySelector('.generate-episodes-btn');
                     const numEpisodesInput = seasonDiv.querySelector('input[name="num-episodes"]');
                     const addEpisodeBtn = seasonDiv.querySelector('.add-episode-btn');
-                    
-                    if (numEpisodesInput) {
-                        numEpisodesInput.addEventListener('change', () => {
-                           newEpisodesList.innerHTML = '';
-                           for (let i = 1; i <= numEpisodesInput.value; i++) {
-                                addEpisodeField(newEpisodesList, { episodeNumber: i });
-                           }
-                        });
-                    }
 
-                    if(generateEpisodesBtn) {
-                        generateEpisodesBtn.addEventListener('click', () => {
-                            const numEpisodes = parseInt(numEpisodesInput.value, 10);
-                            if (numEpisodes > 0) {
-                                newEpisodesList.innerHTML = '';
-                                for (let i = 1; i <= numEpisodes; i++) {
-                                    addEpisodeField(newEpisodesList, { episodeNumber: i });
-                                }
+                    generateEpisodesBtn.addEventListener('click', () => {
+                        const numEpisodes = parseInt(numEpisodesInput.value, 10);
+                        if (numEpisodes > 0) {
+                            newEpisodesList.innerHTML = '';
+                            for (let i = 1; i <= numEpisodes; i++) {
+                                addEpisodeField(newEpisodesList, { episodeNumber: i });
                             }
-                        });
-                    }
+                        }
+                    });
 
                     addEpisodeBtn.addEventListener('click', () => {
                         const nextEpisodeNumber = newEpisodesList.children.length + 1;
@@ -2181,9 +1999,6 @@
                             target.closest('.border-2').remove();
                         } else if (target.classList.contains('remove-episode-btn')) {
                             target.closest('.episode-field').remove();
-                        } else if (target.classList.contains('remove-recent-btn')) {
-                            const contentId = target.dataset.id;
-                            removeRecentSessionItem(contentId);
                         }
                     }
                 });
@@ -2269,7 +2084,6 @@
                         contentPosterPath.value = data.poster_path;
                         contentBackdropPath.value = data.backdrop_path;
                         contentMediaType.value = type;
-                        contentAward.value = '';
                         currentContentId = id.toString(); // Usa o ID do TMDB como ID do Firestore
 
                         const creditsResponse = await fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${TMDB_API_KEY}&language=pt-BR`);
@@ -2368,10 +2182,10 @@
                                 const quality = episodeDiv.querySelector('select[name="quality"]').value;
                                 const language = episodeDiv.querySelector('select[name="language"]').value;
                                 const url = episodeDiv.querySelector('input[name="url"]').value;
-                                return { episodeNumber, title: `Episódio ${episodeNumber}`, quality, language, url, timestamp: serverTimestamp() };
+                                return { episodeNumber, title: `Episódio ${episodeNumber}`, quality, language, url };
                             }).filter(episode => episode.url);
 
-                            return { title: seasonTitle, episodes: episodes, timestamp: serverTimestamp() };
+                            return { title: seasonTitle, episodes: episodes };
                         }).filter(season => season.episodes.length > 0);
                         
                         if(isUpdate) {
@@ -2405,7 +2219,6 @@
                         year: contentYear.value,
                         genres: contentGenres.value.split(',').map(s => s.trim()),
                         actors: contentActors.value.split(',').map(s => s.trim()),
-                        award: contentAward.value || null,
                         poster_path: contentPosterPath.value,
                         backdrop_path: contentBackdropPath.value,
                         links: links,
@@ -2414,7 +2227,7 @@
                     };
                     
                     try {
-                        await setDoc(doc(db, `artifacts/${APP_ID}/public/data/content`, currentContentId || doc().id), contentData, { merge: true });
+                        await setDoc(docRef, contentData, { merge: true });
                         console.log("Conteúdo publicado/atualizado com sucesso!");
                         if (!isUpdate || (oldContent && JSON.stringify(oldContent) !== JSON.stringify(contentData))) {
                               addNotification(docRef.id, contentTitle.value, contentPosterPath.value, notificationMessage);
@@ -2453,12 +2266,11 @@
                     const button = e.target.closest('button');
                     if (!button) return;
                     const id = button.dataset.id;
+                    if (!id) return;
                     
                     if (button.classList.contains('delete-btn')) {
-                         if(id) {
-                            contentToDelete = id;
-                            confirmationModal.classList.add('active');
-                         }
+                        contentToDelete = id;
+                        confirmationModal.classList.add('active');
                     } else if (button.classList.contains('edit-btn')) {
                         const docRef = doc(db, `artifacts/${APP_ID}/public/data/content`, id);
                         const docSnap = await getDoc(docRef);
@@ -2469,7 +2281,6 @@
                             contentYear.value = data.year;
                             contentGenres.value = (data.genres || []).join(', ');
                             contentActors.value = (data.actors || []).join(', ');
-                            contentAward.value = data.award || '';
                             contentPosterPath.value = data.poster_path;
                             contentBackdropPath.value = data.backdrop_path;
                             contentMediaType.value = data.media_type;
@@ -2641,45 +2452,15 @@
             });
 
             // Lógica para o clique no título CINERAVE
-            appTitle.addEventListener('click', (e) => {
-                // Remove o comportamento padrão para que não recarregue a página
-                e.preventDefault();
-                // Não faz nada, como solicitado
+            appTitle.addEventListener('click', () => {
+                loadHomePage();
             });
             
             // Adicionado listener para o botão de voltar da página de detalhes
-            window.addEventListener('popstate', (e) => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const page = urlParams.get('page');
-                const id = urlParams.get('id');
-
-                if (page === 'details' && id) {
-                    // Restaurar o estado do modal se necessário
-                    restoreModalState();
-                } else if (page === 'catalog') {
-                    renderCatalogPage();
-                } else if (page === 'my-list') {
-                    renderMyListPage();
-                } else {
-                    loadHomePage();
-                }
+            backToFeedBtn.addEventListener('click', () => {
+                showPage('main-content');
+                window.scrollTo(0, scrollPositions[currentFilter]);
             });
-
-            // Lidar com a rolagem para carregar mais conteúdo
-            window.addEventListener('scroll', () => {
-                const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500;
-                
-                if(isAtBottom) {
-                    if (mainContent.classList.contains('hidden') === false && currentFilter === 'home' && lastVisibleHome !== 'end' && loadingSpinnerHome.classList.contains('hidden')) {
-                         loadMainContent(lastVisibleHome);
-                    } else if (catalogContent.classList.contains('hidden') === false && lastVisibleCatalog !== 'end' && loadingSpinnerCatalog.classList.contains('hidden')) {
-                         loadFullCatalog(lastVisibleCatalog);
-                    }
-                }
-            });
-            
-            loadMoreHomeBtn.addEventListener('click', () => loadMainContent(lastVisibleHome));
-            loadMoreCatalogBtn.addEventListener('click', () => loadFullCatalog(lastVisibleCatalog, catalogFilters));
 
 
             // Listener para o botão de "Assistir Agora" no banner
@@ -2714,7 +2495,6 @@
                 e.preventDefault();
                 closeMenu();
                 loadHomePage();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
             // Lidar com o clique no link de catálogo
@@ -2724,6 +2504,10 @@
                 renderCatalogPage();
             });
             
+            loadMoreHomeBtn.addEventListener('click', () => loadMainContent(lastVisibleHome));
+            loadMoreCatalogBtn.addEventListener('click', () => loadFullCatalog(lastVisibleCatalog, catalogFilters));
+
+
             // Lidar com o botão de notificações
             notificationsBtn.addEventListener('click', () => {
                 notificationsModal.classList.add('active');
