@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineRave</title>
+    <title>CineRave - Real</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,473 +15,261 @@
         .hero-gradient { background-image: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.8) 20%, rgba(8,8,8,0) 60%, rgba(8,8,8,0.9) 100%); }
         .header-scrolled { background-color: rgba(8, 8, 8, 0.85); backdrop-filter: blur(10px); }
         .nav-icon-active svg, .nav-icon-active span { color: #e50914; }
-        
-        /* Animações */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { translateY(0); opacity: 1; } }
-
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .page { animation: fadeIn 0.3s ease-in-out; }
         .modal-fade-in { animation: fadeIn 0.3s ease-out; }
         .modal-slide-up { animation: slideUp 0.3s ease-out forwards; }
         .toast-show { transform: translateY(0); opacity: 1; }
-
-        /* Skeleton Loader */
         .skeleton { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; background-color: #1f2937; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
-        
-        /* Custom Select Style */
-        .custom-select {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
-            padding-right: 2.5rem;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
     </style>
 </head>
 <body class="bg-gray-900">
 
-    <div id="app" class="pb-24">
-        <!-- Cabeçalho Fixo -->
-        <header id="main-header" class="fixed top-0 left-0 right-0 z-40 p-4 transition-all duration-300">
-            <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-black text-red-600 tracking-wider">CINERAVE</h1>
-                <button id="profile-icon-btn" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center overflow-hidden"></button>
-            </div>
-        </header>
-
-        <!-- Container das Páginas -->
-        <div id="pages-container" class="min-h-screen"></div>
+<!-- Tela de Autenticação -->
+<div id="auth-page" class="fixed inset-0 bg-gray-900 z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-sm mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-black text-red-600 tracking-wider text-center mb-6">CINERAVE</h1>
+        <div id="auth-error" class="text-red-400 text-sm text-center mb-4 hidden"></div>
+        <input id="auth-email" type="email" placeholder="E-mail" class="w-full bg-gray-700 border-none rounded-md px-4 py-3 mb-4 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600">
+        <input id="auth-password" type="password" placeholder="Senha" class="w-full bg-gray-700 border-none rounded-md px-4 py-3 mb-6 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600">
+        <button id="login-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-md transition mb-3">Entrar</button>
+        <button id="register-btn" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 rounded-md transition">Criar Conta</button>
     </div>
+</div>
 
-    <!-- Barra de Navegação Inferior Fixa -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-90 backdrop-blur-md border-t border-gray-800 p-2 flex justify-around items-center z-40">
-        <button data-page="home" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span class="text-xs">Início</span></button>
-        <button data-page="explore" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06z"/></svg><span class="text-xs">Explorar</span></button>
-        <button data-page="search" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg><span class="text-xs">Buscar</span></button>
-        <button data-page="my-list" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg><span class="text-xs">Minha Lista</span></button>
-    </nav>
+<!-- Conteúdo Principal -->
+<div id="app" class="hidden pb-24">
+    <!-- Cabeçalho Fixo -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 p-4 transition-all duration-300">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-black text-red-600 tracking-wider">CINERAVE</h1>
+            <button id="profile-icon-btn" class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center overflow-hidden">
+                <svg class="w-6 h-6 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+    </header>
 
-    <!-- Modal de Detalhes -->
-    <div id="details-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm z-50 flex items-end justify-center hidden modal-fade-in">
-        <div id="modal-content-wrapper" class="bg-gray-900 w-full max-h-[90vh] rounded-t-2xl overflow-y-auto modal-slide-up no-scrollbar"></div>
-    </div>
-    
-    <!-- Notificação Toast -->
-    <div id="toast-notification" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white text-black text-sm font-semibold py-2 px-4 rounded-full shadow-lg transform translate-y-20 opacity-0 transition-all duration-300"></div>
+    <!-- Container de Páginas -->
+    <div id="pages-container" class="min-h-screen"></div>
+</div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- Configuração ---
-        const TMDB_API_KEY = 'd0f7e2c414b1efff7b000ae9b681ed1b';
-        const IMGBB_API_KEY = '9a792281a6220ed358215ad0c1e4162e';
-        const API_BASE_URL = 'https://api.themoviedb.org/3';
-        const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/';
+<!-- Navegação Inferior -->
+<nav id="main-nav" class="hidden fixed bottom-0 left-0 right-0 bg-black bg-opacity-90 backdrop-blur-md border-t border-gray-800 p-2 justify-around items-center z-40">
+    <button data-page="home" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span class="text-xs">Início</span></button>
+    <button data-page="search" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg><span class="text-xs">Buscar</span></button>
+    <button data-page="my-list" class="nav-icon flex flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg><span class="text-xs">Minha Lista</span></button>
+    <button id="admin-nav-btn" data-page="admin" class="nav-icon hidden flex-col items-center text-gray-400 w-1/4"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="text-xs">Admin</span></button>
+</nav>
 
-        // --- Elementos do DOM ---
-        const pagesContainer = document.getElementById('pages-container');
-        const mainHeader = document.getElementById('main-header');
-        const modal = document.getElementById('details-modal');
-        const modalContentWrapper = document.getElementById('modal-content-wrapper');
-        const navButtons = document.querySelectorAll('.nav-icon');
-        const toast = document.getElementById('toast-notification');
-        const profileIconButton = document.getElementById('profile-icon-btn');
+<!-- Modal -->
+<div id="details-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm z-50 flex items-end justify-center hidden modal-fade-in">
+    <div id="modal-content-wrapper" class="bg-gray-900 w-full max-h-[90vh] rounded-t-2xl overflow-y-auto modal-slide-up no-scrollbar"></div>
+</div>
 
-        // --- Estado da Aplicação ---
-        let myList = JSON.parse(localStorage.getItem('cineRaveMyList')) || [];
-        let profile = JSON.parse(localStorage.getItem('cineRaveProfile')) || { name: 'Usuário', imageUrl: null };
-        let genresMap = new Map();
-        
-        // --- Funções da API ---
-        async function fetchFromTMDB(endpoint, params = '') {
-            try {
-                const url = `${API_BASE_URL}${endpoint}?api_key=${TMDB_API_KEY}&language=pt-BR&${params}`;
-                const response = await fetch(url);
-                if (!response.ok) {
-                    console.error(`HTTP error! status: ${response.status} for endpoint ${endpoint}`);
-                    return null;
-                }
-                return await response.json();
-            } catch (error) {
-                console.error("Erro ao buscar dados do TMDB:", error);
-                showError(pagesContainer, "Ops! Falha na comunicação com o servidor. Tente novamente mais tarde.");
-                return null;
-            }
-        }
-        
-        // --- Funções de Renderização e UI ---
-        const renderSkeletonCarousel = () => `<div class="px-4 space-y-3"><div class="h-6 w-1/3 skeleton rounded"></div><div class="flex overflow-x-auto no-scrollbar pb-2 space-x-3">${Array(5).fill(0).map(() => `<div class="flex-shrink-0 w-32 h-48 skeleton rounded-md"></div>`).join('')}</div></div>`;
-        const renderSkeletonGrid = (count = 12) => `<div class="grid grid-cols-3 sm:grid-cols-4 gap-4 p-4">${Array(count).fill(0).map(() => `<div class="w-full aspect-[2/3] skeleton rounded-md"></div>`).join('')}</div>`;
+<!-- Toast -->
+<div id="toast-notification" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-white text-black text-sm font-semibold py-2 px-4 rounded-full shadow-lg transform translate-y-20 opacity-0 transition-all duration-300"></div>
 
-        function showError(container, message) { container.innerHTML = `<div class="text-center p-8 text-gray-400">${message}</div>`; }
-        function showToast(message) { toast.textContent = message; toast.classList.add('toast-show'); setTimeout(() => { toast.classList.remove('toast-show'); }, 3000); }
+<!-- Firebase + TMDB Script -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        function updateHeaderProfileIcon() {
-             if (profile.imageUrl) {
-                profileIconButton.innerHTML = `<img src="${profile.imageUrl}" alt="Foto do perfil" class="w-full h-full object-cover">`;
-            } else {
-                profileIconButton.innerHTML = `<svg class="w-6 h-6 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>`;
-            }
-        }
+// --- CONFIGURAÇÃO FIREBASE ---
+const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_AUTH_DOMAIN",
+    projectId: "SEU_PROJECT_ID",
+    storageBucket: "SEU_STORAGE_BUCKET",
+    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+    appId: "SEU_APP_ID"
+};
+const ADMIN_UID = "SEU_UID_DE_ADMINISTRADOR";
 
-        const createCarousel = (title, items, type, endpoint) => {
-            if (!items || items.length === 0) return '';
-            const itemsHTML = items.map(item => `<div class="flex-shrink-0 w-32 md:w-40 mr-3 transform hover:scale-105 transition-transform duration-200 cursor-pointer" data-id="${item.id}" data-type="${type}"><img loading="lazy" src="${IMAGE_BASE_URL}w500${item.poster_path}" alt="${item.title || item.name}" class="rounded-md w-full h-auto object-cover pointer-events-none" onerror="this.src='https://placehold.co/400x600/1a1a1a/e0e0e0?text=Indispon%C3%ADvel'"></div>`).join('');
-            return `<div class="space-y-3"><h3 class="text-xl font-bold px-4 see-all-link cursor-pointer" data-endpoint="${endpoint}" data-title="${title}" data-type="${type}">${title} &rsaquo;</h3><div class="flex overflow-x-auto no-scrollbar pb-2 pl-4">${itemsHTML}</div></div>`;
-        };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-        const createGrid = (items, type) => {
-            if (!items || items.length === 0) return `<p class="col-span-full text-center text-gray-400">Nenhum item encontrado.</p>`;
-            return items.map(item => `<div class="relative group cursor-pointer" data-id="${item.id}" data-type="${type}"><img loading="lazy" src="${IMAGE_BASE_URL}w500${item.poster_path}" alt="${item.title || item.name}" class="rounded-md w-full h-auto object-cover" onerror="this.src='https://placehold.co/400x600/1a1a1a/e0e0e0?text=Indispon%C3%ADvel'"></div>`).join('');
-        };
-        
-        // --- Páginas ---
-        async function navigateTo(page, params = {}) {
-            pagesContainer.style.animation = 'fadeOut 0.15s ease-in-out';
-            setTimeout(async () => {
-                pagesContainer.innerHTML = '';
-                let newPage = document.createElement('div');
-                newPage.className = 'page';
-                pagesContainer.appendChild(newPage);
-                
-                switch(page) {
-                    case 'home': await renderHomePage(newPage); break;
-                    case 'explore': await renderExplorePage(newPage); break;
-                    case 'search': await renderSearchPage(newPage); break;
-                    case 'my-list': await renderMyListPage(newPage); break;
-                    case 'grid': await renderGridPage(newPage, params); break;
-                    case 'profile': await renderProfilePage(newPage); break;
-                }
-                
-                navButtons.forEach(btn => btn.classList.toggle('nav-icon-active', btn.dataset.page === page));
-                pagesContainer.style.animation = 'fadeIn 0.15s ease-in-out';
-                window.scrollTo(0, 0);
-            }, 150);
-        }
+// --- TMDB ---
+const TMDB_API_KEY = "d0f7e2c414b1efff7b000ae9b681ed1b";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
-        async function renderHomePage(container) { /* ... (código inalterado) ... */
-             container.innerHTML = Array(3).fill(0).map(renderSkeletonCarousel).join('');
-            
-            const [trendingMovies, popularMovies, trendingTV, popularTV] = await Promise.all([
-                fetchFromTMDB('/trending/movie/day'),
-                fetchFromTMDB('/movie/popular'),
-                fetchFromTMDB('/trending/tv/day'),
-                fetchFromTMDB('/tv/popular'),
-            ]);
-            
-            const heroItem = trendingMovies?.results?.[0];
-            const heroHTML = heroItem ? `<main><div style="background-image: url('${IMAGE_BASE_URL}original${heroItem.backdrop_path}')" class="relative min-h-[75vh] flex flex-col justify-end text-white bg-cover bg-center bg-no-repeat"><div class="hero-gradient absolute inset-0"></div><div class="z-10 text-center px-4 pb-8" data-id="${heroItem.id}" data-type="movie"><h2 class="text-3xl font-black uppercase">${heroItem.title}</h2><div class="flex justify-center items-center space-x-4 mt-6"><button class="info-btn flex items-center text-white space-x-2 bg-gray-700 bg-opacity-60 font-bold py-3 px-6 rounded-md"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>Saiba mais</span></button></div></div></div></main>` : '';
+async function searchTMDB(query, type="movie") {
+    if (!query) return [];
+    const res = await fetch(`${TMDB_BASE_URL}/search/${type}?api_key=${TMDB_API_KEY}&language=pt-BR&query=${encodeURIComponent(query)}`);
+    const data = await res.json();
+    return data.results || [];
+}
 
-            container.innerHTML = `
-                ${heroHTML}
-                <section class="py-4 space-y-8">
-                    ${createCarousel("Filmes em Alta", trendingMovies?.results, 'movie', '/trending/movie/day')}
-                    ${createCarousel("Séries em Alta", trendingTV?.results, 'tv', '/trending/tv/day')}
-                    ${createCarousel("Filmes Populares", popularMovies?.results, 'movie', '/movie/popular')}
-                    ${createCarousel("Séries Populares", popularTV?.results, 'tv', '/tv/popular')}
-                </section>`;
-        }
+async function getDetailsTMDB(id, type="movie") {
+    const res = await fetch(`${TMDB_BASE_URL}/${type}/${id}?api_key=${TMDB_API_KEY}&language=pt-BR`);
+    return await res.json();
+}
 
-        async function renderExplorePage(container) {
-            container.innerHTML = `
-                <div class="pt-20 px-4">
-                    <h2 class="text-2xl font-bold mb-6">Explorar Filmes</h2>
-                    <form id="filter-form" class="space-y-4 bg-gray-800 p-4 rounded-lg">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="sort-by" class="block text-sm font-medium text-gray-300">Ordenar por</label>
-                                <select id="sort-by" class="custom-select mt-1 block w-full bg-gray-700 border-none rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-red-600">
-                                    <option value="popularity.desc">Popularidade</option>
-                                    <option value="vote_average.desc">Melhores Avaliados</option>
-                                    <option value="primary_release_date.desc">Lançamentos</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="decade" class="block text-sm font-medium text-gray-300">Década</label>
-                                <select id="decade" class="custom-select mt-1 block w-full bg-gray-700 border-none rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-red-600">
-                                    <option value="">Todas</option>
-                                    <option value="2020">Anos 2020</option>
-                                    <option value="2010">Anos 2010</option>
-                                    <option value="2000">Anos 2000</option>
-                                    <option value="1990">Anos 90</option>
-                                    <option value="1980">Anos 80</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="genre" class="block text-sm font-medium text-gray-300">Gênero</label>
-                            <select id="genre" class="custom-select mt-1 block w-full bg-gray-700 border-none rounded-md px-3 py-2 text-white focus:ring-2 focus:ring-red-600">
-                                <option value="">Todos</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 rounded-md transition">Aplicar Filtros</button>
-                    </form>
+// --- ELEMENTOS ---
+const authPage = document.getElementById('auth-page');
+const appContainer = document.getElementById('app');
+const mainNav = document.getElementById('main-nav');
+const pagesContainer = document.getElementById('pages-container');
+const mainHeader = document.getElementById('main-header');
+const modal = document.getElementById('details-modal');
+const modalContentWrapper = document.getElementById('modal-content-wrapper');
+const navButtons = document.querySelectorAll('.nav-icon');
+const toast = document.getElementById('toast-notification');
+const profileIconButton = document.getElementById('profile-icon-btn');
 
-                    <!-- Botão Em Breve -->
-                    <button type="button" class="mt-4 w-full bg-gray-700 text-gray-400 font-bold py-2.5 rounded-md opacity-50 cursor-not-allowed flex items-center justify-center">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Surpreenda-me (em breve)
-                    </button>
+let allPosts = [];
+let myList = [];
+let currentUser = null;
 
-                    <div id="explore-results" class="mt-6">${renderSkeletonGrid(8)}</div>
-                </div>
-            `;
-            
-            const genreSelect = container.querySelector('#genre');
-            if (genresMap.size === 0) {
-                 const genresList = await fetchFromTMDB('/genre/movie/list');
-                 if (genresList) { genresList.genres.forEach(g => genresMap.set(g.id, g.name)); }
-            }
-            genresMap.forEach((name, id) => {
-                genreSelect.innerHTML += `<option value="${id}">${name}</option>`;
-            });
+function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('toast-show');
+    setTimeout(() => toast.classList.remove('toast-show'), 3000);
+}
 
-            const applyFilters = async () => {
-                const resultsContainer = container.querySelector('#explore-results');
-                resultsContainer.innerHTML = renderSkeletonGrid(8);
+// --- AUTENTICAÇÃO ---
+onAuthStateChanged(auth, user => {
+    currentUser = user;
+    if(user){
+        authPage.classList.add('hidden');
+        appContainer.classList.remove('hidden');
+        mainNav.style.display = 'flex';
+        if(user.uid === ADMIN_UID) document.getElementById('admin-nav-btn').classList.remove('hidden');
+        initApp();
+    } else {
+        authPage.classList.remove('hidden');
+        appContainer.classList.add('hidden');
+        mainNav.style.display = 'none';
+        allPosts = [];
+        myList = [];
+    }
+});
 
-                const sortBy = container.querySelector('#sort-by').value;
-                const decade = container.querySelector('#decade').value;
-                const genre = container.querySelector('#genre').value;
-                
-                let params = `sort_by=${sortBy}`;
-                if (genre) params += `&with_genres=${genre}`;
-                if (decade) {
-                    params += `&primary_release_date.gte=${decade}-01-01`;
-                    params += `&primary_release_date.lte=${parseInt(decade)+9}-12-31`;
-                }
-                
-                const data = await fetchFromTMDB('/discover/movie', params);
-                resultsContainer.innerHTML = `<div class="grid grid-cols-3 sm:grid-cols-4 gap-4">${createGrid(data?.results, 'movie')}</div>`;
-            };
+document.getElementById('login-btn').addEventListener('click', async () => {
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
+    const errorDiv = document.getElementById('auth-error');
+    try { await signInWithEmailAndPassword(auth,email,password); errorDiv.classList.add('hidden'); }
+    catch(e){ errorDiv.textContent="Email ou senha inválidos."; errorDiv.classList.remove('hidden'); }
+});
 
-            container.querySelector('#filter-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                applyFilters();
-            });
-            
-            applyFilters();
-        }
+document.getElementById('register-btn').addEventListener('click', async () => {
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
+    const errorDiv = document.getElementById('auth-error');
+    if(password.length<6){ errorDiv.textContent="Senha mínima 6 caracteres"; errorDiv.classList.remove('hidden'); return; }
+    try{ await createUserWithEmailAndPassword(auth,email,password); errorDiv.classList.add('hidden'); }
+    catch(e){ errorDiv.textContent="Erro ao criar conta"; errorDiv.classList.remove('hidden'); }
+});
 
-        async function renderProfilePage(container) {
-            const profileImage = profile.imageUrl || 'https://placehold.co/200x200/1f2937/e0e0e0?text=?';
-            container.innerHTML = `
-                <div class="pt-20 px-4 max-w-md mx-auto">
-                    <h2 class="text-2xl font-bold mb-6 text-center">Meu Perfil</h2>
-                    <form id="profile-form" class="space-y-6">
-                        <div class="flex flex-col items-center space-y-4">
-                            <img id="profile-image-preview" src="${profileImage}" class="w-32 h-32 rounded-full object-cover bg-gray-700">
-                            <label for="image-upload" class="cursor-pointer bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition">Trocar Foto</label>
-                            <input type="file" id="image-upload" class="hidden" accept="image/*">
-                        </div>
-                        <div>
-                            <label for="profile-name" class="block text-sm font-medium text-gray-300">Nome</label>
-                            <input type="text" id="profile-name" value="${profile.name}" class="mt-1 block w-full bg-gray-700 border-none rounded-md px-4 py-3 text-white focus:ring-2 focus:ring-red-600">
-                        </div>
-                        <button type="submit" id="save-profile-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-md transition">Salvar Alterações</button>
-                    </form>
+async function logout(){ await signOut(auth); }
 
-                    <!-- Seção Em Breve -->
-                    <div class="mt-10 pt-6 border-t border-gray-700">
-                        <h3 class="text-xl font-bold text-center text-gray-300">O Futuro do seu Perfil</h3>
-                        <p class="text-center text-gray-400 mt-2 text-sm">Com a futura integração do Firebase, sua experiência será ainda mais completa. Prepare-se para:</p>
-                        <ul class="mt-4 space-y-2 text-gray-300">
-                            <li class="flex items-center"><svg class="w-5 h-5 mr-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Estatísticas Pessoais (gêneros e atores favoritos).</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 mr-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Páginas de Coleções e Franquias.</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 mr-3 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Recomendações baseadas no seu gosto.</li>
-                        </ul>
-                    </div>
-                </div>
-            `;
+// --- FIRESTORE ---
+function listenToPosts(){ onSnapshot(collection(db,"posts"), snapshot=>{ allPosts=snapshot.docs.map(doc=>({id:doc.id,...doc.data()})); const page=document.querySelector('.nav-icon-active')?.dataset.page||'home'; navigateTo(page); }); }
+function listenToMyList(){ if(!currentUser) return; onSnapshot(doc(db,"users",currentUser.uid), docSnap=>{ myList=docSnap.exists()&&docSnap.data().myList?docSnap.data().myList:[]; const page=document.querySelector('.nav-icon-active')?.dataset.page; if(page==='my-list') navigateTo('my-list'); }); }
+async function toggleMyListItem(post){ if(!currentUser) return; const userListDocRef=doc(db,"users",currentUser.uid); let updatedList=[...myList]; const idx=updatedList.indexOf(post.id); if(idx>-1){ updatedList.splice(idx,1); showToast(`${post.title} removido da lista.`); } else { updatedList.push(post.id); showToast(`${post.title} adicionado à lista.`); } myList=updatedList; await setDoc(userListDocRef,{myList:updatedList}); updateAddToListButtonState(post.id); }
 
-            const form = container.querySelector('#profile-form');
-            const imageUpload = container.querySelector('#image-upload');
-            const imagePreview = container.querySelector('#profile-image-preview');
-            const saveButton = container.querySelector('#save-profile-btn');
-            
-            imageUpload.addEventListener('change', () => { /* ... (código inalterado) ... */ });
-            form.addEventListener('submit', async (e) => { /* ... (código inalterado) ... */ });
-        }
-        
-        // ... As demais funções (openModal, etc.) e listeners permanecem aqui ...
-        
-        async function renderSearchPage(container) { /* ... (código inalterado) ... */ 
-            container.innerHTML = `
-                <div class="pt-20 px-4">
-                    <form id="search-form" onsubmit="return false;">
-                        <input type="text" id="search-input" class="w-full bg-gray-700 border-none rounded-md px-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-red-600" placeholder="Busque por filmes e séries...">
-                    </form>
-                    <div id="search-results" class="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-6"></div>
-                </div>`;
+// --- UI Helpers ---
+const createCarousel=(title,items)=>{ if(!items||items.length===0) return ''; const html=items.map(item=>`<div class="flex-shrink-0 w-32 md:w-40 mr-3 transform hover:scale-105 transition-transform duration-200 cursor-pointer" data-id="${item.id}"><img loading="lazy" src="${item.poster_path}" alt="${item.title}" class="rounded-md w-full h-auto object-cover pointer-events-none" onerror="this.src='https://placehold.co/400x600/1a1a1a/e0e0e0?text=Indispon%C3%ADvel'"></div>`).join(''); return `<div class="space-y-3"><h3 class="text-xl font-bold px-4">${title}</h3><div class="flex overflow-x-auto no-scrollbar pb-2 pl-4">${html}</div></div>`; };
+const createGrid=(items)=>{ if(!items||items.length===0) return `<p class="col-span-full text-center text-gray-400">Nenhum item encontrado.</p>`; return items.map(item=>`<div class="relative group cursor-pointer" data-id="${item.id}"><img loading="lazy" src="${item.poster_path}" alt="${item.title}" class="rounded-md w-full h-auto object-cover" onerror="this.src='https://placehold.co/400x600/1a1a1a/e0e0e0?text=Indispon%C3%ADvel'"></div>`).join(''); };
 
-            const searchInput = container.querySelector('#search-input');
-            const searchResultsContainer = container.querySelector('#search-results');
-            let searchTimeout;
+// --- NAVEGAÇÃO ---
+async function navigateTo(page){ pagesContainer.style.animation='fadeOut 0.15s ease-in-out'; setTimeout(async()=>{ pagesContainer.innerHTML=''; let newPage=document.createElement('div'); newPage.className='page'; pagesContainer.appendChild(newPage); switch(page){ case'home': await renderHomePage(newPage); break; case'search': await renderSearchPage(newPage); break; case'my-list': await renderMyListPage(newPage); break; case'admin': await renderAdminPage(newPage); break; case'profile': await renderProfilePage(newPage); break; } navButtons.forEach(btn=>btn.classList.toggle('nav-icon-active',btn.dataset.page===page)); pagesContainer.style.animation='fadeIn 0.15s ease-in-out'; window.scrollTo(0,0); },150); }
 
-            searchInput.addEventListener('input', () => {
-                clearTimeout(searchTimeout);
-                searchResultsContainer.innerHTML = renderSkeletonGrid();
-                const query = searchInput.value;
-                if (query.length < 3) {
-                    searchResultsContainer.innerHTML = '<p class="col-span-full text-center text-gray-400 pt-8">Digite pelo menos 3 caracteres para buscar.</p>';
-                    return;
-                }
-                searchTimeout = setTimeout(async () => {
-                    const data = await fetchFromTMDB('/search/multi', `query=${encodeURIComponent(query)}`);
-                    const validResults = data?.results.filter(item => (item.media_type === 'movie' || item.media_type === 'tv') && item.poster_path);
-                    searchResultsContainer.innerHTML = createGrid(validResults, 'multi');
-                }, 500);
-            });
-        }
-        async function renderMyListPage(container) { /* ... (código inalterado) ... */ 
-            container.innerHTML = `
-                <div class="pt-20 px-4">
-                    <h2 class="text-2xl font-bold mb-6">Minha Lista</h2>
-                    <div id="my-list-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-4"></div>
-                </div>`;
-            const grid = container.querySelector('#my-list-grid');
-            if (myList.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-gray-400">Sua lista está vazia.</p>`;
-                return;
-            }
-            grid.innerHTML = myList.map(item => `
-                <div class="relative group cursor-pointer" data-id="${item.id}" data-type="${item.type}">
-                    <img loading="lazy" src="${IMAGE_BASE_URL}w500${item.poster_path}" alt="${item.title || item.name}" class="rounded-md w-full h-auto object-cover">
-                    <button class="remove-from-list-btn absolute top-1 right-1 bg-black bg-opacity-70 rounded-full p-1.5 text-white opacity-0 group-hover:opacity-100 transition-opacity" data-id="${item.id}">
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-                    </button>
-                </div>
-            `).join('');
-        }
-        async function renderGridPage(container, params) { /* ... (código inalterado) ... */
-             container.innerHTML = `
-                <div class="pt-20 px-4">
-                    <h2 class="text-2xl font-bold mb-6">${params.title || params.genreName}</h2>
-                    <div class="grid grid-cols-3 sm:grid-cols-4 gap-4">${renderSkeletonGrid()}</div>
-                </div>`;
-            
-            let data;
-            if (params.endpoint) { // Categoria "Ver Tudo"
-                data = await fetchFromTMDB(params.endpoint);
-            } else if (params.genreId) { // Gênero
-                data = await fetchFromTMDB('/discover/movie', `with_genres=${params.genreId}`);
-            }
+// --- Páginas ---
+async function renderHomePage(container){
+    if(allPosts.length===0){ container.innerHTML=`<div class="pt-40 text-center text-gray-400">Nenhum conteúdo foi postado ainda.</div>`; return; }
+    const heroItem=allPosts[Math.floor(Math.random()*allPosts.length)];
+    const heroHTML=`<div class="relative h-80 md:h-96 w-full"><img src="${heroItem.poster_path}" alt="${heroItem.title}" class="absolute inset-0 w-full h-full object-cover rounded-b-3xl"><div class="absolute inset-0 hero-gradient rounded-b-3xl"></div><div class="absolute bottom-5 left-5"><h2 class="text-3xl font-bold">${heroItem.title}</h2><button class="mt-2 bg-red-600 px-4 py-2 rounded-md" data-id="${heroItem.id}">Detalhes</button></div></div>`;
+    const genres=['Ação','Comédia','Drama','Terror','Romance']; // Para exemplo
+    let carousels='';
+    for(const genre of genres){
+        const filtered=allPosts.filter(p=>p.genre?.includes(genre)).slice(0,10);
+        if(filtered.length>0) carousels+=createCarousel(genre,filtered);
+    }
+    container.innerHTML=heroHTML+carousels;
+    container.querySelectorAll('[data-id]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.id)));
+}
 
-            const gridContainer = container.querySelector('.grid');
-            const type = params.type === 'tv' ? 'tv' : 'movie';
-            gridContainer.innerHTML = createGrid(data?.results, type);
-         }
-        
-        async function openModal(id, type) { /* ... (código inalterado) ... */
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            modalContentWrapper.innerHTML = `<div class="p-8 text-center">Carregando detalhes...</div>`;
+async function renderSearchPage(container){
+    container.innerHTML=`<div class="pt-20 px-4"><input type="text" id="search-input" placeholder="Buscar filme/série..." class="w-full bg-gray-700 rounded-md px-4 py-3 text-white mb-4"><div id="search-results" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div></div>`;
+    const searchInput=document.getElementById('search-input');
+    const resultsDiv=document.getElementById('search-results');
+    searchInput.addEventListener('input',async()=>{ const query=searchInput.value.trim(); if(!query){ resultsDiv.innerHTML=''; return; } const movies=await searchTMDB(query,'movie'); const series=await searchTMDB(query,'tv'); const combined=[...movies,...series].map(r=>({id:r.id,title:r.title||r.name,poster_path:`https://image.tmdb.org/t/p/w500${r.poster_path}`,genre:r.genre_ids})); resultsDiv.innerHTML=createGrid(combined); resultsDiv.querySelectorAll('[data-id]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.id))); });
+}
 
-            const [details, credits, recommendations, videos] = await Promise.all([
-                fetchFromTMDB(`/${type}/${id}`),
-                fetchFromTMDB(`/${type}/${id}/credits`),
-                fetchFromTMDB(`/${type}/${id}/recommendations`),
-                fetchFromTMDB(`/${type}/${id}/videos`),
-            ]);
-            
-            if (!details) { closeModal(); return; }
+async function renderMyListPage(container){
+    const items=allPosts.filter(p=>myList.includes(p.id));
+    container.innerHTML=`<div class="pt-20 px-4 grid grid-cols-2 md:grid-cols-4 gap-4">${createGrid(items)}</div>`;
+    container.querySelectorAll('[data-id]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.id)));
+}
 
-            const item = {...details, type: type};
-            const title = item.title || item.name;
-            const releaseYear = (item.release_date || item.first_air_date)?.substring(0, 4) || 'N/A';
-            const trailer = videos?.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
-            const isInMyList = myList.some(i => i.id === item.id);
-            const addToListButtonIcon = isInMyList ? 'M5 13l4 4L19 7' : 'M12 4v16m8-8H4';
-
-            modalContentWrapper.innerHTML = `
-                <div class="relative">
-                    ${trailer ? `<div id="trailer-container" class="aspect-video w-full hidden"><iframe class="w-full h-full" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>` : ''}
-                    <img id="backdrop-image" src="${IMAGE_BASE_URL}w1280${item.backdrop_path}" class="w-full h-48 object-cover rounded-t-2xl ${trailer ? '' : 'rounded-t-2xl'}" onerror="this.style.display='none'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-                    <button id="close-modal-btn" aria-label="Fechar modal" class="absolute top-4 right-4 bg-black bg-opacity-50 rounded-full p-2 text-white z-10"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
-                </div>
-                <div class="p-4 space-y-4">
-                    <h2 class="text-2xl font-bold">${title}</h2>
-                    <div class="flex items-center space-x-4 text-sm text-gray-400">
-                        <span class="text-green-400 font-bold">${item.vote_average.toFixed(1)} Pontos</span>
-                        <span>${releaseYear}</span>
-                        ${item.runtime ? `<span>${Math.floor(item.runtime/60)}h ${item.runtime%60}min</span>` : ''}
-                        ${item.number_of_seasons ? `<span>${item.number_of_seasons} Temporada${item.number_of_seasons > 1 ? 's' : ''}</span>` : ''}
-                    </div>
-                    <button id="watch-btn" class="w-full flex items-center justify-center bg-white text-black font-bold py-2.5 rounded-md ${!trailer ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'}">${trailer ? '<svg class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>Assistir Trailer' : 'Trailer indisponível'}</button>
-                    <button id="add-to-list-btn" class="w-full flex items-center justify-center bg-gray-700 bg-opacity-60 text-white font-bold py-2.5 rounded-md hover:bg-gray-600"><svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${addToListButtonIcon}" /></svg><span id="add-to-list-text">${isInMyList ? 'Remover da Lista' : 'Adicionar à Minha Lista'}</span></button>
-                    <p class="text-gray-300 text-sm leading-relaxed">${item.overview || 'Sinopse não disponível.'}</p>
-                    ${credits?.cast.length > 0 ? `<h3 class="font-bold pt-2">Elenco</h3><div class="flex overflow-x-auto no-scrollbar pb-2 space-x-4">${credits.cast.slice(0,10).map(c => `<div class="text-center w-20 flex-shrink-0"><img class="w-20 h-20 rounded-full object-cover mx-auto" src="${IMAGE_BASE_URL}w185${c.profile_path}" onerror="this.src='https://placehold.co/200x200/1a1a1a/e0e0e0?text=Ator'"><p class="text-xs mt-1">${c.name}</p></div>`).join('')}</div>` : ''}
-                    ${recommendations?.results.length > 0 ? `<div class="pt-2">${createCarousel('Recomendações', recommendations.results, type)}</div>` : ''}
-                </div>`;
-            
-            document.getElementById('add-to-list-btn').addEventListener('click', () => toggleMyListItem(item));
-            if (trailer) {
-                document.getElementById('watch-btn').addEventListener('click', () => {
-                    document.getElementById('trailer-container').classList.toggle('hidden');
-                    document.getElementById('backdrop-image').classList.toggle('hidden');
+async function renderAdminPage(container){
+    if(currentUser.uid!==ADMIN_UID){ container.innerHTML='<p class="pt-40 text-center text-red-600">Acesso negado</p>'; return; }
+    container.innerHTML=`
+    <div class="pt-20 px-4 max-w-xl mx-auto space-y-4">
+        <input id="admin-search-title" type="text" placeholder="Buscar no TMDB..." class="w-full bg-gray-700 rounded-md px-4 py-3 text-white">
+        <button id="admin-fetch-btn" class="w-full bg-red-600 py-3 rounded-md font-bold">Buscar</button>
+        <div id="admin-search-results" class="space-y-2"></div>
+    </div>`;
+    const searchInput=document.getElementById('admin-search-title');
+    const fetchBtn=document.getElementById('admin-fetch-btn');
+    const resultsDiv=document.getElementById('admin-search-results');
+    fetchBtn.addEventListener('click',async()=>{
+        const query=searchInput.value.trim(); if(!query) return;
+        const movies=await searchTMDB(query,'movie'); const series=await searchTMDB(query,'tv'); const combined=[...movies,...series];
+        resultsDiv.innerHTML='';
+        combined.forEach(item=>{
+            const div=document.createElement('div'); div.className='bg-gray-700 p-2 rounded-md flex justify-between items-center';
+            div.innerHTML=`<span>${item.title||item.name}</span><button class="bg-red-600 px-2 py-1 rounded text-white">Adicionar</button>`;
+            div.querySelector('button').addEventListener('click',async()=>{
+                const details=await getDetailsTMDB(item.id,item.media_type||'movie');
+                await addDoc(collection(db,'posts'),{
+                    title:details.title||details.name,
+                    poster_path:details.poster_path?`https://image.tmdb.org/t/p/w500${details.poster_path}`:'',
+                    overview:details.overview||'',
+                    genre:details.genres?.map(g=>g.name)||[]
                 });
-            }
-         }
-        function closeModal() { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }
-        function toggleMyListItem(item) { /* ... (código inalterado) ... */ 
-            const index = myList.findIndex(i => i.id === item.id);
-            if (index > -1) {
-                myList.splice(index, 1);
-                showToast(`${item.title || item.name} removido da lista.`);
-            } else {
-                myList.push({ id: item.id, title: item.title, name: item.name, poster_path: item.poster_path, type: item.type });
-                showToast(`${item.title || item.name} adicionado à lista.`);
-            }
-            localStorage.setItem('cineRaveMyList', JSON.stringify(myList));
-            updateAddToListButtonState(item.id);
-        }
-        function updateAddToListButtonState(itemId) { /* ... (código inalterado) ... */
-             const buttonText = document.getElementById('add-to-list-text');
-            const buttonIconPath = document.querySelector('#add-to-list-btn svg path');
-            if (buttonText && buttonIconPath) {
-                const isInMyList = myList.some(i => i.id === itemId);
-                buttonText.textContent = isInMyList ? 'Remover da Lista' : 'Adicionar à Minha Lista';
-                buttonIconPath.setAttribute('d', isInMyList ? 'M5 13l4 4L19 7' : 'M12 4v16m8-8H4');
-            }
-         }
-        
-        // --- Event Listeners Globais ---
-        window.addEventListener('scroll', () => mainHeader.classList.toggle('header-scrolled', window.scrollY > 50));
-        
-        document.addEventListener('click', (e) => {
-            const item = e.target.closest('[data-id][data-type]');
-            const seeAll = e.target.closest('.see-all-link');
-            const removeBtn = e.target.closest('.remove-from-list-btn');
-            
-            if (item) openModal(item.dataset.id, item.dataset.type === 'multi' ? (item.dataset.title ? 'movie' : 'tv') : item.dataset.type);
-            else if (seeAll) navigateTo('grid', { endpoint: seeAll.dataset.endpoint, title: seeAll.dataset.title, type: seeAll.dataset.type });
-            else if (removeBtn) {
-                const idToRemove = parseInt(removeBtn.dataset.id);
-                myList = myList.filter(i => i.id !== idToRemove);
-                localStorage.setItem('cineRaveMyList', JSON.stringify(myList));
-                navigateTo('my-list');
-            }
+                showToast(`${details.title||details.name} adicionado ao feed.`);
+            });
+            resultsDiv.appendChild(div);
         });
-        
-        modal.addEventListener('click', e => { if (e.target.closest('#close-modal-btn') || e.target === modal) closeModal(); });
-        navButtons.forEach(button => button.addEventListener('click', () => navigateTo(button.dataset.page)));
-        window.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
-        profileIconButton.addEventListener('click', () => navigateTo('profile'));
-
-        // --- Inicialização ---
-        function init() {
-            updateHeaderProfileIcon();
-            navigateTo('home');
-        }
-
-        init();
     });
-    </script>
+}
+
+// --- Modal ---
+function openModal(id){
+    const item=allPosts.find(p=>p.id==id); if(!item) return;
+    modalContentWrapper.innerHTML=`<div class="p-4"><h2 class="text-2xl font-bold mb-2">${item.title}</h2><img src="${item.poster_path}" class="rounded-md w-full mb-2"><p class="mb-2">${item.overview||'Sem descrição.'}</p><button id="add-to-list-btn" class="bg-red-600 px-4 py-2 rounded-md">Adicionar/Remover da lista</button></div>`;
+    modal.classList.remove('hidden');
+    document.getElementById('add-to-list-btn').addEventListener('click',()=>toggleMyListItem(item));
+    updateAddToListButtonState(item.id);
+}
+function updateAddToListButtonState(postId){
+    const btn=document.getElementById('add-to-list-btn');
+    if(!btn) return;
+    if(myList.includes(postId)){ btn.textContent='Remover da lista'; btn.classList.add('bg-gray-600'); btn.classList.remove('bg-red-600'); }
+    else{ btn.textContent='Adicionar à lista'; btn.classList.add('bg-red-600'); btn.classList.remove('bg-gray-600'); }
+}
+modal.addEventListener('click',(e)=>{ if(e.target===modal) modal.classList.add('hidden'); });
+
+// --- Perfil ---
+profileIconButton.addEventListener('click',()=>navigateTo('profile'));
+async function renderProfilePage(container){
+    container.innerHTML=`<div class="pt-40 text-center space-y-4"><h2 class="text-2xl font-bold">Perfil</h2><p>Email: ${currentUser.email}</p><button id="logout-btn" class="bg-red-600 px-4 py-2 rounded-md">Sair</button></div>`;
+    document.getElementById('logout-btn').addEventListener('click',logout);
+}
+
+// --- Eventos Navegação ---
+navButtons.forEach(btn=>btn.addEventListener('click',()=>navigateTo(btn.dataset.page)));
+
+// --- Inicialização ---
+function initApp(){ listenToPosts(); listenToMyList(); navigateTo('home'); }
+
+</script>
 </body>
 </html>
-
