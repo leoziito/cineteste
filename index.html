@@ -18,7 +18,7 @@
             --text-primary: #000000; /* Texto Preto */
             --bg-secondary: #f3f4f6; /* Componentes/Fundo secundário (cinza claro) */
             --bg-accent: #1f2937; /* Cor de Destaque/Botões (cinza escuro) */
-            --bg-accent-lighter: #4b5563; /* Cor de Destaque/Botões (cinza médio) */
+            --bg-accent-lighter: #4b5563;
         }
         
         /* Variáveis de Tema: Modo Escuro */
@@ -298,9 +298,8 @@
             border-radius: 3px;
         }
 
-        /* Ajuste do grid do Explore para 4 colunas em telas maiores (MUITO IMPORTANTE) */
+        /* Ajuste do grid do Explore para 4 colunas em telas maiores (NOVO) */
         @media (min-width: 640px) {
-             /* SM */
              #explore-results {
                  grid-template-columns: repeat(3, minmax(0, 1fr));
              }
@@ -320,7 +319,7 @@
             padding-right: 2rem;
         }
         
-        /* NOVO: Estilo para selo de Lançamento */
+        /* NOVO: Estilo para selo de Lançamento/Temporada */
         .release-badge {
              position: absolute;
              top: 0.5rem;
@@ -485,7 +484,7 @@
     </div>
 
 
-    <div id="notification-modal" class="p-4 hidden" onclick="handleNotifClick(event)">
+    <div id="notification-modal" class="p-4 hidden" onclick="handleNotifClick(event)"> 
         <div class="flex space-x-3 items-start">
             <img id="notif-poster" class="w-10 h-15 rounded object-cover flex-shrink-0" src="https://placehold.co/40x60/4b5563/ffffff?text=N" alt="Poster de Notificação">
             <div class="flex-1">
@@ -506,14 +505,14 @@
                 <button id="toggle-notif-history" class="text-sm py-1 px-3 rounded-lg bg-gray-500 text-white hover:bg-gray-600">
                     Histórico
                 </button>
-                <button id="clear-all-notifs-btn" class="text-sm py-1 px-3 rounded-lg bg-red-500 text-white hover:bg-red-600">Limpar Todas</button>
+                <button id="clear-all-notifs-btn" class="text-sm py-1 px-3 rounded-lg bg-red-500 text-white hover:bg-red-600">Limpar Ativas</button>
                 <button id="close-global-notifs-btn" class="p-1 rounded-lg hover:bg-secondary-theme/80">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
         </div>
         <div id="notifications-list" class="space-y-4">
-            <p class="text-center opacity-70">Carregando notificações...</p>
+            <p class="text-center opacity-70">Nenhuma notificação recente.</p>
         </div>
     </div>
 
@@ -546,7 +545,7 @@
 
 
             <div class="mt-auto pt-4 border-t border-gray-700/10 dark:border-white/10 space-y-1">
-                <p class="footer-text" id="app-version-display">Versão 2.3.9</p>
+                <p class="footer-text" id="app-version-display">Versão 2.4.1</p>
                 <div class="break-words text-center pt-1">
                     <p class="footer-text !text-[0.6rem] !opacity-60">UID:</p>
                     <p class="footer-text !text-[0.55rem] font-mono !opacity-80" id="user-uid-display">Carregando...</p>
@@ -604,7 +603,7 @@
         <main id="main-content" class="flex-1 overflow-y-auto bg-app">
             <div id="page-content" class="max-w-6xl mx-auto py-8 px-4 empty-feed">
                 
-                <div id="default-feed">
+                <div id="default-feed" class="flex flex-col space-y-12">
                     
                     <div id="hero-banner-container" class="mb-8">
                         </div>
@@ -627,7 +626,7 @@
 
                     <h2 class="text-4xl font-extrabold mb-10">Painel de Administração</h2>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-12 w-full max-w-3xl">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12 w-full max-w-4xl">
                         <button id="nav-publicar-rapida" class="admin-nav-btn flex flex-col items-center justify-center p-4 bg-purple-600 text-white font-bold rounded-xl shadow-xl hover:bg-purple-700 transition duration-300 transform hover:scale-[1.03] opacity-70 min-h-[100px] space-y-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/><path d="M10 9l-3 3 3 3"/></svg>
                             <span class="text-sm">Publicação Rápida</span>
@@ -644,88 +643,18 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                             <span class="text-sm">Ver Feedbacks</span>
                         </button>
-                    </div>
-
-                    <div id="publish-area" class="w-full max-w-4xl p-6 bg-secondary-theme/50 rounded-xl shadow-lg hidden">
-                        
-                        <div class="flex mb-8 justify-center space-x-4">
-                            <button data-type="movie" class="content-type-btn py-2 px-4 rounded-full font-semibold bg-accent-theme text-white hover:opacity-90 transition duration-200">Filme</button>
-                            <button data-type="series" class="content-type-btn py-2 px-4 rounded-full font-semibold hover:bg-accent-theme hover:text-white transition duration-200">Série</button>
-                        </div>
-
-                        <form id="content-form" class="space-y-6">
-                            <h3 id="form-title" class="text-2xl font-bold border-b pb-3 mb-6">Adicionar Novo Filme</h3>
-
-                            <input type="hidden" id="content-doc-id" value=""> 
-
-                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
-                                <div class="relative w-full">
-                                    <input type="text" id="tmdb-search-input" class="input-style pr-10" placeholder="🔍 Buscar filme/série/coleção no TMDB">
-                                    <div id="tmdb-results" class="absolute z-10 w-full mt-1 rounded-lg shadow-lg bg-secondary-theme border border-gray-300 dark:border-gray-700 max-h-60 overflow-y-auto hidden">
-                                        </div>
-                                </div>
-                                <div id="poster-preview" class="w-24 h-36 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-500 flex-shrink-0">
-                                    Poster
-                                </div>
-                            </div>
-
-                            <div id="schedule-fields" class="p-4 bg-secondary-theme rounded-lg space-y-3">
-                                <h4 class="text-lg font-semibold border-b pb-2 mb-2">Agendamento de Lançamento (Em Breve)</h4>
-                                <div class="flex space-x-4 items-center">
-                                    <input type="checkbox" id="is-upcoming" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                                    <label for="is-upcoming" class="text-sm font-medium">Agendar lançamento (Publicar em "Em Breve")</label>
-                                </div>
-                                <div id="release-date-time" class="grid grid-cols-2 gap-4 hidden pt-2">
-                                    <div>
-                                        <label for="release-date" class="block text-xs font-medium mb-1">Data de Lançamento</label>
-                                        <input type="date" id="release-date" class="input-style" value="">
-                                    </div>
-                                    <div>
-                                        <label for="release-time" class="block text-xs font-medium mb-1">Hora de Lançamento (Opcional)</label>
-                                        <input type="time" id="release-time" class="input-style" value="">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="title" class="block text-sm font-medium mb-1">Título</label>
-                                <input type="text" id="title" class="input-style" required>
-                            </div>
-                            <div>
-                                <label for="synopsis" class="block text-sm font-medium mb-1">Sinopse</label>
-                                <textarea id="synopsis" rows="4" class="input-style" required></textarea>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div>
-                                    <label for="release-year" class="block text-sm font-medium mb-1">Ano de Lançamento</label>
-                                    <input type="text" id="release-year" class="input-style" required>
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label for="genres" class="block text-sm font-medium mb-1">Gêneros</label>
-                                    <input type="text" id="genres" class="input-style" required>
-                                </div>
-                            </div>
-                            <div>
-                                <label for="actors" class="block text-sm font-medium mb-1">Atores Principais</label>
-                                <input type="text" id="actors" class="input-style" required>
-                            </div>
-
-                            <div id="dynamic-fields">
-                                </div>
-                            
-                            <button type="submit" id="publish-submit-btn" class="w-full py-3 mt-8 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300 flex items-center justify-center space-x-2" disabled>
-                                <span id="publish-text">Publicar Conteúdo</span>
-                                <span id="loading-spinner" class="hidden spinner"></span>
-                            </button>
-                        </form>
+                         <button id="nav-upcoming-admin" class="admin-nav-btn col-span-2 sm:col-span-1 flex flex-col items-center justify-center p-4 bg-yellow-600 text-black font-bold rounded-xl shadow-xl hover:bg-yellow-700 transition duration-300 transform hover:scale-[1.03] opacity-70 min-h-[100px] space-y-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            <span class="text-sm">Conteúdo Agendado</span>
+                        </button>
                     </div>
 
                     <div id="quick-publish-area" class="w-full max-w-4xl p-6 bg-secondary-theme/50 rounded-xl shadow-lg hidden">
-                        <h3 class="text-2xl font-bold border-b pb-3 mb-6 text-purple-600">Publicação Rápida de Filmes</h3>
-                        <p class="mb-4 opacity-80">Busque e selecione até 10 filmes do TMDB para postar de uma vez. Apenas a URL do link principal será necessária para cada um.</p>
+                        <h3 class="text-2xl font-bold border-b pb-3 mb-6 text-purple-600">Publicação Rápida de Filmes (Máx 10)</h3>
+                        <p class="mb-4 opacity-80">Busque e selecione até 10 filmes do TMDB. Apenas a URL do link principal, qualidade e idioma são necessários para cada um.</p>
                         
                         <div class="relative w-full mb-6">
-                            <input type="text" id="quick-tmdb-search-input" class="input-style pr-10" placeholder="🔍 Buscar 10 filmes no TMDB">
+                            <input type="text" id="quick-tmdb-search-input" class="input-style pr-10" placeholder="🔍 Buscar filmes no TMDB">
                             <div id="quick-tmdb-results" class="absolute z-10 w-full mt-1 rounded-lg shadow-lg bg-secondary-theme border border-gray-300 dark:border-gray-700 max-h-60 overflow-y-auto hidden">
                                 </div>
                         </div>
@@ -762,8 +691,82 @@
                     </div>
 
 
+                    <div id="publish-area" class="w-full max-w-4xl p-6 bg-secondary-theme/50 rounded-xl shadow-lg hidden">
+                        
+                        <div class="flex mb-8 justify-center space-x-4">
+                            <button data-type="movie" class="content-type-btn py-2 px-4 rounded-full font-semibold bg-accent-theme text-white hover:opacity-90 transition duration-200">Filme</button>
+                            <button data-type="series" class="content-type-btn py-2 px-4 rounded-full font-semibold hover:bg-accent-theme hover:text-white transition duration-200">Série</button>
+                        </div>
+
+                        <form id="content-form" class="space-y-6">
+                            <h3 id="form-title" class="text-2xl font-bold border-b pb-3 mb-6">Adicionar Novo Filme</h3>
+
+                            <input type="hidden" id="content-doc-id" value=""> 
+
+                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+                                <div class="relative w-full">
+                                    <input type="text" id="tmdb-search-input" class="input-style pr-10" placeholder="🔍 Buscar filme/série/coleção no TMDB">
+                                    <div id="tmdb-results" class="absolute z-10 w-full mt-1 rounded-lg shadow-lg bg-secondary-theme border border-gray-300 dark:border-gray-700 max-h-60 overflow-y-auto hidden">
+                                        </div>
+                                </div>
+                                <div id="poster-preview" class="w-24 h-36 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-500 flex-shrink-0">
+                                    Poster
+                                </div>
+                            </div>
+                            
+                            <div id="schedule-fields" class="p-4 bg-secondary-theme rounded-lg space-y-3">
+                                <h4 class="text-lg font-semibold border-b pb-2 mb-2">Agendamento de Lançamento (Em Breve)</h4>
+                                <div class="flex space-x-4 items-center">
+                                    <input type="checkbox" id="is-upcoming" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                                    <label for="is-upcoming" class="text-sm font-medium">Agendar lançamento (Publicar em "Em Breve")</label>
+                                </div>
+                                <div id="release-date-time" class="grid grid-cols-2 gap-4 hidden pt-2">
+                                    <div>
+                                        <label for="release-date" class="block text-xs font-medium mb-1">Data de Lançamento</label>
+                                        <input type="date" id="release-date" class="input-style" value="">
+                                    </div>
+                                    <div>
+                                        <label for="release-time" class="block text-xs font-medium mb-1">Hora de Lançamento (Opcional)</label>
+                                        <input type="time" id="release-time" class="input-style" value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="title" class="block text-sm font-medium mb-1">Título</label>
+                                <input type="text" id="title" class="input-style" required>
+                            </div>
+                            <div>
+                                <label for="synopsis" class="block text-sm font-medium mb-1">Sinopse</label>
+                                <textarea id="synopsis" rows="4" class="input-style" required></textarea>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="release-year" class="block text-sm font-medium mb-1">Ano de Lançamento</label>
+                                    <input type="text" id="release-year" class="input-style" required>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="genres" class="block text-sm font-medium mb-1">Gêneros</label>
+                                    <input type="text" id="genres" class="input-style" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="actors" class="block text-sm font-medium mb-1">Atores Principais</label>
+                                <input type="text" id="actors" class="input-style" required>
+                            </div>
+
+                            <div id="dynamic-fields">
+                                </div>
+                            
+                            <button type="submit" id="publish-submit-btn" class="w-full py-3 mt-8 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300 flex items-center justify-center space-x-2" disabled>
+                                <span id="publish-text">Publicar Conteúdo</span>
+                                <span id="loading-spinner" class="hidden spinner"></span>
+                            </button>
+                        </form>
+                    </div>
+
                     <div id="edit-panel" class="hidden h-full flex flex-col items-center py-24">
-                        <h3 class="text-2xl font-bold mb-6">Lista de Conteúdo para Edição</h3>
+                        <h3 class="text-2xl font-bold mb-6">Lista de Conteúdo Publicado (Editar)</h3>
                         <div class="w-full max-w-4xl">
                             <div id="content-list-container" class="space-y-4">
                                 <div class="p-4 bg-secondary-theme/50 rounded-lg text-center opacity-70">Carregando conteúdo...</div>
@@ -771,8 +774,18 @@
                         </div>
                     </div>
                     
+                    <div id="upcoming-admin-panel" class="hidden h-full flex flex-col items-center py-24">
+                         <h3 class="text-2xl font-bold mb-6 text-yellow-600">Conteúdo Agendado ("Em Breve")</h3>
+                         <div class="w-full max-w-4xl">
+                            <div id="upcoming-admin-list-container" class="space-y-4">
+                                <div class="p-4 bg-secondary-theme/50 rounded-lg text-center opacity-70">Carregando agendamentos...</div>
+                            </div>
+                            <p class="text-sm opacity-60 text-center mt-4">Conteúdo aqui será automaticamente movido para "Publicado" na data de lançamento.</p>
+                        </div>
+                    </div>
+                    
                     <div id="feedbacks-panel" class="hidden h-full flex flex-col items-center py-24">
-                        <h3 class="text-2xl font-bold mb-6 text-red-600">Feedbacks de Usuários</h3>
+                        <h3 class="text-2xl font-bold mb-6 text-purple-600">Feedbacks de Usuários</h3>
                         <div class="w-full max-w-4xl">
                             <div id="feedbacks-list-container" class="space-y-4">
                                 <div class="p-4 bg-secondary-theme/50 rounded-lg text-center opacity-70">Carregando feedbacks...</div>
@@ -780,21 +793,11 @@
                         </div>
                     </div>
 
-                    <div id="upcoming-admin-panel" class="hidden h-full flex flex-col items-center py-24">
-                         <h3 class="text-2xl font-bold mb-6 text-yellow-600">Conteúdo Agendado ("Em Breve")</h3>
-                         <div class="w-full max-w-4xl">
-                            <div id="upcoming-admin-list-container" class="space-y-4">
-                                <div class="p-4 bg-secondary-theme/50 rounded-lg text-center opacity-70">Carregando agendamentos...</div>
-                            </div>
-                            <p class="text-sm opacity-60 text-center mt-4">Conteúdo aqui só aparece no feed principal após a data de lançamento.</p>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div id="explore-panel" class="hidden"></div>
                 
-                <div id="upcoming-panel" class="hidden">
+                <div id="upcoming-panel" class="hidden flex flex-col space-y-12">
                     <div id="upcoming-hero-banner-container" class="mb-8">
                         </div>
                     <div id="upcoming-carousels-container" class="space-y-12">
@@ -811,16 +814,17 @@
     
     <script type="module">
         // Variável de Versão
-        const APP_VERSION = '2.4.0'; // Versão atualizada
+        const APP_VERSION = '2.4.1'; 
 
         // --- 0. Firebase Setup (Inicialização) ---
+        // Importa funcionalidades do Firebase (agora incluindo funcionalidades de batch para Publicação Rápida)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot, query, where, getDocs, orderBy, writeBatch, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot, query, where, getDocs, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
-        // Ativa o log de debug do Firestore
-        // setLogLevel('Debug'); // Comentado para ambiente de produção/simulação
+        // Desativa o log de debug do Firestore (para evitar poluição no console)
+        // setLogLevel('Debug'); 
 
         // Configuração de Firebase (usando a configuração estática fornecida)
         const firebaseConfig = {
@@ -842,29 +846,30 @@
         const PUBLIC_CONTENT_COLLECTION_PATH = `artifacts/${appId}/public/data/content`;
         const NOTIFICATIONS_COLLECTION_PATH = `artifacts/${appId}/public/data/notifications`;
         const FEEDBACK_COLLECTION_PATH = `artifacts/${appId}/public/data/feedbacks`;
-        const USER_PREFERENCES_COLLECTION_PATH = `artifacts/${appId}/public/data/user_preferences`; // Nova Coleção para rastrear o "Notificar-me"
-        const DELETED_NOTIFS_COLLECTION_PATH = `artifacts/${appId}/public/data/deleted_notifications`; // Nova Coleção para histórico de exclusão
+        const DELETED_NOTIFS_COLLECTION_PATH = `artifacts/${appId}/public/data/deleted_notifications`; // NOVO: Para histórico/correção de notificação
         
         const uidDisplay = document.getElementById('user-uid-display');
         
-        let clientNotifications = []; // Armazena notificações recebidas localmente
-        let deletedNotifications = []; // Armazena notificações excluídas (histórico)
-        let clientFeedbacks = []; // Armazena feedbacks localmente
-
         // Dados do conteúdo
         let allContent = []; // Conteúdo completo do Firestore (Publicado + Em Breve)
         let publishedContent = []; // Conteúdo publicado (no ar)
         let upcomingContent = []; // Conteúdo agendado (em breve)
-        let userUpcomingPreferences = {}; // Armazena IDs do conteúdo que o usuário marcou para notificar.
+        
+        // Dados de Notificações
+        let clientNotifications = []; 
+        let deletedNotifications = []; // Notificações no Histórico (NOVO)
+        let clientFeedbacks = []; 
+        
+        // Lógica de Notificação do Usuário (Local Storage para UX rápida)
+        const UPCOMING_PREFS_KEY = 'cinerave_upcoming_notifs';
+        let localUpcomingPrefs = JSON.parse(localStorage.getItem(UPCOMING_PREFS_KEY) || '{}'); // NOVO: Para rastrear o "Notificar-me"
 
         // Autenticação Anônima e Listener de Estado
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 userId = user.uid;
                 uidDisplay.textContent = user.uid;
-                
-                // INICIA OS LISTENERS DO FIRESTORE APÓS A AUTENTICAÇÃO
-                await setupFirestoreListeners(); // Adicionado await
+                setupFirestoreListeners();
             } else {
                 uidDisplay.textContent = "Tentando login anônimo...";
                 try {
@@ -875,36 +880,6 @@
                 }
             }
         });
-        
-        // Função para carregar as preferências do usuário
-        async function loadUserPreferences() {
-            if (!userId) return;
-            try {
-                const docRef = doc(db, USER_PREFERENCES_COLLECTION_PATH, userId);
-                const docSnap = await getDocs(query(collection(db, USER_PREFERENCES_COLLECTION_PATH), where("__name__", "==", userId)));
-                if (!docSnap.empty) {
-                     userUpcomingPreferences = docSnap.docs[0].data().upcoming_notifications || {};
-                }
-            } catch (error) {
-                console.error("Erro ao carregar preferências do usuário:", error);
-            }
-        }
-        
-        // Função para atualizar as preferências do usuário (Notificar-me)
-        async function updateUserPreference(contentId, shouldNotify) {
-            if (!userId) {
-                window.alert('Faça login (anônimo) para salvar suas preferências.');
-                return;
-            }
-            try {
-                const docRef = doc(db, USER_PREFERENCES_COLLECTION_PATH, userId);
-                userUpcomingPreferences[contentId] = shouldNotify;
-                await setDoc(docRef, { upcoming_notifications: userUpcomingPreferences }, { merge: true });
-            } catch (error) {
-                console.error("Erro ao salvar preferência:", error);
-            }
-        }
-
 
         // --- Variáveis Globais e Configurações de UI ---
         
@@ -924,35 +899,32 @@
         const emptyMessage = document.getElementById('empty-message');
         const toggleGlobalNotifsBtn = document.getElementById('toggle-global-notifs');
         const heroBannerContainer = document.getElementById('hero-banner-container'); 
-        const reportErrorBtn = document.getElementById('report-error-btn'); // Botão Reportar na sidebar
+        const reportErrorBtn = document.getElementById('report-error-btn'); 
+        const upcomingPanel = document.getElementById('upcoming-panel'); // NOVO
+        const upcomingEmptyMessage = document.getElementById('upcoming-empty-message'); // NOVO
+        const upcomingCarouselsContainer = document.getElementById('upcoming-carousels-container'); // NOVO
+        const upcomingHeroBannerContainer = document.getElementById('upcoming-hero-banner-container'); // NOVO
 
-        // NOVOS ELEMENTOS DA SIDEBAR
         const legalNoticeModal = document.getElementById('legal-notice-modal');
         const legalNoticeBtn = document.getElementById('legal-notice-btn');
         const closeLegalNoticeBtn = document.getElementById('close-legal-notice-btn');
         const toggleContinueWatchingBtn = document.getElementById('toggle-continue-watching');
         const continueWatchingText = document.getElementById('continue-watching-text');
         
-        // Elementos do Link Copiável
         const copyLinkBtn = document.getElementById('copy-link-btn');
         const linkText = document.getElementById('link-text');
-
 
         const navPublicar = document.getElementById('nav-publicar');
         const navEditar = document.getElementById('nav-editar');
         const navFeedbacks = document.getElementById('nav-feedbacks'); 
         const navPublicarRapida = document.getElementById('nav-publicar-rapida'); // NOVO
+        const navUpcomingAdmin = document.getElementById('nav-upcoming-admin'); // NOVO
+        const upcomingAdminListContainer = document.getElementById('upcoming-admin-list-container'); // NOVO
         const publishArea = document.getElementById('publish-area');
         const quickPublishArea = document.getElementById('quick-publish-area'); // NOVO
         const editPanel = document.getElementById('edit-panel');
         const feedbacksPanel = document.getElementById('feedbacks-panel'); 
         const explorePanel = document.getElementById('explore-panel');
-        const upcomingPanel = document.getElementById('upcoming-panel'); // NOVO
-        const upcomingEmptyMessage = document.getElementById('upcoming-empty-message'); // NOVO
-        const upcomingCarouselsContainer = document.getElementById('upcoming-carousels-container'); // NOVO
-        const upcomingHeroBannerContainer = document.getElementById('upcoming-hero-banner-container'); // NOVO
-        const upcomingAdminListContainer = document.getElementById('upcoming-admin-list-container'); // NOVO
-        
         const publishSubmitBtn = document.getElementById('publish-submit-btn');
         const publishText = document.getElementById('publish-text');
         const loadingSpinner = document.getElementById('loading-spinner');
@@ -966,102 +938,80 @@
         const releaseDateTimeContainer = document.getElementById('release-date-time');
         const releaseDateInput = document.getElementById('release-date');
         const releaseTimeInput = document.getElementById('release-time');
-        const scheduleFields = document.getElementById('schedule-fields');
         
+        // Elementos de Publicação Rápida
+        const quickTmdbSearchInput = document.getElementById('quick-tmdb-search-input'); 
+        const quickTmdbResults = document.getElementById('quick-tmdb-results'); 
+        const quickContentListContainer = document.getElementById('quick-content-list'); 
+        const quickPublishForm = document.getElementById('quick-publish-form'); 
+        const quickPublishSubmitBtn = document.getElementById('quick-publish-submit-btn'); 
+        const quickPublishText = document.getElementById('quick-publish-text'); 
+        const quickLoadingSpinner = document.getElementById('quick-loading-spinner'); 
+        const quickIsUpcomingCheckbox = document.getElementById('quick-is-upcoming'); 
+        const quickReleaseDateTimeContainer = document.getElementById('quick-release-date-time'); 
+        const quickReleaseDateInput = document.getElementById('quick-release-date'); 
+        const quickReleaseTimeInput = document.getElementById('quick-release-time'); 
+        let selectedQuickPublishItems = []; 
+
         // Elementos do Novo Modal de Detalhes
         const detailModal = document.getElementById('content-detail-modal');
         const closeDetailModalBtn = document.getElementById('close-detail-modal-btn');
         const detailHeader = document.getElementById('detail-header');
         const detailTitle = document.getElementById('detail-title');
-        const detailTitleHeader = document.getElementById('detail-title-header'); // Novo para o título do header
+        const detailTitleHeader = document.createElement('h2'); // Elemento duplicado para o título do header
+
         const detailTypeYear = document.getElementById('detail-type-year');
         const detailGenres = document.getElementById('detail-genres');
         const detailSynopsis = document.getElementById('detail-synopsis');
         const detailActors = document.getElementById('detail-actors');
         const mainWatchBtn = document.getElementById('main-watch-btn');
         const watchBtnText = document.getElementById('watch-btn-text');
-        const watchIcon = document.getElementById('watch-icon');
         const seriesLinksPanel = document.getElementById('series-links-panel');
         const seasonsLinksContainer = document.getElementById('seasons-links-container');
         const seriesSeasonsBadge = document.getElementById('series-seasons-badge');
-        const upcomingBadge = document.getElementById('upcoming-badge'); // NOVO
-        const similarContentContainer = document.getElementById('similar-content-container'); // NOVO
-        const similarContentPanel = document.getElementById('similar-content-panel'); // NOVO
-        const noSimilarContent = document.getElementById('no-similar-content'); // NOVO
-
-        // Elementos do Modal de Feedback
-        const feedbackModal = document.getElementById('feedback-modal');
-        const feedbackForm = document.getElementById('feedback-form');
-        const feedbackCancelBtn = document.getElementById('feedback-cancel-btn');
-        const feedbackSubmitBtn = document.getElementById('feedback-submit-btn');
-        const feedbackSubmitText = document.getElementById('feedback-submit-text');
-        const feedbackLoadingSpinner = document.getElementById('feedback-loading-spinner');
+        const upcomingBadge = document.getElementById('upcoming-badge');
         
-        // Elementos de Publicação Rápida
-        const quickTmdbSearchInput = document.getElementById('quick-tmdb-search-input'); // NOVO
-        const quickTmdbResults = document.getElementById('quick-tmdb-results'); // NOVO
-        const quickContentListContainer = document.getElementById('quick-content-list'); // NOVO
-        const quickPublishForm = document.getElementById('quick-publish-form'); // NOVO
-        const quickPublishSubmitBtn = document.getElementById('quick-publish-submit-btn'); // NOVO
-        const quickPublishText = document.getElementById('quick-publish-text'); // NOVO
-        const quickLoadingSpinner = document.getElementById('quick-loading-spinner'); // NOVO
-        const quickIsUpcomingCheckbox = document.getElementById('quick-is-upcoming'); // NOVO
-        const quickReleaseDateTimeContainer = document.getElementById('quick-release-date-time'); // NOVO
-        const quickReleaseDateInput = document.getElementById('quick-release-date'); // NOVO
-        const quickReleaseTimeInput = document.getElementById('quick-release-time'); // NOVO
-        const quickPublishScheduleFields = document.getElementById('quick-publish-schedule-fields'); // NOVO
+        // NOVO: Notif Global Elements
+        const globalNotifsModal = document.getElementById('global-notifications-modal');
+        const notifsListContainer = document.getElementById('notifications-list');
+        const unreadNotifsCount = document.getElementById('unread-notifs-count');
+        const toggleNotifHistoryBtn = document.getElementById('toggle-notif-history');
+        let isHistoryView = false;
         
-        let selectedQuickPublishItems = []; // Array para o modo de publicação rápida
-        
+        // Global States
         const ADMIN_PASSWORD = 'leoleo';
         let isAdminMode = false;
         let contentType = 'movie'; // 'movie' ou 'series'
-        let currentAdminView = 'publicar'; // 'publicar' ou 'publicar-rapida' ou 'editar' ou 'feedbacks'
+        let currentAdminView = 'publicar';
         let currentActivePage = 'inicio';
         let currentFilters = { sort: 'popularidade', decade: 'todas', genre: 'todos' };
-        
-        let bannerInterval; // Intervalo para o banner rotativo
-        let currentBannerIndex = 0; // Índice atual do banner
-
-        // Lógica Continue Assistindo
+        let bannerInterval; 
+        let currentBannerIndex = 0; 
         const VIEWED_CONTENT_KEY = 'cinerave_viewed_content';
         const isContinueWatchingHiddenKey = 'cinerave_hide_continue_watching';
         let isContinueWatchingHidden = localStorage.getItem(isContinueWatchingHiddenKey) === 'true';
-
-        // Lógica de visualização de episódios
         const WATCHED_EPISODES_KEY = 'cinerave_watched_episodes';
         let watchedEpisodes = JSON.parse(localStorage.getItem(WATCHED_EPISODES_KEY) || '{}');
-        
-        // Lógica de Notificações Deletadas
-        const DELETED_NOTIFS_KEY = 'cinerave_deleted_notifs';
-        let localDeletedNotifs = JSON.parse(localStorage.getItem(DELETED_NOTIFS_KEY) || '[]');
-        
-        // Lógica de Notificação do Usuário (Local Storage para UX rápida)
-        const UPCOMING_PREFS_KEY = 'cinerave_upcoming_notifs';
-        let localUpcomingPrefs = JSON.parse(localStorage.getItem(UPCOMING_PREFS_KEY) || '{}');
-
-        // TMDB Config
         const TMDB_API_KEY = 'd0f7e2c414b1efff7b000ae9b681ed1b';
         const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
         const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-
-        // Gêneros estáticos (para a aba Explorar)
         const GENRES = [
             'Ação', 'Aventura', 'Animação', 'Comédia', 'Crime', 'Documentário',
             'Drama', 'Família', 'Fantasia', 'História', 'Terror', 'Música',
             'Mistério', 'Romance', 'Ficção científica', 'Cinema TV', 'Thriller',
-            'Guerra', 'Faroeste', 'LGBT', 'Novelas', 'Doramas', 'Reality Show' // Adicionado
+            'Guerra', 'Faroeste', 'LGBT', 'Novelas', 'Doramas', 'Reality Show'
         ];
-        
         const DECADAS = [
             'Todas', 'Anos 2020', 'Anos 2010', 'Anos 2000', 'Anos 90', 'Anos 80', 'Anos 70', 'Anos 60', 'Anos 50', 'Anos 40', 'Anos 30'
         ];
 
         // Exibe a versão
         document.getElementById('app-version-display').textContent = `Versão ${APP_VERSION}`;
-
+        
+        // Adiciona o título duplicado ao header do modal de detalhes (para centralizar em mobile)
+        document.getElementById('detail-header').querySelector('.absolute.inset-x-0.top-4.sm\\:top-8').prepend(detailTitleHeader);
+        
         // --- 2. Lógica do Tema (Dark/Light) ---
-
         function applyTheme(theme) {
             localStorage.setItem('theme', theme);
             if (theme === 'dark') {
@@ -1074,24 +1024,20 @@
                 moonIcon.classList.remove('hidden'); 
             }
         }
-        
         function toggleTheme() {
             const currentTheme = localStorage.getItem('theme') || 'light';
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             applyTheme(newTheme);
         }
-
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             applyTheme(savedTheme);
         } else {
             applyTheme('light');
         }
-        
         themeToggle.addEventListener('click', toggleTheme);
 
         // --- 3. Lógica do Menu Lateral (Sidebar) ---
-
         function toggleSidebar() {
             const isHidden = sidebar.classList.contains('-translate-x-full');
             if (isHidden) {
@@ -1104,10 +1050,8 @@
                 sidebarOverlay.classList.remove('opacity-50');
             }
         }
-
         menuToggle.addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
-
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 1024) {
                 sidebar.classList.remove('-translate-x-full');
@@ -1121,16 +1065,14 @@
             if (isAdminMode) return;
             currentActivePage = pageKey;
             
-            // Fecha o modal de notificações globais ao mudar de página
             if (globalNotifsModal.classList.contains('active')) {
                 toggleGlobalNotifications();
             }
 
             explorePanel.classList.add('hidden');
-            upcomingPanel.classList.add('hidden');
             defaultFeed.classList.add('hidden');
+            upcomingPanel.classList.add('hidden'); // NOVO: Esconde o painel Em Breve
             
-            // Gerencia o Banner Rotativo
             clearInterval(bannerInterval);
             heroBannerContainer.classList.add('hidden');
             upcomingHeroBannerContainer.classList.add('hidden');
@@ -1141,7 +1083,7 @@
             if (pageKey === 'explorar') {
                 explorePanel.classList.remove('hidden');
                 renderExploreContent();
-            } else if (pageKey === 'upcoming') {
+            } else if (pageKey === 'upcoming') { // NOVO: Lógica da aba Em Breve
                 upcomingPanel.classList.remove('hidden');
                 contentToRender = upcomingContent;
                 bannerContent = upcomingContent.filter(c => c.poster_url);
@@ -1154,9 +1096,9 @@
                 contentToRender = publishedContent;
                 
                 if (pageKey === 'inicio') {
-                    bannerContent = publishedContent.filter(c => c.type === 'movie' && c.poster_url); // Apenas Filmes no Início
+                    bannerContent = publishedContent.filter(c => c.type === 'movie' && c.poster_url);
                 } else if (pageKey === 'series') {
-                    bannerContent = publishedContent.filter(c => c.type === 'series' && c.poster_url); // Apenas Séries na aba Séries
+                    bannerContent = publishedContent.filter(c => c.type === 'series' && c.poster_url);
                 }
                 
                 startBannerRotation(heroBannerContainer, bannerContent, false);
@@ -1181,9 +1123,9 @@
             });
         });
         
-        // Função de renderização do Feed Principal (Início e Séries)
+        // Função de renderização do Feed Principal (Carrosséis)
         function renderFeedContent(pageKey, content = publishedContent) {
-            carouselFeedContainer.innerHTML = ''; // Limpa o feed
+            carouselFeedContainer.innerHTML = ''; 
             
             if (content.length === 0) {
                 emptyMessage.style.display = 'block';
@@ -1201,68 +1143,44 @@
             const allMovies = content.filter(c => c.type === 'movie');
             const allSeries = content.filter(c => c.type === 'series');
             
-            // 1. Definição dos Carrosséis de Gênero (Múltiplas Sessões)
-            // NOVO: Coleta todos os gêneros únicos e cria um carrossel para cada um que tenha pelo menos 5 itens
-            const allGenres = [...new Set(content.flatMap(c => c.genres.map(g => g.trim())))];
-            const dynamicCarousels = allGenres.map(genre => ({
-                 title: `${genre} em Destaque`, 
-                 genres: [genre]
-            })).filter(c => content.filter(item => hasGenre(item, c.genres)).length >= 5);
+            // 1. Coleta todos os gêneros únicos para gerar carrosséis dinâmicos
+            const contentOfType = content.filter(c => pageKey === 'inicio' ? true : c.type === 'series');
+            const allGenres = [...new Set(contentOfType.flatMap(c => c.genres.map(g => g.trim())))];
             
-            // Ordem de exibição dos carrosséis
-            const carouselOrder = [
-                { title: 'Adicionados Recentemente', type: 'recentes', filter: content }, // Sempre primeiro
-                { title: 'Continue Assistindo', type: 'continue', filter: [] }, // Se for série e não estiver oculto
-                ...dynamicCarousels // Carrosséis dinâmicos
-            ];
+            // Lista de gêneros em ordem de prioridade (para garantir os principais no topo)
+            const prioritizedGenres = ['Ação', 'Comédia', 'Terror', 'Drama', 'Romance', 'Ficção científica', 'Animação'];
+            const sortedGenres = [...new Set([...prioritizedGenres, ...allGenres])];
+
+
+            // 1. Adicionados Recentemente
+            const recentContent = contentOfType.sort((a, b) => b.updatedAt - a.updatedAt);
+            createCarousel(carouselFeedContainer, recentContent, pageKey === 'series' ? 'Séries Adicionadas Recentemente' : 'Adicionados Recentemente', 'recentes', false, false);
             
-            // Adiciona o carrossel de continue assistindo se as condições forem atendidas
+            // 2. Continue Assistindo (Apenas Série)
             if (pageKey === 'series' && !isContinueWatchingHidden) {
-                 const viewedContent = JSON.parse(localStorage.getItem(VIEWED_CONTENT_KEY) || '[]');
-                 const availableViewed = viewedContent
-                     .filter(v => v.type === 'series') 
-                     .map(v => allSeries.find(p => p.id === v.id))
-                     .filter(c => c);
-                 
-                 const continueWatchingCarousel = carouselOrder.find(c => c.type === 'continue');
-                 if (continueWatchingCarousel) {
-                      continueWatchingCarousel.filter = availableViewed;
-                      if (availableViewed.length > 0) {
-                          // Usa prepend para garantir que seja a primeira seção (depois dos recentes)
-                          // Vamos simplificar e deixar na ordem
-                      }
-                 }
+                const viewedContent = JSON.parse(localStorage.getItem(VIEWED_CONTENT_KEY) || '[]');
+                const availableViewed = viewedContent
+                    .filter(v => v.type === 'series') 
+                    .map(v => allSeries.find(p => p.id === v.id))
+                    .filter(c => c);
+                
+                if (availableViewed.length > 0) {
+                     createCarousel(carouselFeedContainer, availableViewed, 'Continue Assistindo', 'continue-watching', true, false);
+                }
             }
 
-
-            // Renderiza os carrosséis em ordem
-            carouselOrder.forEach(carousel => {
-                 let filteredContent = carousel.filter;
-                 let title = carousel.title;
-                 let id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                 
-                 if (carousel.type === 'recentes') {
-                     // Filtra por tipo de página e ordena por data
-                     filteredContent = content.filter(c => pageKey === 'inicio' ? true : c.type === 'series').sort((a, b) => b.updatedAt - a.updatedAt);
-                     title = pageKey === 'series' ? 'Séries Adicionadas Recentemente' : 'Adicionados Recentemente';
-                 } else if (carousel.type === 'continue' && pageKey !== 'series') {
-                     // Ignora 'Continue Assistindo' se não for a página de séries
-                     return; 
-                 } else if (carousel.type === 'continue') {
-                     if (filteredContent.length === 0) return; // Se não houver nada, não renderiza
-                 } else {
-                     // Carrosséis dinâmicos de gênero
-                     filteredContent = content.filter(c => (pageKey === 'inicio' ? true : c.type === 'series') && hasGenre(c, carousel.genres));
-                     if (filteredContent.length === 0) return;
-                 }
-                 
-                 if (filteredContent.length > 0) {
-                      createCarousel(carouselFeedContainer, filteredContent, title, id, carousel.type === 'continue');
+            // 3. Carrosséis de Gênero (Dinâmicos)
+            sortedGenres.forEach(genre => {
+                 const filteredContent = contentOfType.filter(c => hasGenre(c, [genre]));
+                 if (filteredContent.length >= 3) { // Mínimo de 3 para um carrossel
+                     const title = pageKey === 'series' ? `Séries de ${genre}` : `${genre} em Destaque`;
+                     const id = `${pageKey}-${genre.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                     createCarousel(carouselFeedContainer, filteredContent, title, id, false, false);
                  }
             });
         }
         
-        // Função de renderização para a aba "Em Breve" (NOVO)
+        // NOVO: Função de renderização para a aba "Em Breve"
         function renderUpcomingContent() {
              upcomingCarouselsContainer.innerHTML = '';
              
@@ -1273,34 +1191,31 @@
                  upcomingEmptyMessage.style.display = 'none';
              }
              
-             // Função utilitária para checar se algum gênero está contido (case insensitive e trim)
              const hasGenre = (item, genresToMatch) => {
                  const itemGenres = item.genres.map(g => g.trim().toLowerCase());
                  return genresToMatch.some(g => itemGenres.includes(g.trim().toLowerCase()));
              };
 
-             // 1. Adicionados Recentemente
+             // 1. Agendados Recentemente
              const recentUpcoming = upcomingContent.sort((a, b) => b.updatedAt - a.updatedAt);
-             createCarousel(upcomingCarouselsContainer, recentUpcoming, 'Agendados Recentemente', 'upcoming-recentes', false, true); // Último param é isUpcoming
+             createCarousel(upcomingCarouselsContainer, recentUpcoming, 'Agendados Recentemente', 'upcoming-recentes', false, true); 
              
              // 2. Carrosséis de Gênero (Dinâmicos)
              const allGenres = [...new Set(upcomingContent.flatMap(c => c.genres.map(g => g.trim())))];
-             const dynamicCarousels = allGenres.map(genre => ({
-                  title: `${genre} Em Breve`, 
-                  genres: [genre]
-             })).filter(c => upcomingContent.filter(item => hasGenre(item, c.genres)).length >= 3);
+             const prioritizedGenres = ['Ação', 'Comédia', 'Terror', 'Drama', 'Romance', 'Ficção científica', 'Animação'];
+             const sortedGenres = [...new Set([...prioritizedGenres, ...allGenres])];
              
-             dynamicCarousels.forEach(carousel => {
-                 const filteredContent = upcomingContent.filter(c => hasGenre(c, carousel.genres));
-                 if (filteredContent.length > 0) {
-                     const id = carousel.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                     createCarousel(upcomingCarouselsContainer, filteredContent, carousel.title, id, false, true);
+             sortedGenres.forEach(genre => {
+                 const filteredContent = upcomingContent.filter(c => hasGenre(c, [genre]));
+                 if (filteredContent.length >= 2) { // Mínimo de 2 para um carrossel Em Breve
+                     const id = `upcoming-${genre.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+                     createCarousel(upcomingCarouselsContainer, filteredContent, `${genre} Em Breve`, id, false, true);
                  }
              });
         }
 
 
-        // Função para criar um carrossel de posters (Melhorada para upcoming)
+        // Função para criar um carrossel de posters (Melhorada para upcoming e continue watching)
         function createCarousel(containerElement, contentArray, title, id, prepend = false, isUpcoming = false) {
              if (contentArray.length === 0) return;
 
@@ -1329,17 +1244,15 @@
 
                  posterDiv.addEventListener('click', () => showDetailModal(content));
                  
-                 // Selo de temporadas (apenas séries)
+                 // Selo de temporadas/agendamento
                  let badgeHTML = '';
-                 if (content.type === 'series' && content.seasons?.length > 0) {
+                 if (isUpcoming) {
+                      badgeHTML = `<span class="release-badge bg-yellow-500 text-black top-2 right-2">EM BREVE</span>`;
+                 } else if (content.type === 'series' && content.seasons?.length > 0) {
                      const count = content.seasons.length;
-                     badgeHTML = `<span class="release-badge bg-blue-500 top-2 right-2">${count}ª Temp.</span>`;
-                 } else if (isUpcoming) {
-                     // Selo Em Breve (apenas no carrossel de Em Breve)
-                      badgeHTML = `<span class="release-badge bg-yellow-500 text-black top-2 right-2">Em Breve</span>`;
+                     badgeHTML = `<span class="release-badge bg-blue-500 top-2 right-2">${count}ª TEMP.</span>`;
                  }
-
-                 // Nome do item no topo para melhor identificação no carrossel
+                 
                  posterDiv.innerHTML = `
                       ${badgeHTML}
                       <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-2 opacity-0 hover:opacity-100 transition duration-300">
@@ -1354,8 +1267,8 @@
 
         // --- 4.1. Lógica do Banner Rotativo (Hero Banner) ---
 
-        function startBannerRotation(container, contentArray, isUpcoming = false) {
-            const rotatableContent = contentArray.filter(c => c.poster_url && (c.backdrop_url || c.poster_url)); // Filtra por capa
+        function startBannerRotation(container, contentArray, isUpcoming) {
+            const rotatableContent = contentArray.filter(c => c.poster_url || c.backdrop_url);
             
             if (bannerInterval) {
                 clearInterval(bannerInterval);
@@ -1395,10 +1308,11 @@
             // NOVO: Badge de lançamento no banner
              let upcomingBadgeHTML = '';
              if (isUpcoming) {
-                 const releaseDate = content.releaseTimestamp ? new Date(content.releaseTimestamp).toLocaleString('pt-BR') : 'Data não definida';
+                 const releaseDate = content.releaseTimestamp ? new Date(content.releaseTimestamp).toLocaleDateString('pt-BR') : 'Data não definida';
+                 const releaseTime = content.releaseTimestamp ? new Date(content.releaseTimestamp).toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : '';
                  upcomingBadgeHTML = `
                      <p class="text-yellow-400 font-bold text-lg mb-2">Em Breve</p>
-                     <p class="text-white/80 text-sm mb-4">Lançamento: ${releaseDate}</p>
+                     <p class="text-white/80 text-sm mb-4">Lançamento: ${releaseDate} ${releaseTime}</p>
                  `;
              }
             
@@ -1414,7 +1328,7 @@
                         <h3 class="text-white text-3xl sm:text-4xl font-extrabold mb-1">${content.title}</h3>
                         <p class="text-white/80 text-sm mb-4 line-clamp-2">${content.synopsis}</p>
                         <button id="banner-action-btn-${content.id}" 
-                                class="w-auto py-2 px-6 bg-red-600 text-white font-bold rounded-lg shadow-md hover:bg-red-700 transition duration-300 self-start">
+                                class="w-auto py-2 px-6 ${isUpcoming ? 'bg-blue-600 hover:bg-blue-700' : 'bg-red-600 hover:bg-red-700'} text-white font-bold rounded-lg shadow-md transition duration-300 self-start">
                             ${buttonText}
                         </button>
                     </div>
@@ -1425,7 +1339,6 @@
             const currentBannerElement = document.getElementById('current-hero-banner');
             const actionBtn = document.getElementById(`banner-action-btn-${content.id}`);
             
-            // Abre o modal ao clicar no banner inteiro
             currentBannerElement.addEventListener('click', (e) => {
                  if (e.target.id === `banner-action-btn-${content.id}` || e.target.closest(`#banner-action-btn-${content.id}`)) {
                       return; 
@@ -1433,12 +1346,10 @@
                  showDetailModal(content);
             });
             
-            // Ação específica do botão
             actionBtn.addEventListener('click', (e) => {
                  e.stopPropagation(); 
                  if (isUpcoming) {
                       toggleUpcomingNotification(content.id);
-                      // Simplesmente atualiza o banner para refletir o novo estado de notificação
                       setTimeout(() => updateHeroBanner(container, contentArray, isUpcoming), 300);
                  } else {
                       showDetailModal(content);
@@ -1447,13 +1358,10 @@
         }
         
         // NOVO: Alterna a notificação do conteúdo Em Breve
-        async function toggleUpcomingNotification(contentId) {
+        function toggleUpcomingNotification(contentId) {
              const willNotify = !localUpcomingPrefs[contentId];
              localUpcomingPrefs[contentId] = willNotify;
              localStorage.setItem(UPCOMING_PREFS_KEY, JSON.stringify(localUpcomingPrefs));
-
-             // Tenta sincronizar com o Firebase (para rastreamento no futuro)
-             await updateUserPreference(contentId, willNotify);
 
              window.alert(willNotify 
                  ? "Notificação ativada! Você será avisado quando o conteúdo for lançado." 
@@ -1475,9 +1383,9 @@
         const deleteItemTitle = document.getElementById('delete-item-title');
         const deleteConfirmBtn = document.getElementById('delete-confirm-btn');
         const deleteCancelBtn = document.getElementById('delete-cancel-btn');
-        let itemToDelete = null; // Armazena o objeto para exclusão (Conteúdo)
-        let itemToDeleteId = null; // ID do item a ser excluído
-        let itemToDeleteType = null; // 'content' or 'feedback'
+        let itemToDelete = null; 
+        let itemToDeleteId = null; 
+        let itemToDeleteType = null; 
 
         function showDeleteModal(content) {
             itemToDelete = content;
@@ -1494,33 +1402,19 @@
             deleteConfirmationModal.classList.remove('active');
         }
         
-        // NOVO: Exibir modal de exclusão para Feedback
         window.promptDeleteFeedback = (docId) => {
             itemToDeleteId = docId;
             itemToDeleteType = 'feedback';
             deleteItemTitle.textContent = "este feedback";
             deleteConfirmationModal.classList.add('active');
         }
-        
-        // NOVO: Exibir modal de exclusão para Notificação (Histórico)
-        window.promptDeleteNotif = (docId) => {
-            itemToDeleteId = docId;
-            itemToDeleteType = 'notif-history';
-            deleteItemTitle.textContent = "esta notificação do histórico";
-            deleteConfirmationModal.classList.add('active');
-        }
 
         deleteCancelBtn.addEventListener('click', hideDeleteModal);
         deleteConfirmBtn.addEventListener('click', () => {
             if (itemToDeleteType === 'content' && itemToDelete) {
-                // Exclusão de Conteúdo
                 window.deleteContent(itemToDelete.id, itemToDelete.title, itemToDelete.poster_url, itemToDelete.type);
             } else if (itemToDeleteType === 'feedback' && itemToDeleteId) {
-                // Exclusão de Feedback
                 window.deleteFeedback(itemToDeleteId);
-            } else if (itemToDeleteType === 'notif-history' && itemToDeleteId) {
-                // Exclusão do Histórico de Notificação
-                window.deleteNotificationFromHistory(itemToDeleteId);
             }
             hideDeleteModal();
         });
@@ -1550,17 +1444,17 @@
             navTabsContainer.classList.add('hidden');
             defaultFeed.classList.add('hidden');
             explorePanel.classList.add('hidden');
-            upcomingPanel.classList.add('hidden');
+            upcomingPanel.classList.add('hidden'); // NOVO: Esconde o painel Em Breve
             adminPanel.classList.remove('hidden');
-            renderAdminView('publicar'); // Define 'Publicar' como default
-            clearInterval(bannerInterval); // Para a rotação do banner
+            renderAdminView('publicar'); 
+            clearInterval(bannerInterval); 
         }
 
         function exitAdminMode() {
             isAdminMode = false;
             navTabsContainer.classList.remove('hidden');
             adminPanel.classList.add('hidden');
-            renderPage('inicio'); // Volta para a página inicial
+            renderPage('inicio'); 
         }
         
         exitAdminBtn.addEventListener('click', exitAdminMode);
@@ -1602,18 +1496,16 @@
             }
         });
 
-        // --- 6. Lógica de Navegação Interna do Admin (ADICIONADO NOVO PAINEL) ---
+        // --- 6. Lógica de Navegação Interna do Admin ---
 
         function renderAdminView(view) {
             currentAdminView = view;
             
-            // Remove as classes de destaque/opacidade de todos os botões de navegação
             document.querySelectorAll('.admin-nav-btn').forEach(btn => {
                 btn.classList.add('opacity-70', 'transform', 'hover:scale-[1.03]');
                 btn.classList.remove('scale-100');
             });
             
-            // Adiciona o destaque ao botão ativo
             const activeBtn = document.getElementById(`nav-${view}`);
             if (activeBtn) {
                 activeBtn.classList.remove('opacity-70');
@@ -1627,11 +1519,12 @@
             quickPublishArea.classList.add('hidden'); // NOVO
             editPanel.classList.add('hidden');
             feedbacksPanel.classList.add('hidden'); 
-            upcomingAdminListContainer.closest('.hidden')?.classList.add('hidden'); // Esconde o painel de agendamento (pai)
-            
+            document.getElementById('upcoming-admin-panel').classList.add('hidden'); // NOVO
+            contentDocIdInput.value = ''; 
+
             // Limpa o formulário de publicação normal e o ID de edição ao trocar de aba (exceto edição para publicação)
              if (view !== 'publicar') {
-                  contentDocIdInput.value = ''; // Sai do modo edição
+                  contentDocIdInput.value = ''; 
                   setContentType(contentType); // Limpa/Reseta o formulário
              }
              
@@ -1645,27 +1538,25 @@
             if (view === 'publicar') {
                 publishArea.classList.remove('hidden');
                 setContentType(contentType); 
-            } else if (view === 'publicar-rapida') { // NOVO
+            } else if (view === 'publicar-rapida') { 
                  quickPublishArea.classList.remove('hidden');
-                 quickPublishScheduleFields.classList.add('hidden');
             } else if (view === 'editar') {
                 editPanel.classList.remove('hidden');
-                // Re-renderiza a lista de edições
-                renderEditList(allContent.filter(c => !c.is_upcoming));
+                // A lista é renderizada pelo listener, mas a função renderEditList garante a filtragem dos "publicados"
+                renderEditList(allContent); 
             } else if (view === 'upcoming-admin') { // NOVO
-                 upcomingAdminListContainer.closest('.hidden')?.classList.remove('hidden');
-                 renderUpcomingAdminList(upcomingContent);
+                 document.getElementById('upcoming-admin-panel').classList.remove('hidden');
+                 renderEditList(allContent); // A função renderEditList separa em duas listas (publishedContent e upcomingContent)
             } else if (view === 'feedbacks') {
                 feedbacksPanel.classList.remove('hidden');
             }
         }
 
         navPublicar.addEventListener('click', () => renderAdminView('publicar'));
-        navPublicarRapida.addEventListener('click', () => renderAdminView('publicar-rapida')); // NOVO
+        navPublicarRapida.addEventListener('click', () => renderAdminView('publicar-rapida')); 
         navEditar.addEventListener('click', () => renderAdminView('editar'));
         navFeedbacks.addEventListener('click', () => renderAdminView('feedbacks'));
-        // Botão para o painel de conteúdo agendado
-        // navAgendamento.addEventListener('click', () => renderAdminView('upcoming-admin')); // Adicionado na função de filtros
+        navUpcomingAdmin.addEventListener('click', () => renderAdminView('upcoming-admin')); // NOVO
 
 
         // --- 7. Lógica do Formulário de Publicação (Filme/Série) ---
@@ -1688,7 +1579,7 @@
             releaseDate: releaseDateInput, // NOVO
             releaseTime: releaseTimeInput, // NOVO
             tmdbId: null,
-            docId: contentDocIdInput, // Referência ao campo de ID
+            docId: contentDocIdInput,
         };
         
         // Lógica de Agendamento (NOVO)
@@ -1709,7 +1600,7 @@
         // Função para limpar e configurar os campos
         function setContentType(type) {
             const isUpdate = !!fields.docId.value;
-            contentType = type; // Atualiza a variável global
+            contentType = type; 
 
             formTitle.textContent = isUpdate 
                 ? (type === 'movie' ? 'Editar Filme' : 'Editar Série') 
@@ -1717,32 +1608,34 @@
             
             // Corrige o texto do botão com base no agendamento e modo de edição
             if (fields.isUpcoming.checked) {
+                 publishSubmitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                 publishSubmitBtn.classList.add('bg-yellow-600', 'hover:bg-yellow-700');
                 publishSubmitBtn.textContent = isUpdate ? 'Atualizar Agendamento' : 'Agendar Conteúdo';
             } else {
+                 publishSubmitBtn.classList.remove('bg-yellow-600', 'hover:bg-yellow-700');
+                 publishSubmitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
                 publishSubmitBtn.textContent = isUpdate ? 'Atualizar Conteúdo' : 'Publicar Conteúdo';
             }
             
             // Se estamos mudando o TIPO e NÃO estamos no modo edição (apenas criando novo), limpamos os campos base.
             if (!isUpdate) {
                 Object.values(fields).forEach(input => {
-                     // Verifica se é um elemento DOM e se não é o docId
                     if (input && input.tagName !== undefined && input.id !== 'content-doc-id' && input.type !== 'checkbox') input.value = '';
                 });
                 fields.isUpcoming.checked = false;
+                fields.releaseDate.value = '';
+                fields.releaseTime.value = '';
                 fields.tmdbId = null;
                 tmdbSearchInput.value = '';
                 tmdbResults.classList.add('hidden');
                 posterPreview.innerHTML = 'Poster';
                 posterPreview.style.backgroundImage = 'none';
-                posterPreview.style.backgroundColor = '';
+                posterPreview.removeAttribute('data-poster-url');
+                posterPreview.removeAttribute('data-backdrop-url');
                 
-                // Reseta cores e texto do botão
-                publishSubmitBtn.classList.remove('bg-yellow-600', 'hover:bg-yellow-700');
-                publishSubmitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
                 releaseDateTimeContainer.classList.add('hidden');
             }
 
-            // Garante que o botão de tipo esteja destacado
             contentTypeBtns.forEach(btn => {
                 btn.classList.remove('bg-accent-theme', 'text-white');
                 if (btn.dataset.type === type) {
@@ -1750,10 +1643,8 @@
                 }
             });
             
-            // Renderiza os campos dinâmicos (vazios se não estiver em modo edição)
             renderDynamicFields();
             
-            // Reabilita o botão se já houver TMDB ID, ou se estiver em edição
             if (fields.tmdbId || isUpdate) {
                 publishSubmitBtn.disabled = false;
             } else {
@@ -1765,7 +1656,7 @@
             btn.addEventListener('click', () => setContentType(btn.dataset.type));
         });
 
-        // --- Geração de Campos Dinâmicos (Links / Temporadas) ---
+        // --- Geração de Campos Dinâmicos (Links / Temporadas) (Mantido o original, exceto correção de URL type) ---
         
         function renderDynamicFields() {
             dynamicFields.innerHTML = '';
@@ -1780,13 +1671,12 @@
             dynamicFields.innerHTML = `
                 <h4 class="text-xl font-semibold mt-6 mb-4 border-b pb-2">Links (Manuais)</h4>
                 <div id="movie-links-container" class="space-y-4">
-                    </div>
+                </div>
                 <button type="button" id="add-link-btn" class="mt-4 w-full py-2 px-4 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-200">
                     Adicionar Novo Link de Filme
                 </button>
             `;
             document.getElementById('add-link-btn').addEventListener('click', addMovieLinkField);
-            // Se não estivermos em modo edição, adiciona um link padrão
             if (!fields.docId.value) {
                 addMovieLinkField();
             }
@@ -1796,7 +1686,6 @@
             const linkField = document.createElement('div');
             linkField.className = 'p-4 rounded-lg bg-secondary-theme/80 flex flex-col space-y-3';
             
-            // Se não for o primeiro episódio, esconde os inputs de qualidade e idioma para autocompletar.
             const hiddenClass = isEpisodeOne ? '' : ' hidden'; 
 
             linkField.innerHTML = `
@@ -1826,7 +1715,7 @@
 
         function addMovieLinkField(linkData = {}) {
             const container = document.getElementById('movie-links-container');
-            const newLink = createLinkField(linkData, true); // Filmes sempre exibem os campos
+            const newLink = createLinkField(linkData, true); 
             container.appendChild(newLink);
             newLink.querySelector('.remove-link-btn').addEventListener('click', () => {
                 newLink.remove();
@@ -1841,19 +1730,16 @@
                     <input type="number" id="num-seasons" min="1" value="${seriesData?.seasons?.length || 1}" class="input-style w-24" required>
                 </div>
                 <div id="seasons-container" class="space-y-8">
-                    </div>
+                </div>
                 <button type="button" id="add-season-btn" class="mt-6 py-2 px-4 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-200">
                     Adicionar Nova Temporada
                 </button>
             `;
             
             const numSeasonsInput = document.getElementById('num-seasons');
-            
             document.getElementById('add-season-btn').addEventListener('click', addManualSeasonPanel);
-            
             numSeasonsInput.addEventListener('change', () => updateSeasonsBasedOnInput(seriesData));
             
-            // Inicializa ou preenche com dados
             if (seriesData && seriesData.seasons && seriesData.seasons.length > 0) {
                 seriesData.seasons.forEach(season => addSeasonPanel(season.number, season.episodes));
             } else {
@@ -1870,7 +1756,6 @@
                 const existingSeason = seriesData?.seasons?.find(s => s.number === i);
                 addSeasonPanel(i, existingSeason?.episodes);
             }
-            // Renumerar após reconstrução (garante ordem correta)
             renumberSeasons();
         }
         
@@ -1882,7 +1767,6 @@
             addSeasonPanel(currentNum);
         }
         
-        // NOVO: Função para reenumerar temporadas e seus inputs/episódios
         function renumberSeasons() {
             const seasonPanels = document.querySelectorAll('#seasons-container > .season-panel');
             seasonPanels.forEach((panel, index) => {
@@ -1893,10 +1777,6 @@
                 const numEpisodesInput = panel.querySelector('.num-episodes-input');
                 numEpisodesInput.dataset.season = newSeasonNum;
                 
-                const addEpisodeBtn = panel.querySelector('.add-episode-btn');
-                addEpisodeBtn.dataset.season = newSeasonNum;
-
-                // Renumerar episódios dentro da temporada (se for o caso)
                 const episodeContainer = panel.querySelector('.episodes-container');
                 const episodeFields = episodeContainer.querySelectorAll('.episode-field');
                 
@@ -1908,16 +1788,20 @@
                     const selectQualidade = epField.querySelector('[name="qualidade"]');
                     const selectIdioma = epField.querySelector('[name="idioma"]');
 
-                    if (isEpisodeOne) {
-                        selectQualidade.classList.remove('hidden');
-                        selectIdioma.classList.remove('hidden');
-                    } else if (selectQualidade.hasAttribute('data-auto-filled')) {
-                        selectQualidade.classList.add('hidden');
-                        selectIdioma.classList.add('hidden');
+                    if (selectQualidade) {
+                         if (isEpisodeOne) {
+                             selectQualidade.classList.remove('hidden');
+                             selectIdioma.classList.remove('hidden');
+                         } else if (selectQualidade.hasAttribute('data-auto-filled')) {
+                             selectQualidade.classList.add('hidden');
+                             selectIdioma.classList.add('hidden');
+                         }
                     }
                 });
             });
-            document.getElementById('num-seasons').value = seasonPanels.length;
+            if (document.getElementById('num-seasons')) {
+                 document.getElementById('num-seasons').value = seasonPanels.length;
+            }
         }
 
 
@@ -1942,7 +1826,7 @@
                     <input type="number" min="1" value="${initialEpisodeCount}" class="num-episodes-input input-style w-24" data-season="${seasonNum}" required>
                 </div>
                 <div class="episodes-container space-y-3 border-t pt-4 mt-4" data-season="${seasonNum}">
-                    </div>
+                </div>
                 <button type="button" class="add-episode-btn py-1 px-3 rounded-lg bg-gray-500 text-white text-sm hover:bg-gray-600 transition duration-200" data-season="${seasonNum}">
                     Adicionar Novo Episódio Manualmente
                 </button>
@@ -1959,8 +1843,6 @@
 
             const updateEpisodes = () => {
                 const numEpisodes = parseInt(numEpisodesInput.value) || 0;
-                
-                // Salva a referência dos dados do EP 1 antes de limpar, se existirem
                 const ep1LinkFields = episodeContainer.querySelector('.episode-field:first-child');
                 const firstEpisodeLinkData = ep1LinkFields ? {
                     qualidade: ep1LinkFields.querySelector('[name="qualidade"]').value,
@@ -1969,7 +1851,7 @@
                 } : {};
 
 
-                episodeContainer.innerHTML = ''; // Limpa antes de reconstruir
+                episodeContainer.innerHTML = ''; 
 
                 for (let i = 1; i <= numEpisodes; i++) {
                     const existingEpisode = episodesData.find(e => e.number === i);
@@ -1978,14 +1860,12 @@
                     let linkData = existingEpisode?.links?.[0] || {};
                     
                     if (!isEpisodeOne && Object.keys(linkData).length === 0) {
-                         // Se não for o primeiro e não houver dados salvos, usa o que foi digitado no EP 1
                          linkData = firstEpisodeLinkData;
                     }
 
                     addEpisodeLinkField(episodeContainer, seasonNum, i, linkData, isEpisodeOne);
                 }
                 
-                // Adiciona listeners para autocompletar no EP 1 se ele existir
                 if (numEpisodes > 0) {
                     const ep1SelectQualidade = episodeContainer.querySelector('.episode-field [name="qualidade"]');
                     const ep1SelectIdioma = episodeContainer.querySelector('.episode-field [name="idioma"]');
@@ -1995,9 +1875,8 @@
                             const qualidade = ep1SelectQualidade.value;
                             const idioma = ep1SelectIdioma.value;
                             
-                            // Atualiza os inputs ocultos nos episódios subsequentes
                             episodeContainer.querySelectorAll('.episode-field').forEach((field, idx) => {
-                                if (idx > 0) { // Ignora o primeiro episódio
+                                if (idx > 0) { 
                                     field.querySelector('[name="qualidade"]').value = qualidade;
                                     field.querySelector('[name="idioma"]').value = idioma;
                                 }
@@ -2017,7 +1896,6 @@
                 currentEpisodeCount++;
                 numEpisodesInput.value = currentEpisodeCount; 
                 
-                // Novo episódio manual (usa a lógica de autocompletar se EP1 existir)
                 const ep1SelectQualidade = episodeContainer.querySelector('.episode-field [name="qualidade"]');
                 const ep1SelectIdioma = episodeContainer.querySelector('.episode-field [name="idioma"]');
 
@@ -2029,7 +1907,6 @@
                     };
                 }
 
-                // Adiciona o novo episódio
                 addEpisodeLinkField(episodeContainer, seasonNum, currentEpisodeCount, linkData, false);
                 renumberSeasons();
             });
@@ -2040,14 +1917,13 @@
 
         function removeSeason(seasonPanel) {
             seasonPanel.remove();
-            renumberSeasons(); // Renumera após a remoção
+            renumberSeasons(); 
         }
         
         function removeEpisodeField(episodeField) {
             const seasonPanel = episodeField.closest('.season-panel');
             episodeField.remove();
             
-            // Renumerar episódios restantes na temporada
             const episodeContainer = seasonPanel.querySelector('.episodes-container');
             const numEpisodesInput = seasonPanel.querySelector('.num-episodes-input');
             
@@ -2058,38 +1934,35 @@
                  const newEpNum = epIndex + 1;
                  epField.querySelector('h6').textContent = `Episódio ${newEpNum}`;
                  
-                 // Lógica para garantir que o NOVO EP 1 tenha os campos visíveis.
                  const isEpisodeOne = (newEpNum === 1);
                  const selectQualidade = epField.querySelector('[name="qualidade"]');
                  const selectIdioma = epField.querySelector('[name="idioma"]');
 
-                 if (isEpisodeOne) {
-                     selectQualidade.classList.remove('hidden');
-                     selectIdioma.classList.remove('hidden');
-                 } else if (selectQualidade.hasAttribute('data-auto-filled')) {
-                     selectQualidade.classList.add('hidden');
-                     selectIdioma.classList.add('hidden');
+                 if (selectQualidade) {
+                     if (isEpisodeOne) {
+                         selectQualidade.classList.remove('hidden');
+                         selectIdioma.classList.remove('hidden');
+                     } else if (selectQualidade.hasAttribute('data-auto-filled')) {
+                         selectQualidade.classList.add('hidden');
+                         selectIdioma.classList.add('hidden');
+                     }
                  }
             });
-            renumberSeasons(); // Chama o renumber global para garantir a contagem de temporadas
+            renumberSeasons(); 
         }
 
-        // Adiciona o parâmetro isEpisodeOne
         function addEpisodeLinkField(container, seasonNum, episodeNum, linkData = {}, isEpisodeOne = false) {
             const episodeField = document.createElement('div');
             episodeField.className = 'episode-field p-3 rounded-lg bg-secondary-theme/90 flex flex-col space-y-2 border';
             
-            // Reutiliza o createLinkField e injeta os dados de link
             const linkField = createLinkField(linkData, isEpisodeOne);
             
-            // Ajusta o botão de remover para chamar a função correta
             const removeButtonHTML = `<div class="flex justify-end pt-2">
                 <button type="button" class="remove-episode-btn text-red-500 hover:text-red-700 p-1 rounded transition duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                 </button>
             </div>`;
             
-            // Remove o botão de link field original e adiciona o de episode field
             let linkFieldHTML = linkField.innerHTML;
             linkFieldHTML = linkFieldHTML.replace(/<div class="flex justify-end">[\s\S]*?<\/button>\s*<\/div>/, '');
 
@@ -2106,7 +1979,7 @@
         }
 
 
-        // --- 8. Lógica de Busca TMDB --- (Mantida)
+        // --- 8. Lógica de Busca TMDB --- (CORRIGIDO)
         
         async function fetchTMDB(endpoint, queryParams = {}) {
             const url = new URL(`${TMDB_BASE_URL}/${endpoint}`);
@@ -2124,6 +1997,7 @@
             }
         }
         
+        // Lógica de busca para o formulário principal
         let searchTimeout;
         tmdbSearchInput.addEventListener('input', () => {
             clearTimeout(searchTimeout);
@@ -2176,8 +2050,7 @@
             
             const newType = item.media_type === 'movie' ? 'movie' : 'series';
             if (newType !== contentType) {
-                // Se o tipo mudou, reinicia a lógica para o novo tipo
-                fields.docId.value = ''; // Garante que não está em modo edição
+                fields.docId.value = ''; 
                 setContentType(newType); 
             }
             
@@ -2190,9 +2063,10 @@
                 .slice(0, 5)
                 .map(a => a.name)
                 .join(', ');
-                
+            
+            // NOVO: Adiciona backdrop URL para banners
             const backdropUrl = details.backdrop_path ? `${TMDB_IMAGE_BASE_URL.replace('w500', 'original')}${details.backdrop_path}` : null;
-                
+
             fields.title.value = item.media_type === 'movie' ? item.title : item.name;
             fields.synopsis.value = details.overview || item.overview || 'Sinopse não disponível.';
             fields.releaseYear.value = item.media_type === 'movie' 
@@ -2207,24 +2081,21 @@
             posterPreview.style.backgroundPosition = 'center';
             posterPreview.style.width = '96px';
             posterPreview.style.height = '144px';
-            posterPreview.dataset.posterUrl = TMDB_IMAGE_BASE_URL + item.poster_path; // Salva o URL para o formulário
-            posterPreview.dataset.backdropUrl = backdropUrl; // Salva a capa horizontal
-
-            // Habilita o botão de publicação/edição após a seleção bem-sucedida
+            
+            // NOVO: Salva os URLs no dataset para uso posterior na submissão
+            posterPreview.dataset.posterUrl = TMDB_IMAGE_BASE_URL + item.poster_path;
+            posterPreview.dataset.backdropUrl = backdropUrl;
+            
             publishSubmitBtn.disabled = false;
         }
         
         // --- 9. Lógica de Publicação/Edição Final (Firestore) ---
         
-        // Função para preencher o formulário com dados existentes (para Edição)
         window.loadContentForEdit = (content) => {
-            renderAdminView('publicar'); // Abre o painel de publicação
+            renderAdminView('publicar');
             
             const type = content.type;
-            
-            // Define o tipo antes de preencher os campos dinâmicos
             contentType = type;
-            // Garante que os botões de tipo estejam corretos
             contentTypeBtns.forEach(btn => {
                 btn.classList.remove('bg-accent-theme', 'text-white');
                 if (btn.dataset.type === type) {
@@ -2232,7 +2103,6 @@
                 }
             });
 
-            // Preenche campos base
             fields.docId.value = content.id;
             fields.tmdbId = content.tmdb_id;
             fields.title.value = content.title;
@@ -2260,7 +2130,7 @@
             }
 
 
-            publishSubmitBtn.disabled = false; // Garante que o botão esteja ativo na edição
+            publishSubmitBtn.disabled = false; 
 
             // Atualiza Poster
             posterPreview.innerHTML = '';
@@ -2274,22 +2144,19 @@
             
             // Preenche campos dinâmicos (Links ou Séries)
             if (type === 'movie') {
-                renderMovieLinksPanel(); // Renderiza o painel de links vazio
+                renderMovieLinksPanel(); 
                 const container = document.getElementById('movie-links-container');
-                container.innerHTML = ''; // Limpa o default
+                container.innerHTML = ''; 
                 content.links.forEach(link => addMovieLinkField(link));
             } else if (type === 'series') {
-                // Chamada de renderização da série com os dados.
                 renderSeriesSetupPanel(content);
             }
         }
         
-        // Função chamada pelo botão "Editar" na lista
         window.editContent = (docId) => {
-            const content = allContent.find(c => c.id === docId);
+            const content = allContent.find(c => c.id === docId); // Busca em todo o conteúdo
             if (content) {
                 window.loadContentForEdit(content);
-                // Fecha a sidebar no mobile se estiver aberta
                 if (window.innerWidth < 1024 && !sidebar.classList.contains('-translate-x-full')) {
                     toggleSidebar();
                 }
@@ -2298,7 +2165,6 @@
             }
         }
 
-        // Função para coletar os dados do formulário
         function collectFormData() {
             const data = {
                 type: contentType,
@@ -2308,29 +2174,27 @@
                 year: fields.releaseYear.value,
                 genres: fields.genres.value.split(',').map(g => g.trim()).filter(g => g),
                 actors: fields.actors.value.split(',').map(a => a.trim()).filter(a => a),
-                poster_url: posterPreview.dataset.posterUrl || '', // Usa o dataset
-                backdrop_url: posterPreview.dataset.backdropUrl || '', // Usa o dataset NOVO
+                poster_url: posterPreview.dataset.posterUrl || '',
+                backdrop_url: posterPreview.dataset.backdropUrl || '',
                 updatedAt: Date.now(),
                 userId: userId,
-                is_upcoming: fields.isUpcoming.checked, // NOVO
+                is_upcoming: fields.isUpcoming.checked, 
+                releaseTimestamp: null,
             };
             
             // Lógica de Agendamento (NOVO)
             if (data.is_upcoming) {
                  const releaseDate = fields.releaseDate.value;
-                 const releaseTime = fields.releaseTime.value || '00:00'; // Padrão 00:00
+                 const releaseTime = fields.releaseTime.value || '00:00'; 
                  
                  if (!releaseDate) { throw new Error('Se a opção "Em Breve" está marcada, a data de lançamento é obrigatória.'); }
                  
-                 // Combina data e hora e armazena como Timestamp
                  const releaseDateTime = new Date(`${releaseDate}T${releaseTime}:00`);
                  data.releaseTimestamp = releaseDateTime.getTime();
                  
-                 if (data.releaseTimestamp < Date.now()) {
+                 if (data.releaseTimestamp < Date.now() && !fields.docId.value) { // Permite editar um agendamento vencido
                      throw new Error('A data de lançamento não pode ser no passado ao agendar.');
                  }
-            } else {
-                 data.releaseTimestamp = null;
             }
             
             if (contentType === 'movie') {
@@ -2354,16 +2218,13 @@
                     
                     const episodeFields = seasonPanel.querySelectorAll('.episode-field');
                     
-                    // 1. Obtém os valores de qualidade e idioma do PRIMEIRO episódio (que são visíveis)
                     const firstEpisodeField = episodeFields[0];
                     const defaultQualidade = firstEpisodeField ? firstEpisodeField.querySelector('[name="qualidade"]').value : '';
                     const defaultIdioma = firstEpisodeField ? firstEpisodeField.querySelector('[name="idioma"]').value : '';
 
-                    // 2. Itera sobre todos os episódios para coletar links e aplicar os valores padrão
-                    episodeFields.forEach((episodeField, eIndex) => {
+                    episodeFields.forEach((episodeField) => {
                         
                         const linkData = {
-                            // Usa os valores do primeiro episódio para QUALIDADE e IDIOMA
                             qualidade: defaultQualidade,
                             idioma: defaultIdioma,
                             url: episodeField.querySelector('[name="url"]').value,
@@ -2413,7 +2274,7 @@
             }
             
             const isUpdate = !!fields.docId.value;
-            setPublishButtonState(true, isUpdate, fields.isUpcoming.checked); // Inicia o loading
+            setPublishButtonState(true, isUpdate, fields.isUpcoming.checked); 
 
             try {
                 const contentData = collectFormData();
@@ -2423,7 +2284,6 @@
                 let isScheduled = contentData.is_upcoming;
 
                 if (!isUpdate) {
-                    // MODO PUBLICAÇÃO (CRIAÇÃO): Checa Duplicatas
                     const q = query(collection(db, PUBLIC_CONTENT_COLLECTION_PATH), where("tmdb_id", "==", contentData.tmdb_id));
                     const querySnapshot = await getDocs(q);
                     
@@ -2431,46 +2291,30 @@
                         throw new Error("Este conteúdo (TMDB ID) já foi publicado. Use a aba 'Editar'.");
                     }
                     
-                    // Publicação
                     finalDocRef = doc(collection(db, PUBLIC_CONTENT_COLLECTION_PATH));
                     contentData.createdAt = Date.now();
                     await setDoc(finalDocRef, contentData);
                     eventType = isScheduled ? 'agendado' : 'publicado';
                 } else {
-                    // MODO EDIÇÃO (ATUALIZAÇÃO)
                     finalDocRef = doc(db, PUBLIC_CONTENT_COLLECTION_PATH, docId);
                     await setDoc(finalDocRef, contentData, { merge: true });
                     eventType = isScheduled ? 'agendamento_atualizado' : 'atualizado';
-                    
-                    // Se estiver em modo agendamento, mas o conteúdo não estava antes, envia notificação de agendamento.
-                    const existingContent = allContent.find(c => c.id === docId);
-                    if (isScheduled && !existingContent?.is_upcoming) {
-                        eventType = 'agendado';
-                    }
-                    // Se estava agendado e não está mais, força a notificação de publicado.
-                    if (!isScheduled && existingContent?.is_upcoming) {
-                         eventType = 'publicado';
-                    }
                 }
                 
-                // Dispara Notificação (somente se houver userId)
-                if (userId && !isScheduled) { // Só notifica imediatamente se for publicado/atualizado (não agendado)
+                // Dispara Notificação (se for publicado e não agendado)
+                if (userId && !isScheduled) { 
                     await sendNotification({
                         type: eventType,
                         title: contentData.title,
                         poster_url: contentData.poster_url,
                         item_type: contentData.type,
-                        content_id: finalDocRef.id // Adiciona o ID do conteúdo
+                        content_id: finalDocRef.id
                     });
-                } else if (userId && isScheduled) {
-                    // Notificação de agendamento (apenas um aviso no admin se necessário)
-                    console.log(`Conteúdo agendado: ${contentData.title}`);
                 }
 
                 window.alert(`Conteúdo (${contentData.title}) ${eventType.replace('_', ' ')} com sucesso!`);
                 
-                // Limpa formulário e navega para Edição
-                fields.docId.value = ''; // Sai do modo edição
+                fields.docId.value = '';
                 setContentType(contentType); 
                 renderAdminView('editar');
 
@@ -2479,14 +2323,14 @@
                 
                 let errorMessage = 'Falha ao salvar o conteúdo.';
                 if (error.code && error.code === 'permission-denied') {
-                    errorMessage = 'ERRO DE PERMISSÃO: O Firebase está bloqueando a escrita. Por favor, verifique as Regras de Segurança do seu Firestore para permitir a escrita na coleção de conteúdo.';
+                    errorMessage = 'ERRO DE PERMISSÃO: O Firebase está bloqueando a escrita. Por favor, verifique as Regras de Segurança do seu Firestore.';
                 } else if (error.message) {
                     errorMessage = error.message;
                 }
                 
                 window.alert(`Erro: ${errorMessage}`);
             } finally {
-                setPublishButtonState(false, isUpdate, fields.isUpcoming.checked); // Finaliza o loading
+                setPublishButtonState(false, isUpdate, fields.isUpcoming.checked); 
             }
         });
 
@@ -2504,29 +2348,20 @@
                 const contentRef = doc(db, PUBLIC_CONTENT_COLLECTION_PATH, docId);
                 await deleteDoc(contentRef);
                 
-                // Dispara Notificação (somente se houver userId)
                 if (userId) {
                     await sendNotification({
                         type: 'excluído',
                         title: title,
                         poster_url: poster_url,
                         item_type: type,
-                        content_id: docId // Adiciona o ID do conteúdo
+                        content_id: docId
                     });
                 }
 
                 window.alert(`Conteúdo "${title}" excluído com sucesso do Firebase!`);
             } catch (error) {
                 console.error("Erro ao excluir o conteúdo:", error);
-                
-                let errorMessage = 'Falha ao excluir o conteúdo.';
-                if (error.code && error.code === 'permission-denied') {
-                    errorMessage = 'ERRO DE PERMISSÃO: O Firebase está bloqueando a exclusão. Por favor, verifique as Regras de Segurança do seu Firestore.';
-                } else if (error.message) {
-                    errorMessage = error.message;
-                }
-                
-                window.alert(`Erro ao excluir: ${errorMessage}`);
+                window.alert(`Erro ao excluir: ${error.message}`);
             }
         };
 
@@ -2545,6 +2380,8 @@
                  quickReleaseDateTimeContainer.classList.remove('hidden');
              } else {
                  quickReleaseDateTimeContainer.classList.add('hidden');
+                 quickReleaseDateInput.value = '';
+                 quickReleaseTimeInput.value = '';
              }
         });
 
@@ -2555,12 +2392,16 @@
                 return;
             }
 
-            const data = await fetchTMDB('search/movie', { query: query }); // Apenas filmes
+            // CORRIGIDO: Usa search/movie para garantir que não pega séries (que são mais complexas para a postagem rápida)
+            const data = await fetchTMDB('search/movie', { query: query }); 
             
             quickTmdbResults.innerHTML = '';
             quickTmdbResults.classList.remove('hidden');
 
-            const filteredResults = data.results.filter(item => item.media_type === 'movie' && item.poster_path && !selectedQuickPublishItems.some(s => s.tmdb_id === item.id));
+            const filteredResults = data.results.filter(item => 
+                 item.media_type === 'movie' && item.poster_path && 
+                 !selectedQuickPublishItems.some(s => s.tmdb_id === item.id) // Evita filmes já selecionados
+            );
             
             if (filteredResults.length === 0) {
                 quickTmdbResults.innerHTML = '<p class="p-3 text-sm opacity-70">Nenhum resultado encontrado.</p>';
@@ -2589,7 +2430,6 @@
                  return;
              }
              
-             // Busca detalhes completos para obter sinopse, atores, etc.
              const details = await fetchTMDB(`movie/${item.id}`);
              const credits = await fetchTMDB(`movie/${item.id}/credits`);
              
@@ -2612,7 +2452,9 @@
                  actors: topActors.split(',').map(a => a.trim()).filter(a => a),
                  poster_url: TMDB_IMAGE_BASE_URL + item.poster_path,
                  backdrop_url: backdropUrl,
-                 link: '', // Será preenchido no formulário
+                 link: '', 
+                 qualidade: '720p',
+                 idioma: 'dublado',
              };
              
              selectedQuickPublishItems.push(newItem);
@@ -2635,6 +2477,7 @@
             
             if (selectedQuickPublishItems.length === 0) {
                  quickContentListContainer.innerHTML = '<p class="text-center opacity-70">Selecione até 10 filmes na busca acima.</p>';
+                 // Esconde os campos de agendamento se a lista estiver vazia
                  quickPublishScheduleFields.classList.add('hidden');
                  return;
             } else {
@@ -2658,27 +2501,22 @@
                          </button>
                      </div>
                      <div class="grid grid-cols-3 gap-3">
-                         <select class="input-style !p-2 !text-sm" name="qualidade" data-index="${index}" required>
+                         <select class="input-style !p-2 !text-sm" name="qualidade" data-index="${index}" required onchange="selectedQuickPublishItems[${index}].qualidade = this.value">
                              <option value="">Qualidade</option>
-                             <option value="1080p">1080p</option>
-                             <option value="720p" selected>720p</option>
-                             <option value="480p">480p</option>
+                             <option value="1080p" ${item.qualidade === '1080p' ? 'selected' : ''}>1080p</option>
+                             <option value="720p" ${item.qualidade === '720p' ? 'selected' : ''}>720p</option>
+                             <option value="480p" ${item.qualidade === '480p' ? 'selected' : ''}>480p</option>
                          </select>
-                         <select class="input-style !p-2 !text-sm" name="idioma" data-index="${index}" required>
+                         <select class="input-style !p-2 !text-sm" name="idioma" data-index="${index}" required onchange="selectedQuickPublishItems[${index}].idioma = this.value">
                              <option value="">Idioma</option>
-                             <option value="dublado" selected>Dublado</option>
-                             <option value="legendado">Legendado</option>
-                             <option value="original">Original</option>
+                             <option value="dublado" ${item.idioma === 'dublado' ? 'selected' : ''}>Dublado</option>
+                             <option value="legendado" ${item.idioma === 'legendado' ? 'selected' : ''}>Legendado</option>
+                             <option value="original" ${item.idioma === 'original' ? 'selected' : ''}>Original</option>
                          </select>
-                         <input type="url" class="input-style col-span-1 !p-2 !text-sm" name="url" placeholder="URL do Link" data-index="${index}" value="${item.link || ''}" required>
+                         <input type="url" class="input-style col-span-1 !p-2 !text-sm" name="url" placeholder="URL do Link" data-index="${index}" value="${item.link || ''}" required oninput="selectedQuickPublishItems[${index}].link = this.value">
                      </div>
                  `;
                  quickContentListContainer.appendChild(itemDiv);
-                 
-                 // Adiciona listeners para atualizar o objeto local (opcional, mas bom para reter dados se a lista mudar)
-                 itemDiv.querySelector('[name="url"]').addEventListener('input', (e) => {
-                     selectedQuickPublishItems[index].link = e.target.value;
-                 });
             });
         }
         
@@ -2721,18 +2559,17 @@
             try {
                  document.querySelectorAll('#quick-content-list > div').forEach((itemDiv, index) => {
                      const item = selectedQuickPublishItems[index];
-                     const quality = itemDiv.querySelector('[name="qualidade"]').value;
-                     const language = itemDiv.querySelector('[name="idioma"]').value;
-                     const url = itemDiv.querySelector('[name="url"]').value;
-
-                     if (!quality || !language || !url) {
-                          throw new Error(`Link do filme ${item.title} está incompleto.`);
+                     
+                     // Checa se o TMDB ID já existe na lista de todos os conteúdos
+                     if (allContent.some(c => c.tmdb_id === item.tmdb_id)) {
+                          console.warn(`Conteúdo ${item.title} (TMDB ID ${item.tmdb_id}) já existe e foi ignorado na publicação rápida.`);
+                          return;
                      }
                      
                      const docRef = doc(collection(db, PUBLIC_CONTENT_COLLECTION_PATH));
                      const data = {
                          ...item,
-                         links: [{ qualidade: quality, idioma: language, url: url }],
+                         links: [{ qualidade: item.qualidade, idioma: item.idioma, url: item.link }], // Usa os dados do objeto selecionado
                          createdAt: Date.now(),
                          updatedAt: Date.now(),
                          userId: userId,
@@ -2740,10 +2577,25 @@
                          releaseTimestamp: releaseTimestamp,
                      };
                      
-                     // Remove o campo 'link' extra do objeto item
                      delete data.link;
+                     delete data.qualidade;
+                     delete data.idioma;
 
                      batch.set(docRef, data);
+                     
+                     // Envia notificação imediata se não for agendado
+                     if (userId && !isScheduled) { 
+                         // Cria uma notificação (usando um doc temporário, será apagada pelo listener)
+                         const notifRef = doc(collection(db, NOTIFICATIONS_COLLECTION_PATH));
+                         batch.set(notifRef, {
+                             type: 'publicado',
+                             title: item.title,
+                             poster_url: item.poster_url,
+                             item_type: item.type,
+                             content_id: docRef.id,
+                             timestamp: Date.now(),
+                         });
+                     }
                  });
                  
                  await batch.commit();
@@ -2767,12 +2619,8 @@
 
         // --- 10. Lógica do Firestore e Sincronização em Tempo Real ---
 
-        async function setupFirestoreListeners() {
-            if (!db) return; // Garante que o DB está inicializado
-            
-            // Carrega as preferências do usuário
-            await loadUserPreferences();
-
+        function setupFirestoreListeners() {
+            if (!db) return; 
 
             // 1. Listener de Conteúdo (Feed/Edição)
             const contentCollectionRef = collection(db, PUBLIC_CONTENT_COLLECTION_PATH);
@@ -2799,9 +2647,10 @@
                 // Dispara notificação de lançamento se a data passou e não for mais "Em Breve"
                 checkScheduledReleases(allContent);
                 
-                renderEditList(allContent); // Renderiza a lista completa para o admin
-                renderPage(currentActivePage); // Renderiza a página atual com o conteúdo filtrado
-                checkDeepLink(); // Verifica se há um modal a ser reaberto
+                // As listas são atualizadas em uma única chamada de renderEditList para o admin
+                renderEditList(allContent); 
+                renderPage(currentActivePage); 
+                checkDeepLink(); 
             }, (error) => {
                 console.error("Erro ao ouvir o Firestore (Content):", error);
                 contentListContainer.innerHTML = `<div class="p-4 bg-red-100 text-red-700 rounded-lg">Erro ao carregar conteúdo: ${error.message}</div>`;
@@ -2812,23 +2661,14 @@
             const notifQuery = query(notifCollectionRef, orderBy('timestamp', 'desc')); 
 
             onSnapshot(notifQuery, (snapshot) => {
-                 // Filtra notificações que não estão no histórico de deletadas
-                 const newNotifications = [];
+                 clientNotifications = [];
                  let hasNew = false;
                  
                  snapshot.forEach((doc) => {
                      const notif = { id: doc.id, ...doc.data() };
+                     clientNotifications.push(notif);
                      
-                     // Verifica se a notificação está marcada como excluída localmente
-                     const isDeletedLocally = localDeletedNotifs.some(deleted => deleted.id === notif.id);
-                     
-                     if (!isDeletedLocally) {
-                          newNotifications.push(notif);
-                     }
-                     
-                     // Dispara pop-up se a notificação é nova no feed (e não está deletada)
-                     if (snapshot.docChanges().some(change => change.type === "added" && change.doc.id === doc.id) && !isDeletedLocally) {
-                         // Evita disparar pop-up se estiver em modo admin
+                     if (snapshot.docChanges().some(change => change.type === "added" && change.doc.id === doc.id)) {
                          if (!isAdminMode) { 
                              showNotification(notif);
                          }
@@ -2836,11 +2676,9 @@
                      }
                  });
                  
-                 clientNotifications = newNotifications; 
                  renderGlobalNotifications(); 
  
                  if (hasNew) {
-                      // Simplesmente mostra o ponto vermelho para indicar novos
                       unreadNotifsCount.classList.remove('hidden');
                  }
             }, (error) => {
@@ -2871,11 +2709,7 @@
                 snapshot.forEach((doc) => {
                     deletedNotifications.push({ id: doc.id, ...doc.data() });
                 });
-                 // Atualiza a lista local de exclusão para sincronizar o pop-up
-                 localDeletedNotifs = deletedNotifications.map(n => ({ id: n.notif_id }));
-                 localStorage.setItem(DELETED_NOTIFS_KEY, JSON.stringify(localDeletedNotifs));
                  
-                 // Re-renderiza o modal se estiver aberto
                  if (globalNotifsModal.classList.contains('active')) {
                       renderGlobalNotifications();
                  }
@@ -2883,7 +2717,6 @@
                 console.error("Erro ao ouvir o Firestore (Deleted Notifs):", error);
             });
         }
-        
         
         // NOVO: Verifica o agendamento e dispara notificações de lançamento
         async function checkScheduledReleases(allContent) {
@@ -2904,24 +2737,24 @@
                      // 1. Atualiza o conteúdo no Firestore para não ser mais "Em Breve"
                      batch.update(contentRef, {
                          is_upcoming: false,
-                         // Mantém o releaseTimestamp para histórico se necessário, mas remove o campo agendamento
                      });
                      
-                     // 2. Dispara notificação para todos os usuários que marcaram "Notificar-me" (Simulação)
-                     // No app real, essa lógica de envio em massa (FCM/Cloud Functions) seria complexa.
-                     // Aqui, simulamos a notificação para o usuário local.
+                     // 2. Dispara notificação para o usuário local (se marcou "Notificar-me")
                       if (localUpcomingPrefs[content.id]) {
-                          await sendNotification({
+                          // Dispara a notificação de lançamento no Firestore
+                          const notifRef = doc(collection(db, NOTIFICATIONS_COLLECTION_PATH));
+                           batch.set(notifRef, {
                               type: 'lançamento',
                               title: content.title,
                               poster_url: content.poster_url,
                               item_type: content.type,
                               content_id: content.id,
+                              timestamp: Date.now(),
                           });
+                          
                           // Remove a preferência local para não notificar novamente
                           delete localUpcomingPrefs[content.id];
                           localStorage.setItem(UPCOMING_PREFS_KEY, JSON.stringify(localUpcomingPrefs));
-                          // A lógica de update do Firebase user preferences foi ignorada aqui para simplificar.
                       }
                  }
                  
@@ -2931,32 +2764,28 @@
 
 
         // --- 10.1 Notificação Firehose e Global Notifications Modal ---
-
-        async function sendNotification(data) {
-            try {
-                const notifRef = doc(collection(db, NOTIFICATIONS_COLLECTION_PATH));
-                await setDoc(notifRef, {
-                    ...data,
-                    timestamp: Date.now(),
-                });
-            } catch (error) {
-                console.error("Erro ao enviar notificação (Permissão?):", error);
-                throw error;
-            }
-        }
         
+        // CORRIGIDO: Lógica de clique no pop-up (usa o dataset do modal)
         const notifModal = document.getElementById('notification-modal');
         const notifPoster = document.getElementById('notif-poster');
         const notifTitle = document.getElementById('notif-title');
         const notifMessage = document.getElementById('notif-message');
         const notifTime = document.getElementById('notif-time');
-        const globalNotifsModal = document.getElementById('global-notifications-modal');
-        const notifsListContainer = document.getElementById('notifications-list');
-        const unreadNotifsCount = document.getElementById('unread-notifs-count');
-        const toggleNotifHistoryBtn = document.getElementById('toggle-notif-history'); // NOVO
         
         let notifTimeout;
-        let isHistoryView = false; // NOVO
+        
+        window.handleNotifClick = (e) => {
+             const notifId = notifModal.dataset.notifId;
+             const notif = clientNotifications.find(n => n.id === notifId);
+             
+             if (notif && notif.content_id) {
+                 const content = allContent.find(c => c.id === notif.content_id);
+                 if (content) {
+                     showDetailModal(content);
+                 }
+             }
+             hideNotification();
+        }
 
         window.hideNotification = () => {
             notifModal.classList.remove('show');
@@ -2985,11 +2814,10 @@
         function showNotification(data) {
             clearTimeout(notifTimeout);
             
-            // Salva o ID da notificação no modal para uso posterior
-            notifModal.dataset.notifId = data.id;
+            notifModal.dataset.notifId = data.id; // Salva o ID para uso no clique
             
             notifPoster.src = data.poster_url;
-            notifPoster.onerror = () => notifPoster.src = 'https://placehold.co/40x60/4b5563/ffffff?text=N'; // Fallback
+            notifPoster.onerror = () => notifPoster.src = 'https://placehold.co/40x60/4b5563/ffffff?text=N'; 
             notifTitle.textContent = data.title;
             notifMessage.textContent = getNotificationMessage(data);
             notifTime.textContent = new Date(data.timestamp).toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
@@ -3001,30 +2829,12 @@
             notifTimeout = setTimeout(hideNotification, 8000);
         }
         
-        // NOVO: Lógica de clique no pop-up
-        window.handleNotifClick = (e) => {
-             const notifId = e.currentTarget.dataset.notifId;
-             const notif = clientNotifications.find(n => n.id === notifId) || deletedNotifications.find(n => n.notif_id === notifId);
-             
-             if (notif && notif.content_id) {
-                 const content = allContent.find(c => c.id === notif.content_id);
-                 if (content) {
-                     showDetailModal(content);
-                 }
-             }
-             hideNotification();
-        }
-
         function renderGlobalNotifications() {
             notifsListContainer.innerHTML = '';
             
-            // Define qual lista usar (Ativas ou Histórico)
-            const listToRender = isHistoryView ? deletedNotifications.map(n => ({...n, id: n.notif_id, timestamp: n.timestamp, isHistory: true})) : clientNotifications;
+            const listToRender = isHistoryView ? deletedNotifications : clientNotifications;
             
-            // Atualiza o texto do botão Histórico
-             toggleNotifHistoryBtn.textContent = isHistoryView ? 'Ativas' : 'Histórico';
-             
-            // Se estiver no histórico, o botão "Limpar Todas" deve ser "Restaurar Todas" (ou simplesmente limpar todas do histórico)
+            toggleNotifHistoryBtn.textContent = isHistoryView ? 'Ativas' : 'Histórico';
             document.getElementById('clear-all-notifs-btn').textContent = isHistoryView ? 'Limpar Histórico' : 'Limpar Ativas';
 
             if (listToRender.length === 0) {
@@ -3036,22 +2846,19 @@
             
             document.getElementById('clear-all-notifs-btn').disabled = false;
 
-            // Renderiza a lista de notificações já ORDENADA (a mais nova está em [0])
             listToRender.forEach((notif) => {
                 const notifItem = document.createElement('div');
-                // Adiciona a classe para dar o efeito de clique e identifica o conteúdo
                 notifItem.className = 'notification-item-clickable flex space-x-3 items-start p-3 bg-secondary-theme rounded-lg shadow-sm';
                 notifItem.dataset.contentId = notif.content_id; 
                 
-                // Pega a notificação original se estiver no histórico
-                 const notifData = notif.isHistory ? notif : clientNotifications.find(n => n.id === notif.id) || {};
+                const notifData = notif.isHistory ? notif : clientNotifications.find(n => n.id === notif.id) || {};
                 
                 notifItem.innerHTML = `
-                    <img src="${notifData.poster_url}" onerror="this.onerror=null;this.src='https://placehold.co/40x60/4b5563/ffffff?text=?';" class="w-10 h-15 rounded object-cover flex-shrink-0">
+                    <img src="${notif.poster_url}" onerror="this.onerror=null;this.src='https://placehold.co/40x60/4b5563/ffffff?text=?';" class="w-10 h-15 rounded object-cover flex-shrink-0">
                     <div class="flex-1">
-                        <p class="font-bold text-sm truncate">${notifData.title || 'Conteúdo Excluído'}</p>
-                        <p class="text-xs mt-1">${getNotificationMessage(notifData)}</p>
-                        <p class="text-xs opacity-60 mt-1">${new Date(notif.timestamp).toLocaleString('pt-BR', {dateStyle: 'short', timeStyle: 'short'})} ${notif.isHistory ? '(Histórico)' : ''}</p>
+                        <p class="font-bold text-sm truncate">${notif.title || 'Conteúdo Excluído'}</p>
+                        <p class="text-xs mt-1">${getNotificationMessage(notif)}</p>
+                        <p class="text-xs opacity-60 mt-1">${new Date(notif.timestamp).toLocaleString('pt-BR', {dateStyle: 'short', timeStyle: 'short'})} ${isHistoryView ? '(Histórico)' : ''}</p>
                     </div>
                     <button data-notif-id="${notif.id}" class="remove-notif-btn text-red-500 hover:text-red-700 p-1 rounded transition duration-200">
                          ${isHistoryView ? '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'}
@@ -3059,7 +2866,6 @@
                 `;
                 notifsListContainer.appendChild(notifItem);
 
-                // Adiciona listener para abrir o modal de detalhes
                 notifItem.addEventListener('click', (e) => {
                     if (e.target.closest('.remove-notif-btn')) return;
 
@@ -3079,10 +2885,8 @@
                 btn.addEventListener('click', (e) => {
                      const notifId = e.currentTarget.dataset.notifId;
                      if (isHistoryView) {
-                         // Restaura a notificação (move do histórico para ativa)
                          window.restoreNotification(notifId);
                      } else {
-                         // Remove a notificação (move para o histórico)
                          window.removeNotification(notifId);
                      }
                 });
@@ -3090,7 +2894,7 @@
         }
         
         // NOVO: Alterna entre a visualização de Ativas e Histórico
-        toggleNotifHistoryBtn.addEventListener('click', () => {
+        document.getElementById('toggle-notif-history').addEventListener('click', () => {
              isHistoryView = !isHistoryView;
              renderGlobalNotifications();
         });
@@ -3102,14 +2906,13 @@
                  const notif = clientNotifications.find(n => n.id === notifId);
                  if (!notif) return;
                  
-                 const batch = writeBatch(db);
+                 const batch = db.batch();
                  
                  // 1. Move a notificação para a coleção DELETED_NOTIFS
                  const deletedRef = doc(db, DELETED_NOTIFS_COLLECTION_PATH, notifId);
                  batch.set(deletedRef, {
-                      notif_id: notifId,
-                      ...notif,
-                      timestamp: Date.now(), // Atualiza o timestamp para ordenação do histórico
+                      ...notif, // Copia todos os dados
+                      timestamp: Date.now(), 
                  });
                  
                  // 2. Remove da coleção NOTIFICATIONS (ativa)
@@ -3127,10 +2930,10 @@
         // NOVO: Restaura a notificação (move do Histórico para Ativas)
         window.restoreNotification = async (notifId) => {
              try {
-                 const notifHistory = deletedNotifications.find(n => n.notif_id === notifId);
+                 const notifHistory = deletedNotifications.find(n => n.id === notifId);
                  if (!notifHistory) return;
                  
-                 const batch = writeBatch(db);
+                 const batch = db.batch();
                  
                  // 1. Remove da coleção DELETED_NOTIFS
                  const deletedRef = doc(db, DELETED_NOTIFS_COLLECTION_PATH, notifId);
@@ -3138,10 +2941,8 @@
                  
                  // 2. Cria novamente na coleção NOTIFICATIONS (ativa)
                  const notifRef = doc(db, NOTIFICATIONS_COLLECTION_PATH, notifId);
-                 // Cria uma nova cópia, exceto o notif_id extra e o timestamp (será gerado pelo listener se necessário, ou só o updated)
-                 const { notif_id, ...rest } = notifHistory;
                  batch.set(notifRef, {
-                      ...rest,
+                      ...notifHistory,
                       timestamp: Date.now(),
                  });
 
@@ -3152,40 +2953,26 @@
                  window.alert("Falha ao restaurar notificação.");
              }
         }
-        
-        // NOVO: Exclui permanentemente do Histórico
-        window.deleteNotificationFromHistory = async (notifId) => {
-             try {
-                 const deletedRef = doc(db, DELETED_NOTIFS_COLLECTION_PATH, notifId);
-                 await deleteDoc(deletedRef);
-             } catch (error) {
-                 console.error("Erro ao excluir notificação do histórico:", error);
-                 window.alert("Falha ao excluir notificação do histórico.");
-             }
-        }
 
         document.getElementById('clear-all-notifs-btn').addEventListener('click', async () => {
              if (isHistoryView) {
-                 // Limpa Histórico (Exclusão permanente)
                  if (!window.confirm("Tem certeza que deseja limpar todo o histórico de notificações? Essa ação é permanente.")) return;
                  
-                 const batch = writeBatch(db);
+                 const batch = db.batch();
                  deletedNotifications.forEach(notif => {
-                      const deletedRef = doc(db, DELETED_NOTIFS_COLLECTION_PATH, notif.notif_id);
+                      const deletedRef = doc(db, DELETED_NOTIFS_COLLECTION_PATH, notif.id);
                       batch.delete(deletedRef);
                  });
                  await batch.commit();
                  window.alert("Histórico de notificações limpo.");
              } else {
-                 // Limpa Ativas (Move para o Histórico)
                  if (!window.confirm("Tem certeza que deseja mover todas as notificações ativas para o histórico?")) return;
                  
-                 const batch = writeBatch(db);
+                 const batch = db.batch();
                  clientNotifications.forEach(notif => {
                      // 1. Move a notificação para a coleção DELETED_NOTIFS
                      const deletedRef = doc(db, DELETED_NOTIFS_COLLECTION_PATH, notif.id);
                      batch.set(deletedRef, {
-                          notif_id: notif.id,
                           ...notif,
                           timestamp: Date.now(), 
                      });
@@ -3202,9 +2989,7 @@
         function toggleGlobalNotifications() {
             const isActive = globalNotifsModal.classList.toggle('active');
             if (isActive) {
-                // Ao abrir o modal, resetamos o ponto vermelho
                 unreadNotifsCount.classList.add('hidden');
-                // Garante que a visualização inicial é a de Notificações Ativas
                 isHistoryView = false; 
                 renderGlobalNotifications();
             }
@@ -3216,20 +3001,13 @@
 
         // --- Renderização de Listas e Feeds ---
 
-        // Renderiza a lista no Painel de Edição
+        // Renderiza a lista no Painel de Edição e Agendados (novo)
         function renderEditList(contentArray) {
             contentListContainer.innerHTML = '';
-            upcomingAdminListContainer.innerHTML = ''; // Limpa a lista de agendamentos
+            upcomingAdminListContainer.innerHTML = '';
 
-            if (contentArray.length === 0) {
-                contentListContainer.innerHTML = `<div class="p-4 bg-secondary-theme/50 rounded-lg text-center opacity-70">Nenhum conteúdo publicado ainda.</div>`;
-                return;
-            }
-
-            contentArray.sort((a, b) => b.updatedAt - a.updatedAt); // Ordena pelo mais recente
-            
-            const adminUpcomingList = contentArray.filter(c => c.is_upcoming);
-            const adminPublishedList = contentArray.filter(c => !c.is_upcoming);
+            const adminUpcomingList = contentArray.filter(c => c.is_upcoming).sort((a, b) => b.releaseTimestamp - a.releaseTimestamp);
+            const adminPublishedList = contentArray.filter(c => !c.is_upcoming).sort((a, b) => b.updatedAt - a.updatedAt);
             
             // 1. Lista de Conteúdo Publicado (Editar)
             if (adminPublishedList.length === 0) {
@@ -3255,7 +3033,6 @@
             }
         }
         
-        // Função utilitária para criar o item da lista de Admin
         function createAdminListItem(content, isUpcoming) {
             const item = document.createElement('div');
             item.className = 'flex justify-between items-center p-4 bg-secondary-theme rounded-lg shadow-md';
@@ -3265,7 +3042,7 @@
                 const releaseDate = new Date(content.releaseTimestamp).toLocaleDateString('pt-BR');
                 const releaseTime = new Date(content.releaseTimestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
                 badgeHTML = `<span class="text-xs font-bold text-yellow-600 ml-2">(${releaseDate} ${releaseTime})</span>`;
-            } else if (!isUpcoming && content.is_upcoming === false) {
+            } else if (!isUpcoming) {
                  badgeHTML = `<span class="text-xs font-bold text-green-600 ml-2">(Publicado)</span>`;
             }
 
@@ -3298,7 +3075,7 @@
 
             feedbacksArray.forEach(feedback => {
                 const item = document.createElement('div');
-                item.className = 'p-4 bg-secondary-theme rounded-xl shadow-md space-y-2 border-l-4 border-red-600'; // Alterado para red-600
+                item.className = 'p-4 bg-secondary-theme rounded-xl shadow-md space-y-2 border-l-4 border-red-600'; 
                 item.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
@@ -3316,7 +3093,6 @@
             });
         }
         
-        // Execução real da exclusão de Feedback (Chamada após a confirmação no modal)
         window.deleteFeedback = async (docId) => {
             try {
                 const feedbackRef = doc(db, FEEDBACK_COLLECTION_PATH, docId);
@@ -3334,7 +3110,6 @@
         function renderExploreContent() {
             explorePanel.classList.remove('hidden');
 
-            // Renderiza o cabeçalho de filtros
             explorePanel.innerHTML = `
                 <div class="p-6 bg-secondary-theme/50 rounded-xl shadow-lg mb-8">
                     <h3 class="text-xl font-bold mb-4">Filtros de Exploração</h3>
@@ -3393,16 +3168,15 @@
                 <div class="text-center mb-6">
                     <p id="results-count" class="text-xl font-bold opacity-80"></p>
                 </div>
-                 <div id="explore-results" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div id="explore-results" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     <p class="col-span-full text-center opacity-70">Aguardando filtros para exibir resultados.</p>
                 </div>
             `;
             
             document.getElementById('apply-filters-btn').addEventListener('click', applyFilters);
-            document.getElementById('explore-search-input').addEventListener('input', applyFilters); // Aplica o filtro ao digitar
+            document.getElementById('explore-search-input').addEventListener('input', applyFilters); 
             document.getElementById('surprise-me-btn').addEventListener('click', showRandomContent);
             
-            // Aplica os filtros iniciais ao carregar a página
             applyFilters();
         }
         
@@ -3419,9 +3193,8 @@
 
             currentFilters = { sort, decade, genre };
 
-            let results = publishedContent.slice(); // Apenas conteúdo publicado
+            let results = publishedContent.slice();
 
-            // 1. Filtrar por Termo de Pesquisa (Título, Gênero, Ator)
             if (searchTerm.length > 0) {
                 results = results.filter(item => 
                     item.title.toLowerCase().includes(searchTerm) ||
@@ -3430,7 +3203,6 @@
                 );
             }
 
-            // 2. Filtrar por Gênero (aplicado após a busca textual)
             if (genre !== 'todos') {
                 const targetGenre = genre.toLowerCase().replace('-', ' ');
                 results = results.filter(item => 
@@ -3438,7 +3210,6 @@
                 );
             }
 
-            // 3. Filtrar por Década (simulando a lógica de ano)
             if (decade !== 'todas') {
                 const startYearStr = decade.replace('anos-', '').split('-')[0];
                 const startYear = parseInt(startYearStr) || 0;
@@ -3451,7 +3222,6 @@
                 });
             }
 
-            // 4. Ordenação
             if (sort === 'lancamentos') {
                 results.sort((a, b) => parseInt(b.year) - parseInt(a.year));
             } else if (sort === 'popularidade') {
@@ -3460,7 +3230,6 @@
                  results.sort((a, b) => a.title.localeCompare(b.title));
             }
 
-            // Renderizar os resultados
             exploreResultsContainer.innerHTML = '';
             resultsCountDisplay.textContent = `${results.length} Conteúdos Encontrados`;
             
@@ -3482,49 +3251,42 @@
                 
                 posterDiv.addEventListener('click', () => showDetailModal(content));
 
-                // Selo de temporadas (apenas séries)
                  let badgeHTML = '';
                  if (content.type === 'series' && content.seasons?.length > 0) {
                      const count = content.seasons.length;
-                     badgeHTML = `<span class="release-badge bg-blue-500 top-2 right-2">${count}ª Temp.</span>`;
+                     badgeHTML = `<span class="release-badge bg-blue-500 top-2 right-2">${count}ª TEMP.</span>`;
                  }
 
                 posterDiv.innerHTML = `
                     ${badgeHTML}
                     <div class="poster-info">
-                        </div>
+                        
+                    </div>
                 `;
                 exploreResultsContainer.appendChild(posterDiv);
             });
         }
         
-        // Função para mostrar um conteúdo aleatório
         function showRandomContent() {
              if (publishedContent.length === 0) {
                  window.alert("Não há conteúdo publicado para te surpreender!");
                  return;
              }
              
-             // Escolhe um índice aleatório
              const randomIndex = Math.floor(Math.random() * publishedContent.length);
              const randomContent = publishedContent[randomIndex];
              
-             // Abre o modal de detalhes
              showDetailModal(randomContent);
         }
 
         // --- 12. Lógica do Modal de Detalhes (Página de Detalhes) ---
         
-        // NOVO: Rastreia o conteúdo visualizado (apenas séries)
         function trackViewedContent(content) {
             if (isAdminMode || !content.id || content.type === 'movie' || content.is_upcoming) return; 
             
             let viewed = JSON.parse(localStorage.getItem(VIEWED_CONTENT_KEY) || '[]');
-            
-            // Remove o item se ele já existir (para movê-lo para o topo)
             viewed = viewed.filter(item => item.id !== content.id);
             
-            // Adiciona o novo item no início, mantendo apenas os dados essenciais
             viewed.unshift({
                 id: content.id,
                 title: content.title,
@@ -3533,18 +3295,14 @@
                 lastViewed: Date.now()
             });
             
-            // Limita o tamanho do histórico (máximo de 10)
             viewed = viewed.slice(0, 10);
-            
             localStorage.setItem(VIEWED_CONTENT_KEY, JSON.stringify(viewed));
             
-            // Renderiza novamente se estiver na página de séries para atualizar o carrossel
             if (currentActivePage === 'series') {
                 renderFeedContent('series');
             }
         }
         
-        // LÓGICA DE MARCAR EPISÓDIO COMO VISTO
         window.toggleWatchedEpisode = (contentId, seasonNum, episodeNum, markAsWatched = null) => {
             const key = `${contentId}-${seasonNum}-${episodeNum}`;
             
@@ -3563,7 +3321,6 @@
 
             localStorage.setItem(WATCHED_EPISODES_KEY, JSON.stringify(watchedEpisodes));
             
-            // Atualiza o ícone do olho na interface
             const iconElement = document.querySelector(`[data-watch-key="${key}"]`);
             if (iconElement) {
                 iconElement.innerHTML = targetWatchedState ? getWatchedIcon() : getUnwatchedIcon();
@@ -3571,7 +3328,6 @@
                 iconElement.classList.toggle('text-green-500', targetWatchedState);
             }
             
-            // Se marcou como visto, rastreia como visto recentemente (apenas séries)
             if (targetWatchedState) {
                  const seriesContent = allContent.find(c => c.id === contentId);
                  if (seriesContent) {
@@ -3581,28 +3337,21 @@
         }
         
         function getWatchedIcon() {
-            // Icone de Olho Aberto (Visto - Lucide: Eye)
             return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`;
         }
 
         function getUnwatchedIcon() {
-            // CORRIGIDO: Icone de Olho Cortado (Não Visto - Lucide: EyeOff)
             return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 5.8 12 12M12 12 6.1 18.2M12 12V3M12 12h9M12 12H3"/><path d="M12 17.5s3 7 10 7 10-7 10-7"/><path d="M2 12s3-7 10-7 10 7 10 7"/></svg>`;
         }
 
-        // Função para copiar o link da página atual (simulada com content ID)
         window.copyLinkToClipboard = (contentId, title) => {
-             // Simula o link real para a página de detalhes
              const simulatedLink = `${window.location.origin}${window.location.pathname}?id=${contentId}`; 
 
-             // Uso de API de Clipboard (moderna)
              if (navigator.clipboard) {
                  navigator.clipboard.writeText(simulatedLink).then(() => {
                       linkText.textContent = `Link Copiado!`;
                       setTimeout(() => linkText.textContent = `Copiar Link`, 2000);
                  }).catch(err => {
-                      console.error('Falha ao copiar:', err);
-                      // Fallback para ambientes restritos (iframe)
                       fallbackCopyTextToClipboard(simulatedLink);
                       linkText.textContent = `Link Copiado! (Fallback)`;
                       setTimeout(() => linkText.textContent = `Copiar Link`, 2000);
@@ -3632,38 +3381,29 @@
 
         function closeDetailModal() {
             detailModal.classList.remove('active');
-            // Remove a classe de bloqueio de rolagem do body
             document.body.classList.remove('overflow-hidden'); 
-            // Limpa o estado da sessão para não reabrir
             sessionStorage.removeItem('detailContentId');
-
-            // Limpa o estado dinâmico
             seriesLinksPanel.classList.add('hidden');
-            similarContentPanel.classList.add('hidden'); // NOVO
         }
 
         closeDetailModalBtn.addEventListener('click', closeDetailModal);
         
-        // Função utilitária para abrir o link em uma nova aba (sem simulação/confirmação)
-        function openLinkInNewTab(url) {
+        window.openLinkInNewTab = (url) => {
              if (url && url.startsWith('http')) {
                  window.open(url, '_blank');
              } else {
                  console.error("URL inválida ou ausente. Não foi possível redirecionar:", url);
              }
         }
-        // EXPÕE A FUNÇÃO PARA SER ACESSADA PELO HTML INLINE
-        window.openLinkInNewTab = openLinkInNewTab;
 
 
         function showDetailModal(content) {
-            // CORREÇÃO CRÍTICA: RASTREIA e BLOQUEIA ROLAGEM
             sessionStorage.setItem('detailContentId', content.id);
             document.body.classList.add('overflow-hidden'); 
 
-            // 1. Preencher Campos Base
             detailTitle.textContent = content.title;
-            detailTitleHeader.textContent = content.title; // Título no header
+            detailTitleHeader.textContent = content.title;
+            // Usa backdrop se existir, senão poster
             detailHeader.style.backgroundImage = `url(${content.backdrop_url || content.poster_url})`;
             detailHeader.onerror = () => detailHeader.style.backgroundImage = `url('https://placehold.co/1920x400/1f2937/ffffff?text=Capa+do+Conteúdo')`;
             detailTypeYear.textContent = `${content.type === 'movie' ? 'Filme' : 'Série'} | ${content.year}`;
@@ -3671,48 +3411,41 @@
             detailSynopsis.textContent = content.synopsis;
             detailActors.textContent = content.actors.join(', ');
             
-            // Configura Link Copiável
             linkText.textContent = `Copiar Link`;
             copyLinkBtn.onclick = () => window.copyLinkToClipboard(content.id, content.title);
 
-            // 2. Lógica Específica (Filme vs Série vs Em Breve)
-            
-            // Limpa painéis dinâmicos
             seriesLinksPanel.classList.add('hidden');
             seriesSeasonsBadge.classList.add('hidden');
             upcomingBadge.classList.add('hidden');
             
-            // Recria o botão principal (para limpar listeners antigos)
             const oldMainWatchBtn = document.getElementById('main-watch-btn');
             const newMainWatchBtn = oldMainWatchBtn.cloneNode(true);
             oldMainWatchBtn.replaceWith(newMainWatchBtn); 
-            newMainWatchBtn.innerHTML = newMainWatchBtn.innerHTML; // Para reativar o getElementById nas crianças
-            const newWatchIcon = newMainWatchBtn.querySelector('#watch-icon');
+            const newWatchIcon = newMainWatchBtn.querySelector('svg');
             const newWatchBtnText = newMainWatchBtn.querySelector('#watch-btn-text');
 
             const isUpcoming = content.is_upcoming && content.releaseTimestamp && content.releaseTimestamp > Date.now();
             
             if (isUpcoming) {
-                 // --- EM BREVE: Notificar-me ---
                  upcomingBadge.classList.remove('hidden');
-                 newWatchIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>`; // Ícone de Check/Sino
+                 newWatchIcon.innerHTML = `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>`;
                  
                  const isUserInterested = localUpcomingPrefs[content.id];
                  newWatchBtnText.textContent = isUserInterested ? 'Receber Notificação (✔)' : 'Notificar-me sobre o Lançamento';
                  newMainWatchBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-red-600', 'hover:bg-red-700');
                  newMainWatchBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                 newMainWatchBtn.disabled = false;
                  
                  newMainWatchBtn.addEventListener('click', () => {
                      toggleUpcomingNotification(content.id);
                      newWatchBtnText.textContent = localUpcomingPrefs[content.id] ? 'Receber Notificação (✔)' : 'Notificar-me sobre o Lançamento';
                  });
                  
-                 // Renderiza a seção Em Breve no final
+                 // Renderiza a informação de agendamento (NOVO)
                  renderUpcomingInfoDetail(content);
 
             } else if (content.type === 'movie') {
-                // --- FILME: Redireciona Diretamente no Botão Principal ---
-                newWatchIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"/>`;
+                 newWatchIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"/>`;
                 newWatchBtnText.textContent = 'Assistir Agora';
                 newMainWatchBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-blue-600', 'hover:bg-blue-700');
                 newMainWatchBtn.classList.add('bg-red-600', 'hover:bg-red-700');
@@ -3720,9 +3453,7 @@
                 
                 if (content.links && content.links.length > 0) {
                     const firstLink = content.links[0];
-                    
                     newMainWatchBtn.addEventListener('click', () => {
-                         // Redirecionamento direto para a URL do primeiro link
                          openLinkInNewTab(firstLink.url);
                     });
                 } else {
@@ -3732,48 +3463,36 @@
                 }
 
             } else if (content.type === 'series') {
-                // --- SÉRIE: Exibe Painel de Temporadas e Episódios ---
-                newWatchIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"/>`;
+                 newWatchIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"/>`;
                 newWatchBtnText.textContent = 'Ver Temporadas e Episódios';
                 newMainWatchBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-blue-600', 'hover:bg-blue-700');
                 newMainWatchBtn.classList.add('bg-red-600', 'hover:bg-red-700');
                 newMainWatchBtn.disabled = false;
                 
-                // Renderiza o badge de temporadas
                 const seasonCount = content.seasons?.length || 0;
                 if (seasonCount > 0) {
                     seriesSeasonsBadge.textContent = `${seasonCount} Temporada${seasonCount > 1 ? 's' : ''}`;
                     seriesSeasonsBadge.classList.remove('hidden');
                 }
 
-                // Renderiza a estrutura completa de temporadas/episódios
                 renderSeriesLinksDetail(content);
-                seriesLinksPanel.classList.remove('hidden'); // Exibe o painel de links
+                seriesLinksPanel.classList.remove('hidden'); 
 
-                // Ação do Botão Principal: Expande a primeira temporada e Rola
                 newMainWatchBtn.addEventListener('click', () => {
-                     // 1. Expande a primeira temporada (se houver)
                      const firstToggle = document.querySelector(`#seasons-links-container [data-season-toggle="0"]`);
                      const firstEpisodes = document.getElementById(`season-episodes-${content.id}-0`);
 
                      if (firstToggle && firstEpisodes.classList.contains('hidden')) {
-                          // Simula o clique para expandir, se não estiver aberto
                           firstToggle.click(); 
                      }
 
-                     // 2. Rola suavemente para o painel de links
                      const scrollContainer = document.getElementById('detail-modal-content').querySelector('.overflow-y-auto');
-                     const targetOffset = seriesLinksPanel.offsetTop - 20; // 20px de margem
+                     const targetOffset = seriesLinksPanel.offsetTop - 20; 
                      
-                     // Rola a área de conteúdo do modal
                      scrollContainer.scrollTo({ top: targetOffset, behavior: 'smooth' });
                 });
             }
 
-            // 3. Renderiza Conteúdo Similar (TODOS OS TIPOS)
-            renderSimilarContent(content);
-            
-            // 4. Abrir Modal
             detailModal.classList.add('active');
         }
         
@@ -3784,105 +3503,25 @@
              const timeText = releaseDate ? releaseDate.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : 'Horário não definido';
 
              const upcomingHtml = `
-                 <div class="border-t pt-4 border-yellow-500/50">
+                 <div id="upcoming-detail-info" class="border-t pt-4 border-yellow-500/50">
                      <h3 class="text-xl font-bold mb-2 text-yellow-500">Detalhes do Lançamento</h3>
                      <p class="text-base opacity-90 font-semibold">Previsão: ${dateText} (${timeText})</p>
                      <p class="text-sm opacity-70 mt-2">Este conteúdo está agendado e será lançado automaticamente no feed principal na data e hora especificadas. Marque "Notificar-me" para receber um alerta.</p>
                  </div>
              `;
-             // Injeta o HTML antes da seção de elenco
-             const synopsisDiv = detailSynopsis.closest('div').nextElementSibling; // O div do Elenco
+             
+             // Remove a seção anterior se existir
+             document.getElementById('upcoming-detail-info')?.remove();
+             
+             // Adiciona após a sinopse
+             const synopsisDiv = detailSynopsis.closest('div');
              if (synopsisDiv) {
                  const tempDiv = document.createElement('div');
                  tempDiv.innerHTML = upcomingHtml;
-                 // Adiciona após a sinopse
-                 detailSynopsis.closest('div').after(tempDiv.firstChild);
+                 synopsisDiv.after(tempDiv.firstChild);
              }
         }
-        
-        
-        // NOVO: Renderiza Conteúdo Similar
-        function renderSimilarContent(currentContent) {
-             similarContentContainer.innerHTML = '';
-             similarContentPanel.classList.remove('hidden');
-             noSimilarContent.classList.add('hidden');
 
-             const MAX_SIMILAR = 8;
-             let similarResults = [];
-             
-             // 1. Filtro por Gênero
-             const targetGenres = currentContent.genres.map(g => g.toLowerCase().trim());
-             const genreMatches = publishedContent.filter(c => 
-                 c.id !== currentContent.id && 
-                 c.genres.some(g => targetGenres.includes(g.toLowerCase().trim()))
-             ).slice(0, MAX_SIMILAR);
-             
-             similarResults = [...genreMatches];
-
-             // 2. Filtro por Título (para "Mesmo Universo" - Simulação)
-             const titleKeywords = currentContent.title.toLowerCase().split(/\s+/)
-                 .filter(word => word.length > 3 && isNaN(parseInt(word)));
-                 
-             const titleMatches = publishedContent.filter(c => 
-                  c.id !== currentContent.id && 
-                  !similarResults.some(s => s.id === c.id) && // Evita duplicatas
-                  titleKeywords.some(keyword => c.title.toLowerCase().includes(keyword))
-             ).slice(0, MAX_SIMILAR - similarResults.length);
-             
-             similarResults.push(...titleMatches);
-
-             if (similarResults.length === 0) {
-                 noSimilarContent.classList.remove('hidden');
-                 return;
-             }
-             
-             // Cria os cards do carrossel
-             similarResults.forEach(content => {
-                 const posterDiv = document.createElement('div');
-                 posterDiv.className = 'carousel-item poster-card !min-w-[120px] !w-[120px] sm:!w-[140px]'; // Tamanho menor
-                 posterDiv.style.backgroundImage = `url(${content.poster_url})`;
-                 posterDiv.dataset.contentId = content.id; 
-
-                 posterDiv.addEventListener('click', () => {
-                     closeDetailModal(); // Fecha o modal atual antes de abrir o novo
-                     showDetailModal(content);
-                 });
-                 
-                 // Selo de temporadas (apenas séries)
-                 let badgeHTML = '';
-                 if (content.type === 'series' && content.seasons?.length > 0) {
-                     const count = content.seasons.length;
-                     badgeHTML = `<span class="release-badge bg-blue-500 top-2 right-2">${count}ª Temp.</span>`;
-                 }
-
-                 posterDiv.innerHTML = `
-                      ${badgeHTML}
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end p-2 opacity-0 hover:opacity-100 transition duration-300">
-                          <p class="text-white text-xs font-semibold truncate w-full">${content.title}</p>
-                      </div>
-                 `;
-                 similarContentContainer.appendChild(posterDiv);
-             });
-        }
-        
-        
-        // NOVO: Função para verificar se há um deep link salvo
-        function checkDeepLink() {
-            const contentId = sessionStorage.getItem('detailContentId');
-            if (contentId && allContent.length > 0) {
-                const content = allContent.find(c => c.id === contentId);
-                if (content) {
-                    // Timeout para garantir que o DOM está pronto após o listener do Firestore
-                    setTimeout(() => showDetailModal(content), 100);
-                } else {
-                    sessionStorage.removeItem('detailContentId');
-                }
-            }
-        }
-
-
-        // Funções de Renderização de Links de Detalhes
-        // Recebe o objeto de conteúdo completo para acessar o ID
         function renderSeriesLinksDetail(content) {
             const seasons = content.seasons || [];
             seasonsLinksContainer.innerHTML = '';
@@ -3896,18 +3535,17 @@
             seasons.forEach((season, sIndex) => {
                 const seasonDiv = document.createElement('div');
                 seasonDiv.className = 'season-detail-card p-4 bg-secondary-theme rounded-xl shadow-md';
-                seasonDiv.dataset.seriesId = content.id; // Marca com o ID da série
+                seasonDiv.dataset.seriesId = content.id; 
                 
                 const isFirstSeason = sIndex === 0;
                 
-                // Título e Toggle (REMOVIDO A CONTAGEM DE EPISÓDIOS)
                 seasonDiv.innerHTML = `
                     <button class="season-toggle-btn w-full flex justify-between items-center font-bold text-lg focus:outline-none py-1" data-season-toggle="${sIndex}" aria-expanded="${isFirstSeason}">
                         <span>Temporada ${season.number}</span>
                         <svg class="w-5 h-5 transition-transform duration-300 arrow-icon ${isFirstSeason ? 'rotate-180' : ''}" data-arrow="${sIndex}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
                     <div id="season-episodes-${content.id}-${sIndex}" class="mt-4 space-y-3 ${isFirstSeason ? '' : 'hidden'}">
-                        </div>
+                    </div>
                 `;
                 seasonsLinksContainer.appendChild(seasonDiv);
                 
@@ -3915,7 +3553,6 @@
                 const toggleButton = seasonDiv.querySelector(`[data-season-toggle="${sIndex}"]`);
                 const arrowIcon = seasonDiv.querySelector(`[data-arrow="${sIndex}"]`);
 
-                // Adiciona a lógica de expansão/colapso
                 toggleButton.addEventListener('click', () => {
                     const isHidden = episodesContainer.classList.toggle('hidden');
                     toggleButton.setAttribute('aria-expanded', !isHidden);
@@ -3926,10 +3563,9 @@
                     }
                 });
 
-                // Adiciona os episódios
-                season.episodes.forEach((episode, eIndex) => {
-                    const link = episode.links?.[0]; // Assume o primeiro link para o botão principal
-                    if (!link) return; // Pula se não houver link
+                season.episodes.forEach((episode) => {
+                    const link = episode.links?.[0]; 
+                    if (!link) return; 
                     
                     const key = `${content.id}-${season.number}-${episode.number}`;
                     const isWatched = !!(watchedEpisodes[content.id] && watchedEpisodes[content.id][key]);
@@ -3960,30 +3596,42 @@
                 });
             });
         }
+
+        // NOVO: Função para verificar se há um deep link salvo
+        function checkDeepLink() {
+            const contentId = sessionStorage.getItem('detailContentId');
+            if (contentId && allContent.length > 0) {
+                const content = allContent.find(c => c.id === contentId);
+                if (content) {
+                    setTimeout(() => showDetailModal(content), 100);
+                } else {
+                    sessionStorage.removeItem('detailContentId');
+                }
+            }
+        }
         
         // --- 13. Lógica do Modal de Feedback ---
-        
         reportErrorBtn.addEventListener('click', () => {
              feedbackModal.classList.add('active');
-             feedbackForm.reset(); // Limpa o formulário ao abrir
+             document.getElementById('feedback-form').reset(); 
              if (window.innerWidth < 1024) {
-                 toggleSidebar(); // Fecha a sidebar no mobile
+                 toggleSidebar(); 
              }
         });
         
-        feedbackCancelBtn.addEventListener('click', () => {
+        document.getElementById('feedback-cancel-btn').addEventListener('click', () => {
              feedbackModal.classList.remove('active');
         });
 
-        feedbackForm.addEventListener('submit', async (e) => {
+        document.getElementById('feedback-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const feedbackType = document.getElementById('feedback-type').value;
             const feedbackMessage = document.getElementById('feedback-message').value;
 
-            feedbackSubmitBtn.disabled = true;
-            feedbackSubmitText.textContent = 'Enviando...';
-            feedbackLoadingSpinner.classList.remove('hidden');
+            document.getElementById('feedback-submit-btn').disabled = true;
+            document.getElementById('feedback-submit-text').textContent = 'Enviando...';
+            document.getElementById('feedback-loading-spinner').classList.remove('hidden');
 
             try {
                 const feedbackData = {
@@ -3997,24 +3645,23 @@
                 await setDoc(feedbackRef, feedbackData);
                 
                 feedbackModal.classList.remove('active');
-                window.alert("Obrigado! Seu feedback foi enviado com sucesso."); // Confirmação
+                window.alert("Obrigado! Seu feedback foi enviado com sucesso."); 
 
             } catch (error) {
                 console.error("Erro ao enviar feedback:", error);
                 window.alert("Falha ao enviar feedback. Tente novamente.");
             } finally {
-                feedbackSubmitBtn.disabled = false;
-                feedbackSubmitText.textContent = 'Enviar Feedback';
-                feedbackLoadingSpinner.classList.add('hidden');
+                document.getElementById('feedback-submit-btn').disabled = false;
+                document.getElementById('feedback-submit-text').textContent = 'Enviar Feedback';
+                document.getElementById('feedback-loading-spinner').classList.add('hidden');
             }
         });
 
         // --- 14. Lógica do Modal de Aviso Legal (NOVO) ---
-        
         function showLegalNoticeModal() {
             legalNoticeModal.classList.add('active');
             if (window.innerWidth < 1024) {
-                 toggleSidebar(); // Fecha a sidebar no mobile
+                 toggleSidebar(); 
              }
         }
         function hideLegalNoticeModal() {
@@ -4024,7 +3671,6 @@
         closeLegalNoticeBtn.addEventListener('click', hideLegalNoticeModal);
 
         // --- 15. Lógica do Toggle 'Continue Assistindo' (NOVO) ---
-        
         function updateContinueWatchingToggleText() {
             if (isContinueWatchingHidden) {
                 toggleContinueWatchingBtn.classList.remove('bg-gray-500', 'hover:bg-gray-600');
@@ -4048,22 +3694,21 @@
             localStorage.setItem(isContinueWatchingHiddenKey, isContinueWatchingHidden);
             updateContinueWatchingToggleText();
             
-            // Renderiza a página principal novamente se necessário
             if (currentActivePage === 'inicio' || currentActivePage === 'series') {
                  renderFeedContent(currentActivePage);
             }
             if (window.innerWidth < 1024) {
-                 toggleSidebar(); // Fechas a sidebar no mobile
+                 toggleSidebar(); 
             }
         }
         
         toggleContinueWatchingBtn.addEventListener('click', toggleContinueWatching);
-        updateContinueWatchingToggleText(); // Inicializa o texto
+        updateContinueWatchingToggleText(); 
 
 
         // --- 16. Inicialização (Página Padrão) ---
-        // A renderPage('inicio') é chamada dentro do listener do Firestore para garantir que os dados estejam carregados.
-        // renderPage('inicio'); 
+        // A chamada de renderPage('inicio') é feita dentro do listener do Firestore (setupFirestoreListeners) para garantir que os dados estejam carregados.
+        
     </script>
 </body>
 </html>
